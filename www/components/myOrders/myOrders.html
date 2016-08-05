@@ -1,0 +1,36 @@
+<!-- My loyalbonus -->
+<div id="myOrders">
+    <ion-view>
+        <ion-content>
+
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+            </ion-refresher>
+            
+            <div class="padding-left-5 padding-right-5 table-responsive">
+                <table id="tbl" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Order No.</th>
+                            <!-- <th>Order Date</th> -->
+                            <th class="text-center">Order Amount</th>
+                            <th class="text-center">View Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(key, value) in datadeal">
+                            <td>{{ value.OrderNo }}</td>
+                            <!-- <td>{{ value.OrderDate | date:'yyyy-MM-dd HH:mm:ss' }}</td> -->
+                            <td class="text-right"><b>₦</b> {{ value.OrderAmount }}</td>
+                            <td class="text-center"><a ng-click="view_receipt(value.OrderId)">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="padding-left-5 padding-right-5" ng-show="datadeal == null">
+                No Record
+            </div>
+
+        </ion-content>
+    </ion-view>
+
+</div>

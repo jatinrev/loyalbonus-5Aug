@@ -1,0 +1,70 @@
+<div id="Review">
+    <ion-view>
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="Test()">
+            </ion-refresher>
+            <div>
+                <div id="logo">
+                    <img class="logoImage" ng-src="{{reviewVar.businessImg()}}">
+                    <div class="reviews-star" ng-bind-html=reviewVar.reviews(2)></div>
+                </div>
+                <div class="bar-balanced newloyalcheckbox">
+                    <p class="h1 title">Customer Review</p>
+                </div>
+                <div class="row border-review">
+                    <div class="col-45" ng-bind-html=reviewVar.reviews(2)>
+                    </div>
+                    <div class="rating">
+                        <strong>{{ reviewVar.businessRating() }}/ 5</strong>
+                    </div>
+                    <div class="col"><a class="color-reviewblue highlightThis" ng-click="reviewVar.enableReveiw()">{{ reviewVar.ShowCommentShow == true ? 'Show Records' : 'Write a review' }}</a></div>
+                </div>
+
+                <div class="row border-bottom-1 margin-top-minus1" ng-show="reviewVar.writeReveiwShow" >
+                    <div class="list width-100">
+                        <label class="item-input item-stacked-label" ng-show="giveFeedback.ratingMsg">
+                        <p></p>
+                      </label>
+                        <label class="item-input item-stacked-label">
+                        <span class="input-label">Rating</span>
+                        <p>
+                            <img ng-repeat="(key, value) in reviewVar.starsArr" class="{{ value.class }}" on-tap="reviewVar.giveRating(+key + 1)" ng-src="{{ value.src }}"/>
+                        </p>
+                      </label>
+                        <label class="item-input item-stacked-label">
+                        <span class="input-label">Pros</span>
+                        <input type="text" class="Pros" placeholder="Pros" ng-model="reviewVar.pros">
+                        <!-- <input type="text" class="name ng-pristine ng-untouched ng-valid" placeholder="Name" ng-model="userDetails.FullName" name="fullName"> -->
+                      </label>
+                        <label class="item-input item-stacked-label">
+                        <span class="input-label">Cons</span>
+                        <input type="text" placeholder="Cons" class="Cons" ng-model="reviewVar.cons">
+                      </label>
+                        <label class="item-input item-stacked-label padding-top-8">
+                        <button class="button button-positive" ng-click="reviewVar.giveFeedback() ; showPopup()">Submit</button>
+                      </label>
+                    </div>
+                </div>
+                
+                <div class="border-bottom-1" ng-hide="reviewVar.writeReveiwShow" ng-repeat="(key, value) in reviewVar.allReview()">
+                    <div ng-bind-html=reviewVar.reviews(value.Reviews)></div>
+                    <p class="color-reviewgrey col">By {{ value.FullName }}{{ value.CreatedOn == null || value.CreatedOn == '' ? '' : reviewVar.giveDataFormat(value.CreatedOn) }}</p>
+                    <span class="title">Pros</span>
+                    <p class="color-reviewgrey col">{{ value.Pros }}</p>
+                    <span class="title">Cons</span>
+                    <p class="color-reviewgrey col">{{ value.Cons }}</p>
+                </div>
+                <div class="loadingButton" ng-click="reviewVar.loadMore()" ng-hide="reviewVar.ShowCommentShow">{{ stopLoading == false ? 'No more records' : 'Click to load more' }}</div>
+
+            </div>
+        </ion-content>
+        <!--<ion-footer-bar ng-show="reviewVar.ShowCommentShow == true ? false : true" class="bar bar-footer bar-light highlightThis border-top-0" ng-click="reviewVar.loadMore()">
+            <div class="title title-center">{{ stopLoading == false ? 'No more records' : 'Load more..' }}</div>
+        </ion-footer-bar>-->
+        <!-- <div class="bar bar-footer bar-light highlightThis border-top-0" ng-click="reviewVar.loadMore()">
+                    <div class="title">{{ stopLoading == false ? 'No more records' : 'Load more..' }}</div>
+                </div> -->
+    </ion-view>
+</div>

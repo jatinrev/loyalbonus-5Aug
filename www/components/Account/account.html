@@ -1,0 +1,67 @@
+<div id="Account">
+    <ion-view>
+        <form ua-login name="account" novalidate>
+            <ion-content>
+                <ion-refresher
+                    pulling-text="Pull to refresh..."
+                    on-refresh="Test()">
+                </ion-refresher>
+                <p class="h1 title">Account Settings</p>
+                <div class="list list-inset">
+                    <div class="padding">
+                        {{ form_error(account) }} 
+                        {{ response }}
+                        {{ response_email }}
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input item-floating-label white_background_color">
+                            <span class="input-label">Name</span>
+                            <input type="text" class="name" placeholder="Name" ng-model="userDetails.FullName" name="fullName">
+                            <span class="label-text">Display Name: {{ userDetails.FullName }}</span>
+                        </label>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input item-floating-label white_background_color">
+                            <span class="input-label">Email</span>
+                            <input type="text" ng-disabled="accountVar.EmailEnable" class="email" placeholder="Email" ng-model="userDetails.Email" name="Email"
+                            ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
+                            <a on-tap ="enable_email()" class="color-reviewblue">Change</a>
+
+                        </label>
+                      
+                    </div>
+                    <div class="row">
+                        <div class="col-50">
+                            <label class="item item-input height-bottom white_background_color">
+                                <button class="button button-positive paddingLeftRight-0" style="width: initial;" on-tap="change_password(account)">Save Changes</button>
+                            </label>
+                        </div>
+                        <div class="col-50">
+                            <label class="item item-input float-right height-bottom white_background_color ">
+                                <button ng-click="toggleCustom()" class="button button-positive paddingLeftRight-0">Change Password</button>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <label class="col item item-input item-floating-label white_background_color" ng-hide="custom">
+                            <span class="input-label">Old Password</span>
+                            <input type="password" class="password" placeholder="Old Password" ng-model="chnage_pass.old_pass" name="oldPassword">
+                        </label>
+                    </div>
+                    <div class="padding">
+                        <label class="col item item-input item-floating-label white_background_color" ng-hide="custom">
+                            <span class="input-label">New Password</span>
+                            <input type="password" class="password" placeholder="Enter New Password" ng-model="chnage_pass.new_pass" name="newPassword">
+                        </label>
+                    </div>
+                    <div class="padding">
+                        <label class="col item item-input item-floating-label white_background_color" ng-hide="custom">
+                            <span class="input-label">Confirm Password</span>
+                            <input type="password" class="password" placeholder="Enter Confirm Password And Click Save Changes" ng-model="chnage_pass.confirm_pass" name="confirmPassword">
+                        </label>
+                    </div>
+                </div>
+            </ion-content>
+        </form>
+    </ion-view>
+</div>

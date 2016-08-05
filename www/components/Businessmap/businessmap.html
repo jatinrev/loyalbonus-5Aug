@@ -1,0 +1,40 @@
+<div id="Businessmap">
+    <ion-view>
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="Test()">
+            </ion-refresher>
+            <!-- {{ gotoCurrentLocation() }} This is here to call this function so that position could be saved -->
+            <!--{{ testing() }} -->
+            <!-- <label ng-show="showMe" class="item item-input new_margin">
+                <input type="text" ng-model="searchKeyword" placeholder="Search">
+                <span class="ion-search paddingLR10" on-tap="bc.search(searchKeyword)" ng-show="loadmoreNgShow"></span>
+            </label> -->
+            <!-- {{gotoCurrentLocation()}} -->
+            <a ng-click="goToMap(datadeal.BusinessID)" ng-model="gotoCurrentLocation" class="already-loyalbonus buttonListView {{ isAndroid == true ? '' : 'addclassiostext' }}"><img class="listviewmapBusiness" src="img/listviewmap.png">List View</a>
+            <ng-map zoom="15" radius="100" zoomOnDoubleClick:true data-tap-disabled="false" center="{{bc.center}}" style="width:100%;height:80%" on-center-changed="setCenter()">
+                <marker ng-repeat="(key, value) in bc.positions" position="{{value.positions}}" id="{{ key }}" on-click="bc.showCustomMarker($event)" animation="DROP"></marker>
+                <!-- <custom-marker id="foo" position="{{ bc.positions }}" on-click="bc.closeCustomMarker('yoyoy')">
+                    <div class="newdiv"></div>
+                </custom-marker> -->
+            </ng-map>
+            <button class="button button-balanced" id="businessmapButton" ng-click="bc.test()"><!-- Test() -->
+                    Redo Search In This Area
+            </button>
+            <div ng-repeat="daj in datadeal track by $index">
+                <div class="row">
+                    <div id="businessmaplogo" class="col-20">
+                        <img ui-sref="home.kaseydiner({ id : daj.BusinessID })" ng-src="{{ daj.Image == null ? 'img/placeholder.jpg' : daj.Image }}">
+                    </div>
+                    <div id="businessmaplogo" class="col-80">
+                        <span ui-sref="home.kaseydiner({ id : daj.BusinessID })" class="stake-house">
+                            {{daj.Name}}
+                        </span>
+                        <div class="reviews-star" ng-bind-html=helperFunction.reviews(daj.reviews)></div>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+    </ion-view>
+</div>

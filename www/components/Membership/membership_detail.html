@@ -1,0 +1,44 @@
+<div id="Membership">
+    <ion-view>
+        <form ua-login name="frmmember" novalidate>
+            <ion-content>
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+                </ion-refresher>
+
+                <div class="table-responsive">
+                    <table id="tbl" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Transaction</th>
+                                <th class="text-center">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Reference id</td>
+                                <td>{{ tabName.tra_ref }}</td>
+                            </tr>
+                            <tr>
+                                <td>Created date</td>
+                                <td>{{ tabName.CreatedDate | date:'dd-MM-yyyy HH:mm:ss' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Amount</td>
+                                <td>₦ {{ tabName.Tra_amt }}</td>
+                            </tr>
+                            <!-- <tr>
+                                <td>Type</td>
+                                <td>{{ tabName.tra_type }}</td>
+                            </tr> -->
+                            <tr>
+                                <td>Plan Type</td>
+                                <td>{{ tabName.PlanType == 3 ? 'Yearly' : 'Monthly' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </ion-content>
+        </form>
+    </ion-view>
+</div>

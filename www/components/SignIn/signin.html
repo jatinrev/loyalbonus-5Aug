@@ -1,0 +1,93 @@
+<div id="Signin">
+    <ion-view class="new_bg abc abcc">
+        <form ua-login name="frm" novalidate ng-submit="sc.login()">
+            <ion-content>
+                <ion-refresher
+                    pulling-text="Pull to refresh..."
+                    on-refresh="Test()">
+                </ion-refresher>
+                <div id="logo">
+                    <img src="img/logo.png">
+                </div>
+                <div class="list list-inset">
+                    <div class="padding" ng-show="signIn.response_visibility">
+                        <p class="error_msg">{{ signIn.response }}</p>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="text" class="username" ng-model="signIn.username" ng-required="true" name="username" ng-minlength="3" ng-maxlength="40"
+                            placeholder="Email">
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frm.username.$dirty && frm.username.$error.required">Email Is Required!</span>
+                            <span class="error" ng-show="frm.username.$dirty && frm.username.$error.minlength">Email Is Too Short!</span>
+                            <span class="error" ng-show="frm.username.$dirty && frm.username.$error.maxlength">Email Is Too Long!</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="password" class="password" name="password" ng-required="true" ng-minlength="3" ng-maxlength="30" ng-model="signIn.password"
+                            placeholder="Password">
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frm.password.$dirty && frm.password.$error.required">Password Is Required!</span>
+                            <span class="error" ng-show="frm.password.$dirty && frm.password.$error.minlength">Password Is Too Short!</span>
+                            <span class="error" ng-show="frm.password.$dirty && frm.password.$error.maxlength">Password Is Too Long!</span>
+                            <span class="error" ng-show="frm.password.$dirty && frm.password.$error.pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol)</span>
+                            <span class="error" ng-show="frm.password.$error.required && (frm.password.$error.minlength || frm.password.$error.maxlength) && userForm.password.$dirty"
+                                class="help-block">Passwords must be between 8 and 20 characters.</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <button type="submit" ng-disabled="frm.$invalid" ng-show="signIn.signIn_button_visibility" class="button button-block bar bar-header bar-balanced">
+                            <span class="loyalbonus_cap">Sign In</span>
+                            <i ng-show="loading" class="ion-loading-b"></i>
+                        </button>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-left ">
+                                    <a ui-sref="restpassword" class="already-loyalbonus" href="#">I forget password</a>
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="text-right">
+                                    <a ui-sref="signup" class="already-loyalbonus" href="#">Create new account</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <fieldset>
+                            <p class="text-center loyalhouse_border">
+                                <a class="sign-loyalbonus" href="#">or sign in with</a>
+                            </p>
+                        </fieldset>
+                        <div class="text-center">
+                            <!-- <facebook-login-button></facebook-login-button>
+                            <div class='margin-left' ng-show='loggedInUser.name'>
+                                <div>Hello, {{loggedInUser.name}}!</div>
+                            </div>
+                            
+                            <div class='margin-left' ng-hide='loggedInUser.name'>
+                                <div>Hello, Stranger!</div>
+                            </div> -->
+                            <!-- {{ signIn.facebookResponse }} -->
+                            <a class="loyalbonus_img" ng-click="fbLogin()">
+                                <i class="ion-social-facebook icon"></i>  Facebook
+                            </a>
+                             
+                            <!-- {{ signIn.facebookData }} -->
+                        </div>
+                        
+                    </div>
+                    <ion-footer>
+            <a class="loyalbonus_img_business center" ng-click="redirect_urls.home()">
+                               Home   
+             </a>
+             </ion-footer>
+                </div>
+            
+            </ion-content>
+        </form>
+    </ion-view>
+</div>

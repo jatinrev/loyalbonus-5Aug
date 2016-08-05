@@ -1,0 +1,135 @@
+<div id="Membership">
+    <ion-view>
+        <form ua-login name="frmmember" novalidate>
+            <ion-content>
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+                </ion-refresher>
+                <div class="row padding padding-bottom">
+                    <div class="col50">
+                        <p class="h4 title">Membership Type: </p>
+                    </div>
+                    <div class="col50">
+                        <a class="color-reviewblue">Monthly</a>
+                    </div>
+                </div>
+                <div class="col padding margin-bottom">
+                    <label class="color-txt">Your membership will end:</label>
+                    <label class="black-color">{{ membership_data.ExpirationDate | date:'dd/MM/yyyy' }}</label>
+                </div>
+                <div class="error_msg" ng-show="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">Membership have been cancelled</div>
+                <div class="error_msg" ng-show="datadeal.error == '' || datadeal.error == undefined ? false : true" ng-bind="datadeal.error"></div>
+                <div class="success_msg" ng-show="datadeal.success == '' || datadeal.success == undefined ? false : true" ng-bind="datadeal.success"></div>
+                <!-- Start : Update/change payment method -->
+                <div>
+                    <ion-item class="item-stable" id="1" ng-click="toggleGroup(1)" ng-class="{active: isGroupShown(1)}">
+                        <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i> Update/change payment method
+                    </ion-item>
+                    <ion-item class="item-accordion" ng-show="isGroupShown(1)">
+                        <div class="row">
+                            <label class="title col-50" style="white-space:initial;">Select Membership Type</label>
+                            <label class="title col-50 padding-left-10">Premium</label>
+                        </div>
+                        <div class="row" ng-repeat="output in datadeal.UpdatePaymentMethod.MembershipTypes">
+                        <!-- ng-show="membership.getPromoApplied() ? (datadeal.UpdatePaymentMethod.MembershipTypeID == output.MembershipTypeID ? true : false) : true" -->
+                            <div class="col-50">
+                                <div class="row">
+                                    <input class="input_left" type="radio" name="membershipType" ng-model="datadeal.membershipTypeId_selected" value="{{ output.MembershipTypeID }}" ng-change="membership.change_promo_code(frmmember)" id="membership_id{{ output.MembershipTypeID }}">
+                                    <label for="membership_id{{ output.MembershipTypeID }}" class="Monthly">{{ output.MembershipType1 }}</label>
+                                </div>
+                            </div>
+                            <div class="col-50">
+                                <div class="row">
+                                    <span class="price">₦ {{ output.MemberShipFee }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="membership.getPromoApplied()">
+                            <div class="col-50">
+                                <div class="row">
+                                    <span class="grey_background padding-5">Testing-123</span>
+                                </div>
+                            </div>
+                            <div class="col-50">
+                                <div class="row">
+                                    <span style="color: red;">(promo: - ₦{{ datadeal.UpdatePaymentMethod.PromoDiscountAmount }})</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="promoCodeDiv" class="padding">
+                            <p style="color:#808080" class="mgtop20" ng-hide="membership.getPromoApplied()">Do you have a Promo Code?</p>
+                            <input ng-hide="membership.getPromoApplied()" class="form-control" name="promoCode" id="promoCode" ng-model="datadeal.promo" type="text" style="width:183px;float:left"> <!--hide if promo applied-->
+                            <div class="mgtop20">
+                                <a ng-click="
+                                    membership.getPromoApplied() ? membership.RemoveUserPromoByUserPromoId(datadeal.UpdatePaymentMethod.UserPromoId) : membership.ApplyPromoCode(frmmember)" 
+                                   style="cursor:pointer">{{ membership.getPromoApplied() ? 'Remove Promo' : 'Apply' }}</a>
+                            </div>
+                        </div>
+                        <div class="row padding">
+                            <input class="mdtb10_30 mauto btn btn-success wd172" type="button" on-tap="membership.SavePayStackResponseInPaymentHistory(frmmember)" value="Proceed to Payment">
+                        </div>
+                    </ion-item>
+                </div>
+                <!-- End : Update/change payment method -->
+                <!-- Start : Payment History -->
+                <div>
+                    <ion-item class="item-stable" id="2" ng-click="toggleGroup(2)" ng-class="{active: isGroupShown(2)}">
+                        <i class="icon" ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'"></i> Payment History
+                    </ion-item>
+                    <ion-item class="item-accordion" ng-show="isGroupShown(2)">
+                        <div class="table-responsive">
+                            <table id="tbl" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th class="text-center">Amt.</th>
+                                        <th class="text-center">Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="value in datadeal.paymentHistory">
+                                        <!-- <td>{{ value.TransRefNo }}</td> -->
+                                        <td>{{ value.CreatedDate | date:'dd-MM-yyyy' }}</td><!-- HH:mm:ss -->
+                                        <td class="text-right"><b>₦</b> {{ value.TransAmt }}</td>
+                                        <!-- <td class="text-center">{{ value.TransactionType == 1 ? 'Regular' : 'Not Regular' }}</td> -->
+                                        <!-- <td class="text-center">{{ value.PlanType == 3 ? 'Yearly' : 'Monthly' }}</td> -->
+                                        <td class="text-center"><i class="ion-chevron-right" ui-sref="home.membership_detail({
+                                            tra_ref     : value.TransRefNo,
+                                            CreatedDate : value.CreatedDate,
+                                            Tra_amt     : value.TransAmt,
+                                            tra_type    : value.TransactionType,
+                                            PlanType    : value.PlanType
+                                        })"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ion-item>
+                </div>
+                <!-- End : Payment History -->
+                <!-- Start : Cancel Membership -->
+                <div>
+                    <ion-item class="item-stable" id="3" ng-click="toggleGroup(3)" ng-class="{active: isGroupShown(3)}">
+                        <i class="icon" ng-class="isGroupShown(3) ? 'ion-minus' : 'ion-plus'"></i> Cancel membership
+                    </ion-item>
+                    <ion-item class="item-accordion" ng-show="isGroupShown(3)">
+                        <div class="mainMembership">
+                            <h4 class="text-center membershipClass"> We are sad to see you leaving!</h4>
+                        </div>
+                        <div class="membershipBody">
+                            <div class="row">
+                                <span class="title col text-center" style="white-space : initial;">You will not be able to access our members benefits once cancelled. All Loyality Reward and Bonus will be reset.</span>
+                            </div>
+                            <div class="row align_btns_center">
+                                <button ng-click="membership.ContinueMembership()" class="button button-calm margin-right-5 padding-right-5 padding-left-5">Continue Membership</button>
+                                <button ng-click="membership.CancelMembership()" class="button button-assertive padding-right-5 padding-left-5">Cancel Membership</button>
+                                <!-- <a class="btn btn-info pull-left" ng-click="toggleGroup(3)">Continue Membership</a>
+                                <a class="btn btn-danger pull-right" ng-click="membership.CancelMembership()">Cancel Membership</a> -->
+                            </div>
+                        </div>
+                    </ion-item>
+                </div>
+                <!-- End : Cancel Membership -->
+            </ion-content>
+        </form>
+    </ion-view>
+</div>

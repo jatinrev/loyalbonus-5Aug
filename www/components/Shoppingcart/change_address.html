@@ -1,0 +1,73 @@
+<ion-modal-view class="zoom-view">
+	<ion-header-bar>
+		<!-- <h1 class="title">Select/Add Address</h1> -->
+		<button ng-click="address.closeZoomView()" class="button button-clear button-dark color33cd5f">Done</button>
+	</ion-header-bar>
+	<ion-content>
+		<form ua-login name="formshopping" novalidate>
+			<div class="row">
+				<div class="col col-10">
+					<input ng-hide="address.edit_address_input > 0" name="select_address" ng-value="0" ng-model="address.selected_address_radio" type="radio">
+				</div>
+				<div class="col">
+					<div class="list white_bg">
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.first_name" type="text" placeholder="First Name">
+						</label>
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.last_name" type="text" placeholder="Last Name">
+						</label>
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.mobile_number" type="text" placeholder="Mobile Number">
+						</label>
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.street_address" type="text" placeholder="Street Address">
+						</label>
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.city" type="text" placeholder="City">
+						</label>
+						<label class="item item-input white_bg border-color-666">
+							<input ng-model="address.form.near_by" type="text" placeholder="Opposite, Near to, Near by">
+						</label>
+						<label class="item item-input item-select white_bg border-color-666">
+							<div class="input-label">
+								Select State
+							</div>
+							<!-- <option selected>Green</option> -->
+							<select name="state" ng-model="address.state_selected" ng-change="address.state_changed()">
+								<option ng-repeat="(key, value) in address.all_states" ng-selected="address.state_selected == value.StateId" value="{{ value.StateId }}">{{ value.StateName }}</option>
+							</select>
+						</label>
+						<label class="item item-input item-select white_bg border-color-666">
+							<div class="input-label">
+								Select Local Government
+							</div>
+							<select name="local" ng-model="address.state_govt_area_selected">
+								<option ng-repeat="(key, value) in address.all_state_govt_area" ng-selected="address.state_govt_area_selected_temp == value.StateGovAreaId" value="{{ value.StateGovAreaId }}">{{ value.GovAreaName }}</option>
+							</select>
+						</label>
+					</div>
+					{{ formshopping.first_name }}
+				</div>
+			</div>
+			<div class="row" ng-class="address.output.status == 0 ? 'error_msg' : ''" ng-show="address.output">{{ address.output.result }}</div>
+			<!-- <div class="row">
+				<button class="button button-block button-positive" ng-click="address.CreateAddress(formshopping)">Create Address</button>
+			</div> -->
+			<div class="row margin_top_10" ng-repeat="(key, value) in address.address_list">
+				<div class="col col-10" ng-click="address.select_radio_button_click(value.UserAddressId)">
+					<input name="select_address" ng-value="{{ value.UserAddressId }}" ng-checked="address.get_radio_button_click(value.UserAddressId, value.IsDefault, this)" ng-model="address.selected_address_radio" type="radio" id="select_address_{{ value.UserAddressId }}">
+				</div>
+				<div class="col" ng-click="address.select_radio_button_click(value.UserAddressId)">
+					<label for="select_address_{{ value.UserAddressId }}">{{ value.FirstName+' '+value.LastName+' '+value.StreetAddress+' '+value.City+' '+address.get_state_from_state_id(value.StateId).StateName }}</label>
+				</div>
+				<div class="col text-right">
+					<button class="button button-calm" ng-click="address.edit_address(value.UserAddressId)">Edit</button>
+				</div>
+			</div>
+			<div class="row">
+				<button class="button button-block button-positive" ng-click="address.set_address(formshopping)">{{ address.address_button_name }}</button>
+			</div>
+		</form>
+	</ion-content>
+</ion-modal-view>

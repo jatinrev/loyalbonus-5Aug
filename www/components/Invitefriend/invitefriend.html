@@ -1,0 +1,57 @@
+<div id="Invitefriend">
+    <ion-view>
+        <ion-content>
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+            </ion-refresher>
+            <div class="row alert-danger text-center"></div>
+            <div ng-show="Show_discount_offer">
+                <ion-list class="center">
+                    <button class="button start_freebtn" >Start Your Free Month</button>
+                </ion-list>
+                <ion-list class="row">
+                    <h4 class="padding"><i class="fa fa-check pull-left"></i>Save up to 40% on your everyday purchases!</h4>
+                    <h4 class="padding"><i class="fa fa-check pull-left"></i> Get a Bonus for showing your loyalty to the business!</h4>
+                    <h4 class="padding"><i class="fa fa-check pull-left"></i> 1000 + Businesses around your town!</h4>
+                </ion-list>
+                <hr class="hr_border"></hr>
+                <div class="specear20"></div>
+                <div class="specear20"></div>
+            </div>
+            <ion-list class="row center">
+                <h4 class="padding">Invite at least 10 friends from facebook to receive an additional Month free!</h4>
+                <a class="center" ng-click="inviteFacebook()"><img src="img/facebook-invite-friends.jpg" alt="Invite Facebook Friends"></a>
+            </ion-list>
+            <div class="specear20"></div>
+            <hr class="hr_border"></hr>
+            <div class="specear20"></div>
+            <div class="specear20"></div>
+            <ion-list class="row center">
+                <h4 class="padding">Receive additional Free Month for  each friend who sign up!</h4>
+            </ion-list>
+            <form ua-login name="frminvite" novalidate>
+                <div class="padding">
+                    <!--  {{datadeal}} -->
+                    <label class="item-input new_margin">
+                        <input type="email" class="emailaddresses" ng-model="datadeal.emailaddresses" name="email" ng-minlength="3" ng-maxlength="40"
+                        placeholder="Input Emails">
+                    </label>
+                    <button type="submit" ng-disabled="frminvite.$invalid" ng-click="invitelist()" class="pos_absolute bkgnd_image"></button>
+                    <div role="alert">
+                        <span class="error" ng-show="frminvite.email.$dirty && frminvite.email.$error.required">Email Is Required!</span>
+                        
+                         <span class="error" ng-show="frminvite.email.$dirty && frminvite.email.$error.email">Not an Email!</span>
+                    </div>
+
+                    <span class="wd70">Use comma to seperate multiple emails</span>
+                    <textarea cols="20" id="EmailContent" ng-model="datadeal.emailcontent" name="emailcontent" required placeholder="Your Personalized Message!"
+                        rows="6"></textarea>
+                </div>
+
+            </form>
+
+        </ion-content>
+        <!--  <ion-footer-bar class="footer-bar-custom bar-positive">
+           <div class="title center" on-tap="userPresent() == 1 ? go_to_login()">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div>
+                </ion-footer-bar> -->
+    </ion-view>
+</div>

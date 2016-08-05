@@ -1,0 +1,87 @@
+<!-- My loyalbonus -->
+<div id="order_reciept">
+    <ion-view>
+        <ion-content ng-class="isAndroid_global ? '' : 'ios_without_heading'">
+
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+            </ion-refresher>
+            
+            <div>
+                <!-- Start : design reciept -->    
+
+                <h3 class="padding-right-5 padding-left-5">Order Receipt</h3>
+                <div class="row paddingLeftRight-0 responsive-sm">
+                    <p class="col margin-bottom-0" style="margin:0;">Ordered on {{ order_reciept.datadeal.OrderDate | date:'yyyy-MM-dd' }}</p>
+                    <p class="col margin-bottom-0">Order# {{ order_reciept.datadeal.OrderNo }}</p>
+                </div>
+               
+                <div style="border-top: 1px solid #ccc;">
+                    <div class="row paddingLeftRight-0">
+                        <p class="col margin-bottom-0"><b>Delivery Method: Ship via DHL</b></p>
+                        <p class="col margin-bottom-0"><b>Payment Method</b></p>
+                        <p class="col margin-bottom-0"><b>Order Summary</b></p>
+                    </div>
+                    <div class="row paddingLeftRight-0">
+                        <p class="col margin-bottom-0">{{ order_reciept.datadeal.FullName }}</p>
+                        <p class="col margin-bottom-0"><img ng-src="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? 'img/gtpay.png' : 'img/paystack.png' }}" width="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? '50px' : '80px' }}"></p>
+                        <p class="col margin-bottom-0">Item Subtotal: N {{ order_reciept.datadeal.OrderSubTotal }}</p>
+                    </div>
+                    <div class="row paddingLeftRight-0">
+                        <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerAddress }}</p>
+                        <p class="col margin-bottom-0"></p>
+                        <p class="col margin-bottom-0">Shipping Cost: N {{ order_reciept.datadeal.ShippingAmount }}</p>
+                    </div>
+                    <div class="row paddingLeftRight-0">
+                        <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerArea }}</p>
+                        <p class="col margin-bottom-0"></p>
+                        <p class="col margin-bottom-0">Grand Total: N {{ order_reciept.datadeal.OrderAmount }}</p>
+                    </div>
+                </div>
+                
+                <div style="border-top: 1px solid #ccc;" class="row paddingLeftRight-0 responsive-sm">
+                    <p class="col margin-bottom-0 padding-bottom"><b>Seller Information</b> </p>
+                    <p class="col margin-bottom-0 padding-bottom" style="color:#07c8f3;">Cell phones &amp; Accessories</p>
+                    <p class="col margin-bottom-0 padding-bottom">Plot 10, Acme Road, Ogba</p>
+                    <p class="col margin-bottom-0 padding-bottom">Ibeju-Lekki, Lagos </p>
+                    <p class="col margin-bottom-0 padding-bottom">Phone #: 7875454542</p>
+                </div>
+
+                <!-- </div> -->
+                    <!-- <h3>Shipped on 18/05/2016</h3> -->
+                <div style="border-top: 1px solid #ccc;" class="row paddingLeftRight-0 responsive-sm">
+                    <h4 class="col" style="font-weight:bold;">Shipped on 18/05/2016</h4>
+                </div>
+                <div class="row paddingLeftRight-0 responsive-sm" ng-repeat="value in order_reciept.datadeal.CustomerOrderDetails">
+                    <div class="col margin-bottom-0">
+                        <img ng-src="{{ value.BusinessStoreProduct.ProductImageUrl }}" alt="">
+                    </div>
+                    <div class="col margin-bottom-0">
+                        <p><b>{{ value.ProductName }}</b></p>
+                        <p>{{ value.ProductDescription }}</p>
+                    </div>
+                    <div class="col margin-bottom-0">
+                        <b>Price</b><span> N: {{ value.PriceAfterDiscount }} </span>
+                        <p><b>Quantity</b> : {{ value.Qty }}</p>
+                    </div>
+                </div>
+                <div class="row paddingLeftRight-0 responsive-sm">
+                    <div class="col">
+                        <a type="button" ui-sref="home.productDetail({BusinessId: order_reciept.datadeal.CustomerOrderDetails[0].BusinessStoreProduct.BusinessId, Productid : order_reciept.datadeal.CustomerOrderDetails[0].ProductId })">Buy it Again</button>
+                        <!-- $state.go("home.productDetail", { BusinessId: businessId, Productid: productid}); -->
+                    </div>
+                </div>
+
+
+                <div class="row paddingLeftRight-0 responsive-sm">
+                    <button type="button" class="col btn btn-default1">Track Package</button>
+                    <button type="button" class="col btn btn-default2">Return or replace items</button>
+                </div>
+
+            
+            </div>
+            <!-- End : design reciept -->
+
+        </ion-content>
+    </ion-view>
+
+</div>

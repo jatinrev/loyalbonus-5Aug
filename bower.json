@@ -1,0 +1,13 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "resolutions": {
+    "angular": "~1.2.0"
+  },
+  "dependencies": {
+    "ionic-zoom-view": "^2.0.0"
+  }
+}

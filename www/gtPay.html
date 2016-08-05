@@ -1,0 +1,44 @@
+<html>
+<head>
+	<meta charset="utf-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"> -->
+    <meta http-equiv="Content-Security-Policy" content="default-src *; 
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' *; 
+      style-src 'self' 'unsafe-inline' *; 
+      frame-src 'self' https://www.youtube.com/ https://paystack.com/ https://ibank.gtbank.com/ http://beta2.loyalbonus.com/ gap://ready https://stageserv.interswitchng.com *">
+</head>
+<body onload="document.submit2gtpay_form.submit()"> <!-- onload="document.submit2gtpay_form.submit()" -->
+	<div id="everything"></div>
+
+	<script type="text/javascript">
+		var parseQueryString_withoutDomainName = function(queryString) {
+            var qs      = decodeURIComponent(queryString),
+            obj         = {},
+            params      = qs.split('&');
+            params.forEach(function (param) {
+                var splitter = param.split('=');
+                obj[splitter[0]] = splitter[1];
+            });
+            return obj;
+        }
+        var url = parseQueryString_withoutDomainName(window.location.search.substr(1));
+        var output  = '<form id="TheForm" name="submit2gtpay_form" action="https://ibank.gtbank.com/GTPay/Tranx.aspx" method="post">'; //target="_self"
+        output  += 		'<input type="hidden" name="gtpay_mert_id"        value="'+url.gtpay_mert_id+'" />';
+        output  += 		'<input type="hidden" name="gtpay_tranx_id"       value="'+url.gtpay_tranx_id+'" />';
+        output  += 		'<input type="hidden" name="gtpay_tranx_amt"      value="'+url.gtpay_tranx_amt+'" />';
+        output  += 		'<input type="hidden" name="gtpay_tranx_curr"     value="'+url.gtpay_tranx_curr+'" />';
+        output  += 		'<input type="hidden" name="gtpay_cust_id"        value="'+url.gtpay_cust_id+'" />';
+        output  += 		'<input type="hidden" name="gtpay_cust_name"      value="'+url.gtpay_cust_name+'" />';
+        output  += 		'<input type="hidden" name="gtpay_echo_data"      value="'+url.local_oauth_url+'" />';
+        output  += 		'<input type="hidden" name="gtpay_gway_name"      value="" />';
+        output  += 		'<input type="hidden" name="gtpay_hash"           value="'+url.HashCode+'" />';
+        output  += 		'<input type="hidden" name="gtpay_tranx_noti_url" value="'+url.oauthUrl+'" />';
+        output  +=  	'<input type="submit" value="Pay Via GTPay" name="btnSubmit" style="display:none"/>'
+        output  += '</form>';
+        output  += 'Please wait GtBank is loading...';
+        console.log(output);
+        document.getElementById("everything").innerHTML = output;
+        // document.submit2gtpay_form.submit();
+	</script>
+</body>
+</html>

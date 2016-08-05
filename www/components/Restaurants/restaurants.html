@@ -1,0 +1,61 @@
+<div id="restaurants">
+    <div class="tabs-top tabs-background-positive tabs-color-light">
+        <ul rn-carousel class="tabs" rn-carousel-index="carouselIndex" ng-hide="hide_category">
+            <li ng-repeat="(key, value) in heading" class="tab-item" ui-sref-active="current" ui-sref="home.restaurants({vertical: value.CategoryID})">{{ value.CategoryName }}</li>
+        </ul>
+        <ion-view>
+            <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
+                <ion-refresher
+                    class="row"
+                    pulling-text="Pull to refresh..."
+                    on-refresh="Test()">
+                </ion-refresher>
+                <div class="row">
+                    <a ng-click="goToMap(datadeal.BusinessID)" class="already-loyalbonus button buttonListView row {{ isAndroid == true ? '' : 'addclassios' }}"><img class="ion-mapclass" src="img/ion-map.png"> MapView </a>
+                </div>
+                <div class="grey_bg">
+                    <div ng-repeat="d in print_data()" class="margin-top-15 margin-btm-15 white_bg">
+                        {{ restaurants.demo }}
+                        <div id="logo">
+                            <img ng-src="{{ d.Image == null ? 'img/placeholder.jpg' : d.Image }}" ng-click="open_detail_page(d.BusinessID)">
+                        </div>
+                        <div class="row stake-house padding-all-zero">
+                            <div class="col-50">
+                                <p class="stake-house text_shadow_black">
+                                    {{ d.Name }}
+                                </p>
+                            </div>
+                            <div class="col-50">
+                                <div class="rat-star" ng-bind-html="restaurants.print_image(d.Reviews)"></div>
+                            </div>
+                        </div>
+                        <div class="row padding-TB-0" style="margin-bottom: 5px;">
+                            <div class="col-50">
+                                <ion-list>
+                                    <ion-item class="wth-border padding-bottom color_black" ng-show="d.Address1 == null ? false : true "><i class="ion-home"></i>&nbsp&nbsp&nbsp{{ d.Address2 }}</ion-item>
+                                </ion-list>
+                            </div>
+                            <div class="col-50 ">
+                                <p class="wth-border padding-top-5 margin-bottom-0" ng-show="d.LoyalDiscount == null ? false : true">
+                                    <i class="ion-load-d"></i> Loyal Discount:{{ d.LoyalDiscount }}%
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row border-bottom padding-TB-0">
+                            <div class="col">
+                                <p class="color_black" ng-show="d.ContactPhone == null ? false : true" ng-click="dialNumber(d.ContactPhone)">&nbsp<i class="ion-ios-telephone"></i>&nbsp{{ d.ContactPhone }}</p>
+                            </div>
+                            <div class="col">
+                                <p class="wth-border padding_top_0 margin-bottom-0" ng-show="d.BonusDiscount == null ? false : true" ng-click="showPopup(d.BonusDiscount)">
+                                    <img style="position: relative; right: 3px;" src="img/bonus.png"> Bonus Discount:{{ restaurants.print_BonusDiscount(d.BonusDiscount) }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loadingButton margin-top-15 row center" ng-show="noMoreItemsAvailable">No Record</div>
+                <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="listData();" distance="1%"></ion-infinite-scroll>
+            </ion-content>
+        </ion-view>
+    </div>
+</div>

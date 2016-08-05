@@ -1,0 +1,86 @@
+<div id="kaseydiner">
+    <ion-view>
+        <ion-content scroll-event-interval="5">
+            <div ng-repeat="d in datadeal">
+                <div id="logo">
+                    <img src="img/businesslisting.jpg">
+                    <rating-stars ng-model="rating" max="5" class="rat-star"></rating-stars>
+                </div>
+                <div class="bar-balanced newloyalcheckbox">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
+                    <label class="round">
+                        <span class="round-span">10%</span>
+                        <p>off</p>
+                    </label>
+                    <label class="round">
+                        <span class="round-span">10%</span>
+                        <p>off</p>
+                    </label>
+                    <label class="round">
+                        <span class="round-span">10%</span>
+                        <p>off</p>
+                    </label>
+                    <label class="round gift-round">
+                        <i class="icon-gift loyal-gift"></i>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-50">
+                        <ion-list>
+                            <ion-item class="wth-border"><i class="ion-ios-heart"></i><strong>0</strong><span class="color-chnage">people love it</span>
+                            </ion-item>
+                            <ion-item class="wth-border"><i class="ion-ios-star-outline"></i><strong>0/ 5</strong><span class="color-chnage">from 0 reviews</span></ion-item>
+
+                        </ion-list>
+                    </div>
+
+                    <div class="col-50">
+                        <ion-list>
+                            <ion-item class="wth-border border-bottom">
+                                <i class="ion-load-d"></i> Loyal Discount:20</ion-item>
+                            <ion-item class="wth-border border-bottom"><i class="icon-gift"></i>Bonus Discount:50% OFF</ion-item>
+                            <ion-item class="wth-border">Visit 5 times to receive Bonus.</ion-item>
+                            <ion-list>
+                    </div>
+                </div>
+                <div ng-repeat="d2 in datadeal2">
+                    <div class="row loyal-btdinner">
+                        <h2 class="loyal-kaseydiner">{{ d2.name }}</h2>
+                    </div>
+                    <div class="row">
+                        <p class="loyal-kaseydinerpara">{{ d2.para }}</p>
+                    </div>
+                </div>
+
+                <div ng-repeat="d3 in datadeal3">
+                    <div class="new-success content">
+                        <img src="img/chk.png">
+                        <div class="new-loyal">
+                            <p class="h1 title">{{ d3.para2 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bar bar-footer bar-positive">
+                    <div class="title">SCAN NOW</div>
+                </div>
+        </ion-content>
+    </ion-view>
+
+    </div>

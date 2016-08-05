@@ -1,0 +1,53 @@
+<div id="Product">
+    <ion-view>
+        <ion-content>
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+            </ion-refresher>
+
+            <div id="logo">
+                <div class="detail-banner-left">
+                    <!-- <div class="detail-banner-info row">
+                        <div class="detail-verified {{ businessData.StatusName == 'Live' ? '' : 'redBack' }}">{{ businessData.StatusName == "Live" ? "Verified" : "Not Verified" }}</div>
+                    </div> -->
+                    <h2 class="margin-top-0 detail-title">{{ businessData.Name }}</h2>
+                    <div class="detail-banner-address">
+                        <!-- <i class="famap"></i> -->{{ businessData.Address1 }}
+                    </div>
+                    <div class="detail-banner-left_inner inline-block vertical-m">
+                        <div class="reviews-star" ng-bind-html=helperFunction.reviews(businessData.Reviews)></div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding main_prd_heading">
+                Products
+            </div>
+            <div ng-repeat="(key, prod) in datadeal" class="single_prd">
+                <div class="logo">
+                    <img id="productimages" class="margintop20" ng-src="{{prod.ProductImageUrl == null ? 'img/placeholder.jpg' : prod.ProductImageUrl }}"
+                        ng-click="helperFunction.productdetails(prod.BusinessId , prod.ProductId )">
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="disable-user-behavior">
+                            <div class="colorblack color33cd5f org_price"> ₦ {{ prod.PriceAfterBusinessDiscount }}</div>  
+                            <div class="row discount_discounted_price">                          
+                                    <span class="colorblack" style="padding:0">{{ prod.LoyalDiscount }} %
+        Loyalty Discount
+                                    </span>
+                                    <span class="colorblack old_price" style="color:red ;padding:0; text-align:right"> ₦ {{ prod.Price }}</span>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+                <div class="row">
+                    <div class="color42ae9d row"> {{ prod.ProductName }} </div>
+                </div>
+            </div>
+            <div style="padding-bottom:35px" class="loadingButton no_record" ng-show="helperFunction.noMoreProductAvailable">No Record</div>
+            <ion-infinite-scroll on-infinite="invitelistnew();" distance="1%" ng-if="!helperFunction.noMoreProductAvailable"></ion-infinite-scroll>
+        </ion-content>
+        <ion-footer-bar class="footer-bar-custom bar-positive" ng-hide="true">
+            <div class="title center" on-tap="scanBarcode(businessData)">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div>
+        </ion-footer-bar>
+    </ion-view>
+</div>

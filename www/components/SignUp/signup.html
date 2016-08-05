@@ -1,0 +1,85 @@
+<div id="Signup">
+    <ion-view class="new_bg">
+       <form ua-login name="frmsignup" novalidate>
+            <ion-content>
+                <ion-refresher
+                    pulling-text="Pull to refresh..."
+                    on-refresh="Test()">
+                </ion-refresher>
+                <div id="logo">
+                    <img src="img/logo.png">
+                </div>
+                <div class="list list-inset">
+                    <div class="padding" ng-show="signUp.responseVisibility">
+                        <p class="error_msg">{{ signUp.response }}</p>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="text" class="firstname" name="firstname" ng-model="signUp.firstname" ng-required="true" ng-minlength="3" ng-maxlength="30" placeholder="First Name">
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frmsignup.firstname.$dirty && frmsignup.firstname.$error.required">Firstname Is Required!</span>
+                            <span class="error" ng-show="frmsignup.firstname.$dirty && frmsignup.firstname.$error.minlength">Firstname Is Too Short!</span>
+                            <span class="error" ng-show="frmsignup.firstname.$dirty && frmsignup.firstname.$error.maxlength">Firstname Is Too Long!</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="text" class="lastname" name="lastname" ng-model="signUp.lastname" ng-required="true" ng-minlength="3" ng-maxlength="30"
+                            placeholder="Last Name">
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frmsignup.lastname.$dirty && frmsignup.lastname.$error.required">Lastname Is Required!</span>
+                            <span class="error" ng-show="frmsignup.lastname.$dirty && frmsignup.lastname.$error.minlength">Lastname Is Too Short!</span>
+                            <span class="error" ng-show="frmsignup.lastname.$dirty && frmsignup.lastname.$error.maxlength">Lastname Is Too Long!</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="email" class="email" name="email" ng-model="signUp.email" ng-required="true"
+                            placeholder="Email"> <!-- pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" -->
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frmsignup.email.$dirty && frmsignup.email.$error.required">Email Is Required!</span>
+                            <span class="error" ng-show="frmsignup.email.$dirty && frmsignup.email.$error.email">Not an Email!</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <label class="item item-input new_margin">
+                            <input type="password" class="password" name="password" ng-required="true" ng-minlength="5" ng-maxlength="30" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"
+                            ng-model="signUp.password" placeholder="Password">
+                        </label>
+                        <div role="alert">
+                            <span class="error" ng-show="frmsignup.password.$dirty && frmsignup.password.$error.required">Password Is Required!</span>
+                            <span class="error" ng-show="frmsignup.password.$dirty && frmsignup.password.$error.minlength">Password Is Too Short!</span>
+                            <span class="error" ng-show="frmsignup.password.$dirty && frmsignup.password.$error.maxlength">Password Is Too Long!</span>
+                            <span class="error" ng-show="frmsignup.password.$dirty && frmsignup.password.$error.pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol)</span>
+                            <span class="error" ng-show="frm.password.$error.required && (frm.password.$error.minlength || frm.password.$error.maxlength) && userForm.password.$dirty" class="help-block">Passwords must be between 8 and 20 characters.</span>
+                        </div>
+                    </div>
+                    <div class="padding">
+                        <button type="submit" ng-click="signUp.submit()" ng-show="signUp.signUp_button_visibility" ng-disabled="frmsignup.$invalid" class="button button-block bar bar-header bar-balanced">
+                            <span class="loyalbonus_cap" ng-show="!loading">Sign Up</span>
+                            <i ng-show="loading" class="ion-loading-b"></i>
+                        </button>
+                        <p class="text-right">
+                            <a class="already-loyalbonus" ui-sref="signin">Already Registered?</a>
+                        </p>
+                    </div>
+                    <div class="padding">
+                        <fieldset>
+                            <p class="text-center loyalhouse_border">
+                                <a class="sign-loyalbonus" href="#">or sign up with</a>
+                            </p>
+                        </fieldset>
+                        <div class="text-center">
+                            <a class="loyalbonus_img" ng-click="fbLogin()">
+                                <i class="ion-social-facebook icon"></i>  Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </form>
+    </ion-view>
+</div>

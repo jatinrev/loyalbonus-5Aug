@@ -1,0 +1,21 @@
+<div id="Map">
+    <ion-view>
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="Test()">
+            </ion-refresher>
+            <div class="list list-inset">
+                <!--  <button class="button buttonListView"> -->
+                <a ng-click="goToKaseyDinner()" class="already-loyalbonus button buttonListView {{ businessDetailId() }} ">ListView</a>
+                <!-- </button> -->
+                <!--<label class="item item-input">
+                    <i class="icon ion-search placeholder-icon color-change"></i>
+                    <input type="text" placeholder="Search">
+                </label>-->
+
+            </div>
+            <div id='map-canvas'></div>
+        </ion-content>
+    </ion-view>
+</div>

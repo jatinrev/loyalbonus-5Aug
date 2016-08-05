@@ -1,0 +1,100 @@
+<div id="Cart">
+    <ion-view>
+        <ion-content overflow-scroll="true">
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()"></ion-refresher>
+            <div id="logo">                
+                <div class="detail-banner-left">
+                    <!--  <div class="detail-banner-info">                        
+                        <div class="detail-verified {{ businessData.StatusName == 'Live' ? '' : 'redBack' }}">{{ businessData.StatusName == "Live" ? "Verified" : "Not Verified" }}</div>
+                    </div> -->
+                    <!-- /.detail-banner-info -->
+                    <h2 class="margin-top-0 detail-title text-left">{{ businessData.Name }}</h2>
+                    <div class="detail-banner-address">
+                         {{ businessData.Address1 }}
+                    </div>
+                    <!-- /.detail-banner-address -->
+                    <div class="row reviews-star" ng-bind-html=helperFunction.reviews(businessData.Reviews) style="padding-left:0"></div>
+                    <!-- /.detail-banner-rating -->
+                </div>
+            </div>
+            <div ><!-- ng-repeat-once="(key, productDetail) in datadeal " -->
+                <div class="slider image col center main_cart_prdct_img" >
+                    <!-- <div ng-repeat="d in heading_image">{{d.ImageName}}</div> -->
+                    <img ng-repeat="d in heading_image" class="slide slide-animation nonDraggableImage" ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{d.ImageName}}" id="imgheight">
+                    <a class="arrow prev" ng-click="nextSlide()" ng-hide="heading_image.length == 1"><i class="ion-chevron-left"></i></a>
+                    <a class="arrow next" ng-click="prevSlide()" ng-hide="heading_image.length == 1"><i class="ion-chevron-right"></i></a>
+                </div>
+                <div class="col center">
+                    <span zoom-src="{{ datadeal.ProductImages[currentIndex].ImageName }}" zoom-view class="Enlarge"><i class="ion-android-add-circle" aria-hidden="true"></i >Enlarge </span>
+                </div>
+                <div class="col center">
+                    <span class="shoppingdesciptionnew"> {{ datadeal.ProductName }} </span>
+                </div>
+                <div class="col center">
+                    <span class="shoppingdesciptioncolor33cd5f"> ₦ {{ datadeal.PriceAfterBusinessDiscount }}</span>
+                </div>
+                <div class="col center">
+                    <div class="col-50 center">
+                        <span class="Cartloyality"> {{ datadeal.LoyalDiscount}} % Loyalty Discount</span>
+                    </div>
+                    <div class="col-50 center">
+                        <span class="cartredcolornumber color_red line_through">₦ {{ datadeal.Price }}</span>
+                    </div>
+                </div>
+                
+                <div class="col center">
+                    <i class="ion-social-facebook social_icon_style background_facebook_blue" ng-click="product_detail.share_facebook()"></i>
+                    <i class="ion-social-twitter social_icon_style background_twitter_blue" ng-click="product_detail.share_twitter()"></i>
+                    <i class="ion-social-googleplus social_icon_style background_gmail_blue" ng-click="product_detail.share_google()"></i>
+                </div>
+                <div class="padding">
+                    <div class="col cartdescripttion margin-bottom-10" ng-class="isItemShown(2) ? 'item-expand active' : 'item-expand inactive'">
+                        <h4 class="titlecart col">Description</h4>
+                        <p class="textcart col" ng-bind-html="datadeal.Description"></p>
+                    </div>
+                    <div ng-show="datadeal.Description.length > 350" ng-click="toggleItem(2)" class="item-expand-footer padding">
+                        <i ng-class="isItemShown(2) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i> {{ isItemShown(2) ? 'Less' : 'More' }}
+                    </div>
+                </div>
+                <div class="padding" ng-hide="datadeal.StorePolicy == null">
+                    <div class="col cartdescripttion" ng-class="isItemShown(1) ? 'item-expand active' : 'item-expand inactive'">
+                        <h4 class="titlecart col">Store Policy</h4>
+                        <p class="textcart col pull_left" ng-bind-html="datadeal.StorePolicy"></p>
+                    </div>
+                    <div ng-show="datadeal.StorePolicy.length > 300" ng-click="toggleItem(1)" class="item-expand-footer padding">
+                        <i ng-class="isItemShown(1) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i> {{ isItemShown(1) ? 'Less' : 'More' }}
+                    </div>
+                </div>
+                
+                <div class="padding">
+                    <!-- <img src="img/shipping_detail.PNG"> -->
+                    <div class="row borderbottome2e2e2">
+                        <div class="col-10 margintop5">
+                            <img src="img/shipping.png">
+                        </div>
+                        <div class="col-90 margintop16 ">
+                            <label class="shippingWeight">Shipping:
+                            <span class="freedays">FREE Two Day Get it by 4/15/2016 for 50301 <a class="editcolor">Edit </a> Order by 1:00 p.m. CT on 4/13/2016</span></label>
+                        </div>
+                    </div>
+                    <div class="row bordertope2e2e2">
+                        <div class="col-10 margintop5">
+                            <img src="img/store.png">
+                        </div>
+                        <div class="col-90 margintop16 ">
+                            <label class="storePickup">Store Pickup:</label>
+                            <span class="col-80 freedays">Available at most stores <a class="checkstore">Check Stores </a> <label class="learn">Learn more about store pickup</label></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </ion-content>
+        <ion-footer-bar class="footer-bar-custom bar-positive add_cart_btn" ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">
+            <div class="col center">
+                    <button class="button btninfo add_cart_btn" ng-click="addtoCart()"> Add To Cart</button>
+            </div>
+            <!-- <div class="title center" on-tap="scanBarcode(businessData)">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div> -->
+        </ion-footer-bar>
+    </ion-view>
+</div>

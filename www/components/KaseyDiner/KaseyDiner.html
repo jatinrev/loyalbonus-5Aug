@@ -1,0 +1,117 @@
+<div id="kaseydiner">
+    <ion-view>
+        <ion-content>
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
+            </ion-refresher>
+            <div id="logo">
+                <a ng-click="datadeal.reviewmaster[0].IsLoved == true ? Lovedpage.loadKaro(false) : Lovedpage.loadKaro(true)" class="already-giveHeart {{ isAndroid == true ? '' : 'addclassiosisloved' }} {{ userPresent() == 1 ? '' : 'display_none_imp' }} button buttonListViewLove {{ datadeal.reviewmaster[0].IsLoved == true ? 'loveU':''}}"><img class="kaseydinnerimages" src="img/giveheatimg.png">{{ datadeal.reviewmaster[0].IsLoved == true ? 'I love it':'Give heart'}}
+                </a>
+                <img ng-src="{{ datadeal.Image == null ? 'img/placeholder.jpg' : datadeal.Image }}">
+                <div class="reviews-star" ng-bind-html=helperFunction.reviews(datadeal.Reviews)></div>
+            </div>
+            <div ng-show="userPresent() == 1 ? (membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true) ? false : true) : false" class="bar-balanced newloyalcheckbox">
+                <div class="col-90 center col-offset-20">
+                    <label class="checkbox" ng-repeat="(key, value) in myloyalbonus.printTick(datadeal.TotalVisits, datadeal.BonusDiscountToCust)">
+                        <img src="img/tick.png">
+                    </label>
+                    <label class="round" ng-repeat="(key, value) in myloyalbonus.printNonTick(datadeal.TotalVisits, datadeal.BonusDiscountToCust)">
+                        <span class="round-span">{{datadeal.LoyalDiscount}}%</span>
+                        <p>off</p>
+                    </label>
+                    <label class="checkbox" ng-click="showPopupMy(datadeal.BonusDiscount)" ng-repeat="(key, value) in myloyalbonus.printGift(datadeal.TotalVisits, datadeal.BonusDiscountToCust)">
+                        <img src="img/icon.png">
+                    </label>
+                    <label class="checkbox" ng-click="showPopupMy(datadeal.BonusDiscount)" ng-repeat="(key, value) in myloyalbonus.printGiftDiscount(datadeal.TotalVisits, datadeal.BonusDiscountToCust)">
+                        <img src="img/discountwithtick.png">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-50">
+                    <ion-list>
+                        <ion-item class="wth-border"><i class="ion-ios-heart"></i><strong>{{ datadeal.Lovecount }}</strong><span class="color-chnage">people love it</span>
+                        </ion-item>
+                        <ion-item class="wth-border"><i class="ion-ios-star-outline"></i><strong>{{ datadeal.Reviews }}/ 5</strong><span class="color-chnage">from {{ datadeal.TotalReviewsGiven }} reviews</span>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="col-50">
+                    <ion-list>
+                        <ion-item class="wth-border border-bottom">
+                            <i class="ion-load-d"></i> Loyal Discount:{{ datadeal.LoyalDiscount }}%
+                        </ion-item>
+                        <ion-item class="wth-border border-bottom" ng-click="showPopup(datadeal.BonusDiscount)"><img style="position: relative; right: 3px;" src="img/bonus.png"> Bonus Discount:{{ datadeal.BonusDiscount }}</ion-item>
+                        <ion-item class="wth-border newday" ng-click="showPopupFor(datadeal.TotalReceivedBonus)">Visit {{ datadeal.BonusDiscountToCust }} times for Bonus.</ion-item>
+                    </ion-list>
+                </div>
+            </div>
+
+            <div class="row loyal-btdinner">
+                <h2 class="loyal-kaseydiner">{{ datadeal.Name }}</h2>
+            </div>
+            <div class="row" ng-class="isItemShown(1) ? 'item-expand active' : 'item-expand inactive'">
+                <p class="loyal-kaseydinerpara">{{ datadeal.Description }}</p>
+            </div>
+            <div ng-show="datadeal.Description.length > 300" ng-click="toggleItem(1)" class="item-expand-footer">
+                <i ng-class="isItemShown(1) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i> {{ isItemShown(1) ? 'Less' : 'More' }}
+            </div>
+
+            <div ng-show="userPresent() == 1 ? true : false" class="row paddingLeftRight-0">
+                <button class="button button-block button-positive" ng-click="helperFunction.write_review(datadeal.BusinessID, datadeal.Image == null ? 'img/placeholder.jpg' : datadeal.Image, datadeal.reviews)">Write a review</button>
+            </div>
+            <!-- <div class="padding"> -->
+            <!-- <div class="newrow" ng-hide="newScope.showMe">{{ newScope.Lat == null ? 'Address not available' : newScope.Lat }}</div> -->
+            <!-- </div> -->
+            <div class="row paddingLeftRight-0">
+                <ng-map zoom="8" center="{{newScope.center}}" style="width:100%">
+                    <marker ng-repeat="value in newScope.positions track by value" position="{{value}}"></marker>
+                </ng-map>
+            </div>
+            <div class="icon_kasy" ng-repeat="value in newScope.address">
+                <img class="icon_kasy" src="img/121.png">
+                <span class="icon_kasy_new">{{ value }}</span>
+            </div>
+            <div ng-show="newScope.center ? false : true" class="row">
+                <div class="newrow">Address not available</div>
+            </div>
+
+            <ion-list class=center>
+                <p class="row margin-top-10" ng-hide="myloyalbonus.datadealProd.length < 1">See Store to purchase item(s)</p>
+                <button class="button button-balanced margin-bottom-30" ng-hide="myloyalbonus.datadealProd.length < 1" ui-sref="home.product({ BusinessId : state_on() })">Enter Store</button>
+            </ion-list>
+            <div ng-repeat="(key, prod) in myloyalbonus.datadealProd">
+                <div id="logo">
+                    <img ng-src="{{ prod.ProductImageUrl == null ? 'img/placeholder.jpg' : prod.ProductImageUrl}}" ui-sref="home.productDetail({BusinessId: state_on(), Productid: prod.ProductId})">
+                </div>
+                <div class="row">
+                    <div class="col-50">
+                        <ion-list class="disable-user-behavior">
+                            <div class="list">
+                                <ion-item class="wth-border item ng-binding colorblack"> ₦ {{ prod.Price }}</ion-item>
+                            </div>
+                        </ion-list>
+                    </div>
+                    <div class="col-50">
+                        <ion-list class="disable-user-behavior">
+                            <div class="list">
+                                <ion-item class="wth-border item ng-binding colorblack alignright "> Loyality Discount</ion-item>
+                                <ion-item class="wth-border item ng-binding color33cd5f"> {{ prod.LoyalDiscount }}</ion-item>
+                            </div>
+                        </ion-list>
+                    </div>
+                </div>
+                <div class="col-100">
+                    <ion-item class="wth-border item ng-binding color42ae9d"> {{prod.ProductName }}
+                    </ion-item>
+                </div>
+            </div>
+            <div class="loadingButton margin-top-15" ng-show="myloyalbonus.noMoreProductAvailable">No Product Record</div>
+            <ion-infinite-scroll on-infinite="invitelistnewBusinessproduct();" distance="1%" ng-if="!myloyalbonus.noMoreProductAvailable"></ion-infinite-scroll>
+        </ion-content>
+        <ion-footer-bar class="footer-bar-custom bar-positive" ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">
+            <div class="title" on-tap="scanBarcode(datadeal)">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div>
+            <!-- ng-show="userPresent() == 1 ? true : false" -->
+            <!-- <div ng-hide="userPresent() == 1 ? true : false" class="title" ui-sref="signin">Login</div> -->
+        </ion-footer-bar>
+    </ion-view>
+</div>
