@@ -4,8 +4,8 @@
         <ion-content style="top: 0;">
 
             <ion-item class="rtblock" ng-show="home_var.userPresent() == 1 ? true : false">
-                <h1 class="rttitle">{{ userDetails.FullName == '' ? 'Null' : userDetails.FullName }}</h1>
-                <h1 class="rttitleEmail">{{ userDetails.Email == '' ? 'Null' : userDetails.Email }}</h1>
+                <h1 class="rttitle">{{ userDetails.FullName == '' ? 'empty' : userDetails.FullName }}</h1>
+                <h1 class="rttitleEmail">{{ userDetails.Email == '' ? 'empty' : userDetails.Email }}</h1>
             </ion-item>
             <ion-list ng-show="home_var.userPresent() == 0 ? true : false">
                 <ion-item class="col text-center" menu-toggle ng-click="redirect_urls.home()"><img class="leftsidelogo" src="img/logo.png"></ion-item>
@@ -61,7 +61,7 @@
                     ">
                 </button>
             </div>
-            <div class="title center height_37 {{ isAndroid_global ? padding_left_80 : '' }}">
+            <div ng-class="isAndroid_global ? 'margin_left_75' : ''" class="title center height_37">
                 <!-- <form class="item item-input new_margin" ng-show="showMe" ng-submit="home_var.homesearch.setValue(home_var.homesearch.value)">
                     <input type="text" ng-model="home_var.homesearch.value" placeholder="Search for restaurants">
                     <span class="ion-search paddingLR10" on-tap="home_var.homesearch.setValue(home_var.homesearch.value)"></span>

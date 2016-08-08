@@ -219,6 +219,7 @@ angular.module('LoyalBonus')
 
 
   var isIOS = ionic.Platform.isIOS();
+  console.log('ioss', isIOS);
   
 
   $scope.redirect_urls = {

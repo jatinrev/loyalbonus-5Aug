@@ -49,6 +49,7 @@
 
 .margin-left-15 { margin-left:15}
 .mgtop20 { margin-top: 20px;}
+.margin_left_75 { margin-left: 75px !important; }
 /* top 15px */ #restaurants .margin-top-10 { margin-top:15px; }
 #restaurants .search_css    { top: 50px; }
 

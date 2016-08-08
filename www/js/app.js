@@ -5,7 +5,7 @@ var globaldata = {
 angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabSlideBox','LoyalBonus.services', 'ngCordova', 'angular-carousel', 'ngOpenFB', 'ngMap','ngAnimate','ngTouch', 'ionic-zoom-view'])
 
 .run(function ($ionicPlatform, ngFB, $rootScope, $cordovaPreferences, update_user_details, $cordovaNetwork, showRating, popUp) {
-  /*Temp Data*/
+  /*Temp Data*
     $rootScope.userDetails = {
       userId       : 236,// jatin = 263, karan = 236, dvijesh = 282
       Email        : 'karan.xpress@gmail.com', // 'karan.xpress@gmail.com', 'dvijesh@revinfotech.com',
@@ -96,7 +96,7 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
         } else if(res == 0 ) {
             $cordovaPreferences.remove('userId', 'dict');
             $rootScope.userDeatils = {};
-            /***End : removing from preference***/
+            /*** End : removing from preference ***/
             $state.go("signin");
         } else {
             popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Failed!</p><p class="text-align-center margin-bottom-0">Sorry for inconvinence, we could not update visit. Please scan again.</p>', 0)
