@@ -44,7 +44,7 @@ angular.module('LoyalBonus')
 
 		$http({
 			method: 'POST',
-			url: 'http://beta2.loyalbonus.com/webapi/AppLogin/Login',
+			url: globaldata.prefix+'webapi/AppLogin/Login',
 			headers: { 'Content-Type': 'application/json' },
 			data: JSON.stringify({ Email : $scope.signIn.username, Password : $scope.signIn.password })
 			}).then(function(response) {

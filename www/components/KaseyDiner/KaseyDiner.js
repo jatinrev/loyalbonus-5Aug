@@ -313,7 +313,6 @@ angular.module('LoyalBonus')
 
 
         $scope.helperFunction.reviews = function (number) {
-            
             return showRating.showRatingImages(number);
         }
 

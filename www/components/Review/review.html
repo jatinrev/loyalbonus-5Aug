@@ -8,13 +8,13 @@
             <div>
                 <div id="logo">
                     <img class="logoImage" ng-src="{{reviewVar.businessImg()}}">
-                    <div class="reviews-star" ng-bind-html=reviewVar.reviews(2)></div>
+                    <div class="reviews-star" ng-bind-html=reviewVar.reviews(reviewVar.businessRating())></div>
                 </div>
                 <div class="bar-balanced newloyalcheckbox">
                     <p class="h1 title">Customer Review</p>
                 </div>
                 <div class="row border-review">
-                    <div class="col-45" ng-bind-html=reviewVar.reviews(2)>
+                    <div class="col-45" ng-bind-html=reviewVar.reviews(reviewVar.businessRating())>
                     </div>
                     <div class="rating">
                         <strong>{{ reviewVar.businessRating() }}/ 5</strong>

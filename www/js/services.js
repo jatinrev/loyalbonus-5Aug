@@ -4,7 +4,7 @@ angular.module('LoyalBonus.services', [])
 			post: function (url, data) {
 				return $http({
 					method: 'POST',
-					url: "http://beta2.loyalbonus.com/" + url,
+					url: globaldata.prefix + url,
 					headers: {
 						'Content-Type': 'application/json; charset=utf-8'
 					},
@@ -12,14 +12,14 @@ angular.module('LoyalBonus.services', [])
 				});
 			},
 			get : function (url, data) {
-				return $http.get("http://beta2.loyalbonus.com/" + url, {
+				return $http.get(globaldata.prefix + url, {
 					params: data
 				});
 			},
 			put : function (url, data) {
 				return $http({
 					method  : 'PUT',
-					url     : 'http://beta2.loyalbonus.com/' + url,
+					url     : globaldata.prefix + url,
 					headers : {
 					  	'Content-Type': 'application/json; charset=utf-8'
 					},

@@ -59,6 +59,7 @@ angular.module('LoyalBonus')
 				return +$state.params.businessRating;
 			}
 		};
+		console.log($state.params);
 
 		$scope.Test = function () {
             return refreshTest.showrefreshtest($state.current.name, $state.params);

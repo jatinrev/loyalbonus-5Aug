@@ -783,7 +783,7 @@ angular.module('LoyalBonus')
         gtpay_tranx_curr     = "566",
         gtpay_tranx_amt, //*100, // amt in kodo
         gtpay_cust_id        = $rootScope.userDetails.userId,
-        gtpay_tranx_noti_url = "http://beta2.loyalbonus.com/UserCart/OrderConfirmationMobile",  //"http://beta2.loyalbonus.com/UserCart/OrderConfirmationMobile", "http://revmobile.devserver.co.in/test_2.php", "http://localhost/ionic/gtPay.php",
+        gtpay_tranx_noti_url = globaldata.prefix+"UserCart/OrderConfirmationMobile",  //"http://beta2.loyalbonus.com/UserCart/OrderConfirmationMobile", "http://revmobile.devserver.co.in/test_2.php", "http://localhost/ionic/gtPay.php",
         hashkey              = "D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F";
 
         $scope.gtbank = {
