@@ -50,7 +50,7 @@
                 <div class="padding">
                     <div class="col cartdescripttion margin-bottom-10" ng-class="isItemShown(2) ? 'item-expand active' : 'item-expand inactive'">
                         <h4 class="titlecart col">Description</h4>
-                        <p class="textcart col" ng-bind-html="datadeal.Description"></p>
+                        <p class="textcart col child_float" ng-bind-html="datadeal.Description"></p>
                     </div>
                     <div ng-show="datadeal.Description.length > 350" ng-click="toggleItem(2)" class="item-expand-footer padding">
                         <i ng-class="isItemShown(2) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i> {{ isItemShown(2) ? 'Less' : 'More' }}

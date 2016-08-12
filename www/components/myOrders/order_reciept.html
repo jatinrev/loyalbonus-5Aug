@@ -13,6 +13,7 @@
                 <div class="row paddingLeftRight-0 responsive-sm">
                     <p class="col margin-bottom-0" style="margin:0;">Ordered on {{ order_reciept.datadeal.OrderDate | date:'yyyy-MM-dd' }}</p>
                     <p class="col margin-bottom-0">Order# {{ order_reciept.datadeal.OrderNo }}</p>
+                    <p class="col margin-bottom-0"><button ng-click="order_reciept.print_label(order_reciept.datadeal.OrderId)">Print reciept</button></p>
                 </div>
                
                 <div style="border-top: 1px solid #ccc;">
@@ -24,17 +25,17 @@
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.FullName }}</p>
                         <p class="col margin-bottom-0"><img ng-src="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? 'img/gtpay.png' : 'img/paystack.png' }}" width="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? '50px' : '80px' }}"></p>
-                        <p class="col margin-bottom-0">Item Subtotal: N {{ order_reciept.datadeal.OrderSubTotal }}</p>
+                        <p class="col margin-bottom-0">Item Subtotal: ₦ {{ order_reciept.datadeal.OrderSubTotal }}</p>
                     </div>
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerAddress }}</p>
                         <p class="col margin-bottom-0"></p>
-                        <p class="col margin-bottom-0">Shipping Cost: N {{ order_reciept.datadeal.ShippingAmount }}</p>
+                        <p class="col margin-bottom-0">Shipping Cost: ₦ {{ order_reciept.datadeal.ShipViaDHLCharges }}</p>
                     </div>
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerArea }}</p>
                         <p class="col margin-bottom-0"></p>
-                        <p class="col margin-bottom-0">Grand Total: N {{ order_reciept.datadeal.OrderAmount }}</p>
+                        <p class="col margin-bottom-0">Grand Total: ₦ {{ order_reciept.datadeal.OrderAmount }}</p>
                     </div>
                 </div>
                 
@@ -57,10 +58,10 @@
                     </div>
                     <div class="col margin-bottom-0">
                         <p><b>{{ value.ProductName }}</b></p>
-                        <p>{{ value.ProductDescription }}</p>
+                        <p ng-bind-html="value.ProductDescription"></p>
                     </div>
                     <div class="col margin-bottom-0">
-                        <b>Price</b><span> N: {{ value.PriceAfterDiscount }} </span>
+                        <b>Price</b><span> ₦: {{ value.PriceAfterDiscount }} </span>
                         <p><b>Quantity</b> : {{ value.Qty }}</p>
                     </div>
                 </div>

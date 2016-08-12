@@ -1,6 +1,7 @@
 <div id="kaseydiner">
     <ion-view>
-        <ion-content>
+        <ion-content ng-hide="datadeal"><p class="center">No record found.</p></ion-content>
+        <ion-content ng-show="datadeal">
             <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
             </ion-refresher>
             <div id="logo">
@@ -109,9 +110,7 @@
             <ion-infinite-scroll on-infinite="invitelistnewBusinessproduct();" distance="1%" ng-if="!myloyalbonus.noMoreProductAvailable"></ion-infinite-scroll>
         </ion-content>
         <ion-footer-bar class="footer-bar-custom bar-positive" ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">
-            <div class="title" on-tap="scanBarcode(datadeal)">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div>
-            <!-- ng-show="userPresent() == 1 ? true : false" -->
-            <!-- <div ng-hide="userPresent() == 1 ? true : false" class="title" ui-sref="signin">Login</div> -->
+            <div class="title" ng-show="datadeal" on-tap="scanBarcode(datadeal)">{{ userPresent() == 1 ? 'SCAN NOW' : 'LOGIN' }}</div>
         </ion-footer-bar>
     </ion-view>
 </div>

@@ -11,14 +11,13 @@ angular.module('LoyalBonus')
                    .then(function (res) {
                         console.log('Cart By Business Data');
                         console.log(res);
-                        return  ajaxCall
+                        return ajaxCall
                         .post('webapi/UserCartAPI/ShoppingCart', {
                             cartId          : res.CartId,
                             businessStoreId : res.BusinessStoreId,
                             BusinessID      : businessId,
                             ProductID       : 61,
                             userid          : $rootScope.userDetails.userId
-
                         })
                         .then(function(res) {
                             console.log(res);
@@ -121,8 +120,6 @@ angular.module('LoyalBonus')
             .get('webapi/UserCartAPI/CheckOut?cartId='+cartId+'&businessStoreId='+businessStoreId+'&BusinessID='+BusinessID+'&ProductID='+ProductID+'&userId='+$rootScope.userDetails.userId, {})
             .then(function(res) {
                 loading.stop();
-
-                console.log(res.data.Data.SubTotal)
                 //UPDATE TOTAL AND SUBTOTAL, BECAUSE CHECKOUT GIVES DIFFERENT RESULT.
                 saveData.set('business_cart_priceAfterDiscount', res.data.Data.SubTotal)
                 return res.data.Data;
@@ -163,10 +160,12 @@ angular.module('LoyalBonus')
             }
         }
         $scope.cart         = {
+            shipping_dhl           : 0
+            , shipping_dhl_charges : 0
             /**
              * To change quantity of the product.
              */
-            quantity_change : function (cartDetailId, productId, qty) {
+            , quantity_change : function (cartDetailId, productId, qty) {
                 console.log(qty);
                 if( qty != undefined && +qty != 0 ) {
                     loading.start();
@@ -258,6 +257,24 @@ angular.module('LoyalBonus')
                         $scope.cart.paystack_auth_code = res.data.Data;
                         // console.log(res);
                     });
+
+                    $scope.$watch('cart.shipping_dhl', function() {
+                        console.log($scope.cart.shipping_dhl);
+                        for(i in $scope.cart.checkout_data.DHLShippingOptionList) {
+                            if($scope.cart.checkout_data.DHLShippingOptionList[i].ShippingOptionId == $scope.cart.shipping_dhl) {
+                                loading.start();
+                                $scope.cart
+                                .change_dhl($scope.cart.checkout_data.DHLShippingOptionList[i], function(res) {
+                                    loading.stop();
+                                    $scope.cart.shipping_dhl_charges = res.shipping_charges;
+                                    saveData.set('business_cart_priceAfterDiscount', +$scope.cart.checkout_data.SubTotal + +$scope.cart.shipping_dhl_charges);
+                                });
+                                break;
+                            }
+                        }
+                        // $scope.cart.change_dhl()
+                    }, true);
+
                 });
             }
             , payment : function(paymentMethod) {
@@ -570,8 +587,71 @@ angular.module('LoyalBonus')
                     });
                 });
             }
+            , change_dhl : function(DHL_options, output) {
+                /*
+                domainname/webapi/UserCartAPI/UpdateShipViaDHLCharges
+                with parameters as in screenshot and you will get response like the one in screenshot
+                Parameters to send in model : 
+                    1. cartId(Guid)
+                    2. userId(int)
+                    3. quantity(int)
+                    4. chargeVal(decimal) --  charges associated with selected DHL shipping option
+                    5. checkedOption(string)
+                    6. productId(int)
+                in response, you will get :
+                    1. BasePrice :  total price of product selected(quantity * price)
+                    2. TotalPrice  :  total price including DHL charges
+                    3. priceAfterDiscount :  it is price of individual item after discount
+                    4. quanity
+                    5. ShippingChargesViaDHL = chargeVal
+                 */
+                var productId    = '',
+                shipping_charges = 0,
+                loop_length      = $scope.cart.data.UserCartDetails.length,
+                counter          = 1;
+                console.log($scope.cart.data.UserCartDetails);
+                console.log(DHL_options);
+                
+                for( i in $scope.cart.data.UserCartDetails ) {
+                    productId          = $scope.cart.data.UserCartDetails[i].ProductId;
+                    business_cart_size = $scope.cart.data.UserCartDetails[i].Qty;
+                    ajaxCall
+                    .post('webapi/UserCartAPI/UpdateShipViaDHLCharges', {
+                        cartId        : $scope.cart.checkout_data.CartId,
+                        userId        : $rootScope.userDetails.userId,
+                        quantity      : business_cart_size,
+                        chargeVal     : DHL_options.ShippingChargeAmount,
+                        checkedOption : DHL_options.ShippingOptionName,
+                        productId     : productId
+                    })
+                    .then(function(res) {
+                        shipping_charges = +shipping_charges + +res.data.Data.ShippingChargesViaDHL;
+                        if( counter == loop_length ) {
+                            output({ shipping_charges : shipping_charges });
+                        }
+                        counter++;
+                    });
+                }
+
+
+                /*return ;
+                return ajaxCall
+                .post('webapi/UserCartAPI/UpdateShipViaDHLCharges', {
+                    cartId        : $scope.cart.checkout_data.CartId,
+                    userId        : $rootScope.userDetails.userId,
+                    quantity      : +saveData.get('business_cart_size'),
+                    chargeVal     : chargeVal,
+                    checkedOption : checkedOption,
+                    productId     : productIds
+                })
+                .then(function(res) {
+                    console.log(res);
+                    return res;
+                });*/
+            }
         };
         // $scope.cart
+
 
         var address_function = {
             set_default_address : function(addressId) {
@@ -997,7 +1077,6 @@ angular.module('LoyalBonus')
         $scope.isAndroid = ionic.Platform.isAndroid();
 
         active_controller.set('ShoppingCartController');
-
 
         /*ajaxCall
         .post('UserCart/OrderConfirmationMobile', {

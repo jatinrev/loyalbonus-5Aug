@@ -1054,3 +1054,4 @@ h4.membershipClass
 .platform-ios #myOrders .scroll-content {
     top : 70px;
 }
+.child_float p { float: left; }

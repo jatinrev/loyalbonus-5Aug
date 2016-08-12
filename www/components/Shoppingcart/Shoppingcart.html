@@ -1,4 +1,4 @@
-<div id="Shoppingcart">
+<div id="Shoppingcart" ">
     <ion-view>
         <ion-content>
             <ion-refresher pulling-text="Pull to refresh..." on-refresh="Test()">
@@ -37,7 +37,7 @@
                         <b>1. Shipping to:</b>
                     </div>
                     <div class="col">
-                        {{ (cart.checkout_data.UserDefaultAddress.StreetAddress==null ? '':cart.checkout_data.UserDefaultAddress.StreetAddress+', ')+(cart.checkout_data.UserDefaultAddress.City==null ? '':cart.checkout_data.UserDefaultAddress.City) }}
+                        {{ (cart.checkout_data.DefaultUserAddress.StreetAddress==null ? '':cart.checkout_data.DefaultUserAddress.StreetAddress+', ')+(cart.checkout_data.DefaultUserAddress.City==null ? '':cart.checkout_data.DefaultUserAddress.City) }}
                     </div>
                     <div class="col text-right" ng-click="cart.show_address_pop()">
                         <span class="ion-chevron-right"></span>
@@ -83,15 +83,22 @@
                         <p style="font-weight: bold; margin-top: 10px;">3. Shipping:<br>&nbsp;&nbsp;&nbsp;(via DHL)</p>
                     </div>
                     <div class="col">
-                            <div class="row">
-                                <input type="radio"  style="margin-top: 4px; margin-right:10px;">
-                                <label >EXPRESS DOMESTIC (2 days)<br>2520.00</label>
-
+                        <div class="row" ng-repeat="(key, value) in cart.checkout_data.DHLShippingOptionList">
+                            <div class="col col-10">
+                                <input type="radio" id="dhl_shipping_select{{ value.ShippingOptionId }}" name="shipping_dhl" ng-model="cart.shipping_dhl" ng-value="{{ value.ShippingOptionId }}" style="margin-top: 4px; margin-right:10px;">
                             </div>
-                            <div class="row">
-                                <input type="radio" style="margin-top: 4px; margin-right:10px;">
-                                <label >In Store Pickup</label>
+                            <div class="col">
+                                <label for="dhl_shipping_select{{ value.ShippingOptionId }}">{{ value.ShippingOptionName+' ('+value.TotalTransitDays+' day) ₦'+value.ShippingChargeAmount }}</label>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-10">
+                                <input type="radio" id="dhl_shipping_select0" name="shipping_dhl" ng-model="cart.shipping_dhl" value="0" style="margin-top: 4px; margin-right:10px;">
+                            </div>
+                            <div class="col">
+                                <label for="dhl_shipping_select0">In Store Pickup</label>
+                            </div>
+                        </div>
                     </div>
                     <!-- End : gtPayment -->
                 </div>
@@ -100,11 +107,11 @@
                     <b class="row margin-bottom-0 padding-top-zero " style="text-indent:5px">Order Summary</b>
                     <div class="row white_bg">
                         <div class="col margin-bottom-0 "><b>Items ({{ cart.business_cart_size() }}):</b></div>
-                        <div class="col margin-bottom-0 ">₦ {{ cart.totalPrice().price_after_discount_full }}</div>
+                        <div class="col margin-bottom-0 ">₦ {{ cart.checkout_data.SubTotal }}</div>
                     </div>
                     <div class="row white_bg">
                         <div class="col margin-bottom-0 "><b>Shipping & handling:</b></div>
-                        <div class="col margin-bottom-0 ">₦ 71689</div>
+                        <div class="col margin-bottom-0 ">₦ {{ cart.shipping_dhl_charges }}</div>
                     </div>
                      <div class="row white_bg">
                         <div class="col margin-bottom-0 "><b>Order Total:</b></div>
