@@ -1,5 +1,5 @@
 var globaldata = {
-  prefix : 'http://beta2.loyalbonus.com/'
+  prefix : 'http://loyalbonus.com/'
 };
 
 angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabSlideBox','LoyalBonus.services', 'ngCordova', 'angular-carousel', 'ngOpenFB', 'ngMap','ngAnimate','ngTouch', 'ionic-zoom-view'])
@@ -89,18 +89,18 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
   $rootScope.scanBarcode = function(businessObj) {
     scan_now.scan(businessObj)
     .then(function(res) {
-        console.log('barcode result');
-        console.log(res);
-        if( res == undefined ) {
-            refreshTest.showrefreshtest($state.current.name, $state.params);
-        } else if(res == 0 ) {
-            $cordovaPreferences.remove('userId', 'dict');
-            $rootScope.userDeatils = {};
-            /*** End : removing from preference ***/
-            $state.go("signin");
-        } else {
-            popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Failed!</p><p class="text-align-center margin-bottom-0">Sorry for inconvinence, we could not update visit. Please scan again.</p>', 0)
-        }
+      console.log('barcode result');
+      console.log(res);
+      if( res == undefined ) {
+          refreshTest.showrefreshtest($state.current.name, $state.params);
+      } else if(res == 0 ) {
+          $cordovaPreferences.remove('userId', 'dict');
+          $rootScope.userDeatils = {};
+          /*** End : removing from preference ***/
+          $state.go("signin");
+      } else {
+          popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Failed!</p><p class="text-align-center margin-bottom-0">Sorry for inconvinence, we could not update visit. Please scan again.</p>', 0)
+      }
     });
   }
   membership_api.check_membership();
