@@ -17,7 +17,7 @@
                     <div ng-repeat="d in print_data()" class="margin-top-15 margin-btm-15 white_bg">
                         {{ restaurants.demo }}
                         <div id="logo">
-                            <img ng-src="{{ d.Image == null ? 'img/placeholder.jpg' : d.Image }}" ng-click="open_detail_page(d.BusinessID)">
+                            <img ng-src="{{ d.Image == null ? 'img/placeholder.jpg' : d.Image }}" ng-click="open_detail_page(d.BusinessID, d.Image)">
                         </div>
                         <div class="row stake-house padding-all-zero">
                             <div class="col-50">

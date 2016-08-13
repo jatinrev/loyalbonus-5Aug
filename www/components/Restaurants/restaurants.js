@@ -136,9 +136,12 @@ angular.module('LoyalBonus', '')
         $scope.restaurants          = {};
         $scope.noMoreItemsAvailable = false;
 
-        $scope.open_detail_page = function (id) {
+        $scope.open_detail_page = function (id, image) {
             //console.log($scope.open_detail_page);
-            $state.go("home.kaseydiner", { id: id });
+            $state.go("home.kaseydiner", { 
+                id: id,
+                image : image 
+            });
         };
 
         $scope.Test = function () {

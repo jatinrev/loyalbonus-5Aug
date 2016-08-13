@@ -31,10 +31,21 @@ angular.module('LoyalBonus')
             loading.start();
             // if userId is not present
             if( typeof(userId) == 'undefined' || +userId == 0 ) {
+                // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetBusinessDetils?BusinessID=80
+                // old - webapi/BusinessMaster/GetBusinessbyID?BusinessId=  (old .net)
                 return ajaxCall
-                    .get('webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=' + businessId + '&UserId=', {})
+                    .get('webapi/BusinessMaster/GetBusinessbyID?BusinessId=' + businessId, {})
                     .then(function(res) {
                         loading.stop();
+                        // console.log(res);
+                        // res.data.Data[0];
+                        /*return {
+                            data : {
+                                Data : [
+                                    res.data.Data
+                                ]
+                            }
+                        }*/
                         return res;
                     }, function(error) {
                         loading.stop();
@@ -284,8 +295,9 @@ angular.module('LoyalBonus')
             businessVisit
                 .businessDetail($state.params.id, $rootScope.userDetails.userId)
                 .then(function (res) {
+                    console.log(res);
                     $scope.datadeal = res.data.Data[0];
-                    console.log( $scope.datadeal );
+                    // console.log( $scope.datadeal );
                     saveData.set('kaseyDinnerBusinessName', $scope.datadeal.Name);
                     //console.log($scope.datadeal);
                     return $scope.datadeal;

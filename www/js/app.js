@@ -1,5 +1,5 @@
 var globaldata = {
-  prefix : 'http://loyalbonus.com/'
+  prefix : 'http://beta2.loyalbonus.com/'
 };
 
 angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabSlideBox','LoyalBonus.services', 'ngCordova', 'angular-carousel', 'ngOpenFB', 'ngMap','ngAnimate','ngTouch', 'ionic-zoom-view'])
@@ -170,7 +170,7 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
 
       })
       .state("home.kaseydiner", {
-        url   : "kaseydiner/:id",
+        url   : "kaseydiner/:id/:image",
         cache : false,
         views : {
           "body": {
