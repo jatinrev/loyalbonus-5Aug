@@ -5,9 +5,9 @@ var globaldata = {
 angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabSlideBox','LoyalBonus.services', 'ngCordova', 'angular-carousel', 'ngOpenFB', 'ngMap','ngAnimate','ngTouch', 'ionic-zoom-view'])
 
 .run(function ($ionicPlatform, ngFB, $rootScope, $cordovaPreferences, update_user_details, $cordovaNetwork, showRating, popUp) {
-  /*Temp Data*
+  /*Temp Data*/
     $rootScope.userDetails = {
-      userId       : 236,// jatin = 263, karan = 236, dvijesh = 282
+      userId       : 438,// fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
       Email        : 'karan.xpress@gmail.com', // 'karan.xpress@gmail.com', 'dvijesh@revinfotech.com',
       FullName     : 'Karan', // 'Karan', dvijesh',
       userLocation : '6.461573,3.479404', //Karan_pass = test123
@@ -49,7 +49,6 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
       }
     })
     .error(function(error) {
-
     });
     /***End : checking storage***/
 
@@ -109,7 +108,6 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
 
 .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-      // $httpProvider.defaults.headers.common['Authorization'] = 'Basic lbonus:c0m3!n';
       $urlRouterProvider.otherwise("home/restaurants/");
       // $urlRouterProvider.otherwise("/signin/");
 
@@ -340,8 +338,5 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
       });
     }
 ]);
-// .run(function ($http) {
-//   $http.defaults.headers.common['Authorization'] = 'Basic lbonus:c0m3!n';
-// });
 
 

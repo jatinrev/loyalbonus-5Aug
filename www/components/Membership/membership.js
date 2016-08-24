@@ -20,11 +20,14 @@ angular.module('LoyalBonus')
         /*
           Method - Get : GetMembershipTypeByUserId
           [Parameters : userId]
+          url : webapi/MyAccountAPI/GetMembershipTypeByUserId?userId=123
+          new : http://beta2.loyalbonus.com/webapi/MyAccountAPI/GetMembershipTypeBy_UserId?userId=428
         */
         GetMembershipTypeByUserId : function () {
             return ajaxCall
-            .get('webapi/MyAccountAPI/GetMembershipTypeByUserId?userId='+$rootScope.userDetails.userId, {})
+            .get('webapi/MyAccountAPI/GetMembershipTypeBy_UserId?userId='+$rootScope.userDetails.userId, {})
             .then(function(res) {
+                console.log(res);
                 $scope.datadeal.UpdatePaymentMethod = res.data.Data;
                 return { res : res };
             });
@@ -76,9 +79,18 @@ angular.module('LoyalBonus')
                                 PaystackMessage        : paystack_message,
                                 promoFreeMonth         : ''
                             };
+                            /*
+                            Save_PayStackResponse_In_PaymentHistory
+                            var PaymentHistoryModel = {
+                                "membershipTypeId": "2"
+                                , "PaystackAuthCode": "AUTH_0n65a4q2", "transactionReferenceNo": "8592a7a4-8ad0-480d-ac1c-9dce00354747",
+                                "userId": "428", "PaystackCardType": "visa", "PaystackCCLastFour": "1381",
+                                "PaystackChannel": "card", "PaystackMessage": "Verification completed", "promoFreeMonth": ""
+                            }
+                             */
                             console.log(sava_paystack_data);
                             ajaxCall
-                            .post('webapi/MyAccountAPI/SavePayStackResponseInPaymentHistory', sava_paystack_data)
+                            .post('webapi/MyAccountAPI/Save_PayStackResponse_In_PaymentHistory', sava_paystack_data)
                             .then(function (res) {
                                 if( res.data.Data == true ) {
                                     popUp

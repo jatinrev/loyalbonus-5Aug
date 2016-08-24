@@ -13,7 +13,6 @@ angular.module('LoyalBonus')
                 });
         }
         function giveLove(businessId, userId, isLove) {
-            console.log(isLove);
             loading.start();
             return ajaxCall
             .post('webapi/BusinessMaster/BusinessGiveHeart',
@@ -32,9 +31,10 @@ angular.module('LoyalBonus')
             // if userId is not present
             if( typeof(userId) == 'undefined' || +userId == 0 ) {
                 // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetBusinessDetils?BusinessID=80
-                // old - webapi/BusinessMaster/GetBusinessbyID?BusinessId=  (old .net)
+                // webapi/BusinessMaster/GetBusinessbyID?BusinessId=  (old .net)
+                // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=2&UserId=
                 return ajaxCall
-                    .get('webapi/BusinessMaster/GetBusinessbyID?BusinessId=' + businessId, {})
+                    .get('webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=' + businessId + '&UserId=', {})
                     .then(function(res) {
                         loading.stop();
                         // console.log(res);
