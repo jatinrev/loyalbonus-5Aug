@@ -17,9 +17,9 @@ angular.module('LoyalBonus')
 
 	$scope.resetPass.rest = function () {
 		loading.start();
-		ajaxCall.post('webapi/AppLogin/ForgotPassword',
-					  {Email : frmrest.email.value }
-					  )
+		ajaxCall.post('webapi/AppLogin/ForgotPassword', {
+			Email : frmrest.email.value
+		})
 		.then(function (res) {
 			$scope.resetPass.msg = res.data.StatusMessage;
 			loading.stop();

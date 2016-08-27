@@ -32,7 +32,7 @@
                     <ion-list>
                         <ion-item class="wth-border"><i class="ion-ios-heart"></i><strong>{{ datadeal.lovecount == 0 ? "0" : datadeal.lovecount }}</strong><span class="color-chnage">people love it</span>
                         </ion-item>
-                        <ion-item class="wth-border"><i class="ion-ios-star-outline"></i><strong>{{ datadeal.TotalReviewsGiven == 0 ? "0" : datadeal.TotalReviewsGiven }}/ 5</strong><span class="color-chnage">from {{ datadeal.TotalUsersReviews == 0 ? "0" : datadeal.TotalUsersReviews }} reviews</span>
+                        <ion-item class="wth-border"><i class="ion-ios-star-outline"></i><strong>{{ datadeal.TotalReviewsGiven == 0 || datadeal.TotalReviewsGiven == null ? "0" : datadeal.TotalReviewsGiven }}/ 5</strong><span class="color-chnage">from {{ datadeal.TotalUsersReviews == 0 ? "0" : datadeal.TotalUsersReviews }} reviews</span>
                         </ion-item>
                     </ion-list>
                 </div>
@@ -58,7 +58,7 @@
             </div>
 
             <div ng-show="userPresent() == 1 ? true : false" class="row paddingLeftRight-0">
-                <button class="button button-block button-positive" ng-click="helperFunction.write_review(datadeal.BusinessID, datadeal.Image == null ? 'img/placeholder.jpg' : datadeal.Image, datadeal.Reviews)">Write a review</button>
+                <button class="button button-block button-positive" ng-click="helperFunction.write_review(datadeal.BusinessID, datadeal.Image == null ? 'img/placeholder.jpg' : datadeal.Image, datadeal.TotalReviewsGiven)">Write a review</button>
             </div>
             <!-- <div class="padding"> -->
             <!-- <div class="newrow" ng-hide="newScope.showMe">{{ newScope.Lat == null ? 'Address not available' : newScope.Lat }}</div> -->

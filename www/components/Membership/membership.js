@@ -184,7 +184,7 @@ angular.module('LoyalBonus')
             .then(function(res) {
                 if(res) { // if true then cancel membership.
                     return ajaxCall
-                    .get('webapi/MyAccountAPI/CancelMembership?userId='+$rootScope.userDetails.userId, {})
+                    .post('webapi/MyAccountAPI/CancelMembership?userId='+$rootScope.userDetails.userId, {})
                     .then(function (res) {
                         if(res.data.Data.status == true) {
                             popUp.msgPopUp("You membership was canceled.", 2)
@@ -203,9 +203,11 @@ angular.module('LoyalBonus')
           [Parameters : userId]
         */
         ContinueMembership : function () {
+            loading.start();
             return ajaxCall
-            .get('webapi/MyAccountAPI/ContinueMembership?userId='+$rootScope.userDetails.userId, {})
+            .post('webapi/MyAccountAPI/ContinueMembership?userId='+$rootScope.userDetails.userId, {})
             .then(function (res) {
+                loading.stop();
                 console.log(res);
                 var msg = '';
                 if( $rootScope.membership_data != undefined && $rootScope.membership_data.IsCancelledMembership) {

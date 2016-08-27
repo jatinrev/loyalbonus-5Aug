@@ -282,7 +282,7 @@ angular.module('LoyalBonus.services', [])
 		/**
 		 *	returns true when email is valid
 		 */
-		function email(emailAddposOptionss) {
+		function email(emailAddress) {
 			if (emailAddress != '') {
 				var emailPattern = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},*[\W]*)+$/;
 				if (!emailPattern.test(emailAddress)) {
