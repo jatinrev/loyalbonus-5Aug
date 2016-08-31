@@ -19,7 +19,7 @@ angular.module('LoyalBonus')
 	
 	$scope.signUp.submit = function() {
 		loading.start();
-		$scope.signUp.response = 'hello';
+		// $scope.signUp.response = 'hello';
 		$scope.signUp.signUp_button_visibility = false;
 		ajaxCall.post('webapi/AppLogin/Register',
 		{
