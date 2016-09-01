@@ -33,11 +33,12 @@ angular.module('LoyalBonus')
 			loading.stop();
 			if(response.data.StatusMessage == null) {
 				//success
-				window.localStorage['userId'] = response.data.Data.UserID;
-				update_user_details.get( response.data.Data.UserID );
+				// window.localStorage['userId'] = response.data.Data.UserID;
+				// update_user_details.get( response.data.Data.UserID );
 				console.log(response);
-				$scope.signUp.response = 'user created.';
-				$state.go("home.restaurants");
+				$scope.signUp.response = 'User created, please check you email and verify account.';
+				$scope.signUp.responseVisibility       = true;
+				// $state.go("home.restaurants");
 			} else {
 				$scope.signUp.signUp_button_visibility = true;
 				$scope.signUp.responseVisibility       = true;
