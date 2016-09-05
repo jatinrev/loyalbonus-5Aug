@@ -106,7 +106,7 @@
                     </ion-item>
                 </div>
             </div>
-            <div class="loadingButton margin-top-15" ng-show="myloyalbonus.noMoreProductAvailable">No Product Record</div>
+            <div class="loadingButton margin-top-15" ng-show="myloyalbonus.noMoreProductAvailable && myloyalbonus.datadealProd.length > 0">No Product Record</div>
             <ion-infinite-scroll on-infinite="invitelistnewBusinessproduct();" distance="1%" ng-if="!myloyalbonus.noMoreProductAvailable"></ion-infinite-scroll>
         </ion-content>
         <ion-footer-bar class="footer-bar-custom bar-positive" ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">

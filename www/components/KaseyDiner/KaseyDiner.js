@@ -297,6 +297,7 @@ angular.module('LoyalBonus')
                 .then(function (res) {
                     console.log(res);
                     $scope.datadeal = res.data.Data[0];
+                    loading.start();
                     // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetHeartbybusinessidUserid?BusinessId=214&UserId=448
                     return ajaxCall
                     .get('/webapi/BusinessMaster/GetHeartbybusinessidUserid', {
@@ -304,6 +305,7 @@ angular.module('LoyalBonus')
                         UserId : ( $rootScope.userDetails.userId == undefined ? '' : $rootScope.userDetails.userId )
                     })
                     .then(function(res) {
+                        loading.stop();
                         saveData.set('kaseyDinnerBusinessName', $scope.datadeal.Name);
                         $scope.datadeal.lovecount = res.data.Data[0].lovecount;
                         return $scope.datadeal;
@@ -373,6 +375,7 @@ angular.module('LoyalBonus')
                         }
                         console.log($scope.myloyalbonus.datadealProd);
                     }
+                    console.log('product listing', $scope.myloyalbonus.datadealProd);
                     $scope.$broadcast('scroll.infiniteScrollComplete'); // STOP PAGING LOADING
                 });
         }

@@ -260,16 +260,21 @@ angular.module('LoyalBonus')
 
                     $scope.$watch('cart.shipping_dhl', function() {
                         console.log($scope.cart.shipping_dhl);
-                        for(i in $scope.cart.checkout_data.DHLShippingOptionList) {
-                            if($scope.cart.checkout_data.DHLShippingOptionList[i].ShippingOptionId == $scope.cart.shipping_dhl) {
-                                loading.start();
-                                $scope.cart
-                                .change_dhl($scope.cart.checkout_data.DHLShippingOptionList[i], function(res) {
-                                    loading.stop();
-                                    $scope.cart.shipping_dhl_charges = res.shipping_charges;
-                                    saveData.set('business_cart_priceAfterDiscount', +$scope.cart.checkout_data.SubTotal + +$scope.cart.shipping_dhl_charges);
-                                });
-                                break;
+                        if( $scope.cart.shipping_dhl == 0 ) {
+                            $scope.cart.shipping_dhl_charges = 0;
+                            saveData.set('business_cart_priceAfterDiscount', +$scope.cart.checkout_data.SubTotal + +$scope.cart.shipping_dhl_charges);
+                        } else {
+                            for(i in $scope.cart.checkout_data.DHLShippingOptionList) {
+                                if($scope.cart.checkout_data.DHLShippingOptionList[i].ShippingOptionId == $scope.cart.shipping_dhl) {
+                                    loading.start();
+                                    $scope.cart
+                                    .change_dhl($scope.cart.checkout_data.DHLShippingOptionList[i], function(res) {
+                                        loading.stop();
+                                        $scope.cart.shipping_dhl_charges = res.shipping_charges;
+                                        saveData.set('business_cart_priceAfterDiscount', +$scope.cart.checkout_data.SubTotal + +$scope.cart.shipping_dhl_charges);
+                                    });
+                                    break;
+                                }
                             }
                         }
                         // $scope.cart.change_dhl()
@@ -760,6 +765,31 @@ angular.module('LoyalBonus')
                     $scope.address.address_selection_by_click = null;
                 });
             },
+            // http://beta2.loyalbonus.com/webapi/ChangeUserAddressApi/DeleteUserAddrerss?UserId=437&UserAddressId=18
+            delete_address : function(addressId, key) {
+                popUp
+                .confirm('Are you sure you want to delete this address')
+                .then(function (result) {
+                    if(result) {
+                        ajaxCall
+                        .post('webapi/ChangeUserAddressApi/DeleteUserAddrerss?UserId='+$rootScope.userDetails.userId+'&UserAddressId='+addressId , {})
+                        .then(function(res) {
+                            console.log(res);
+                            if(res.data.Data == true) {
+                                popUp
+                                .msgPopUp('Address deleted.', 1)
+                                .then(function() {
+                                    $scope.address.address_list.splice(key, 1);
+                                    console.log('Call address api.');
+                                });
+                            } else {
+                                popUp
+                                .msgPopUp('You cannot delete this address as this is your default address.');
+                            }
+                        });
+                    }
+                });
+            },
             // http://beta2.loyalbonus.com/webapi/ChangeUserAddressApi/GetAllState
             all_states_ajax : function() {
                 ajaxCall
@@ -797,9 +827,7 @@ angular.module('LoyalBonus')
             },
             set_address   : function(formInput) {
                 console.log($scope.address.edit_address_id);
-                if( $scope.address.selected_address_radio > 0 ) {
-                    address_function.set_default_address($scope.address.selected_address_radio);
-                } else if( 
+                if( 
                     ($scope.address.form.first_name != undefined && $scope.address.form.first_name != '') ||
                     ($scope.address.form.last_name != undefined && $scope.address.form.last_name != '') ||
                     ($scope.address.form.mobile_number != undefined && $scope.address.form.mobile_number != '') ||
@@ -809,7 +837,17 @@ angular.module('LoyalBonus')
                     ($scope.address.state_selected != undefined && $scope.address.state_selected != '') ||
                     ($scope.address.state_govt_area_selected != undefined && $scope.address.state_govt_area_selected != '') 
                 ) {
-                    if( $scope.address.selected_address_radio == 0 ) {
+                    if($scope.address.edit_address_id > 0) {
+                        // edit address here
+                        $scope.address.edit_address_input == 1;
+                        $scope.address.CreateAddress(formInput, $scope.address.edit_address_id)
+                        .then(function() {
+                            $scope.modal.remove()
+                            .then(function() {
+                                $scope.cart.check_out();
+                            });
+                        });
+                    } else if( $scope.address.selected_address_radio == 0 ) {
                         console.log('comming yo');
                         // create address.
                         $scope.address.CreateAddress(formInput, 0)
@@ -821,10 +859,8 @@ angular.module('LoyalBonus')
                         $scope.address.output = { status : 0, result : 'Please select the address if you want to save this address.' }
                         $scope.address.error_shown = 1;
                     }
-                } else if( $scope.address.edit_address_id > 0 ) {
-                    // edit address
-                    $scope.address.edit_address_input == 1;
-                    $scope.address.CreateAddress(formInput, $scope.address.edit_address_id);
+                } else if( $scope.address.selected_address_radio > 0 ) {
+                    address_function.set_default_address($scope.address.selected_address_radio);
                 }
                 $scope.address.error_shown = 0;
                 return ;
