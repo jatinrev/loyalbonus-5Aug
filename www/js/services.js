@@ -623,6 +623,7 @@ angular.module('LoyalBonus.services', [])
 		                console.log("An error happened -> " + error);
 		            })
 		            .then(function (qrCode) {
+		            	console.log(qrCode);
 		                loading.start();
 		                return businessVisit.give_visit($rootScope.userDetails.userId, qrCode, businessObj.BusinessID)
 			                .then(function (response) {

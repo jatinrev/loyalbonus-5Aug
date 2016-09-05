@@ -1039,9 +1039,11 @@ angular.module('LoyalBonus')
         Listing cart products
          */
         shoppingCart.get_cart_data = function() {
+            loading.start();
             return cart_functions
             .GetUserCartByBusinessId($state.params.businessId)
             .then(function (res) {
+                loading.stop();
                 if(res == 0) {
                     // Hide everything.
                     $scope.cart.hide_everything = true;
@@ -1059,6 +1061,8 @@ angular.module('LoyalBonus')
                 // HASH RUN ONLY WHEN SUBTOTAL AMOUNT READY.
                 var gtpay_tranx_amt                 = $scope.cart.totalPrice().price_after_discount; //*100, // amt in kodo
                 $scope.gtbank.gtpay_tranx_amt       = $scope.cart.totalPrice().price_after_discount;
+            }, function(error) {
+                alert('An error occured, please restart the app.');
             });
         }
         shoppingCart.get_cart_data()

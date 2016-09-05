@@ -7,7 +7,7 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
 .run(function ($ionicPlatform, ngFB, $rootScope, $cordovaPreferences, update_user_details, $cordovaNetwork, showRating, popUp) {
   /*Temp Data*/
     $rootScope.userDetails = {
-      userId       : 428,// fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
+      userId       : 437,// fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
       Email        : 'karan.xpress@gmail.com', // 'karan.xpress@gmail.com', 'dvijesh@revinfotech.com',
       FullName     : 'Karan', // 'Karan', dvijesh',
       userLocation : '6.461573,3.479404', //Karan_pass = test123
@@ -325,6 +325,7 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
           }
         }
       })
+
       .state("home.productDetail", {
         url   : "productDetail/:BusinessId/:Productid",
         cache : false,
