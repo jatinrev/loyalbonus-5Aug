@@ -25,7 +25,7 @@
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.FullName }}</p>
                         <p class="col margin-bottom-0"><img ng-src="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? 'img/gtpay.png' : 'img/paystack.png' }}" width="{{ order_reciept.datadeal.CustomerOrderPaymentInfo.PaymentMethodId == 2 ? '50px' : '80px' }}"></p>
-                        <p class="col margin-bottom-0">Item Subtotal: ₦ {{ order_reciept.datadeal.OrderSubTotal }}</p>
+                        <p class="col margin-bottom-0">Item Subtotal: ₦ {{ +order_reciept.datadeal.OrderSubTotal/100 }}</p>
                     </div>
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerAddress }}</p>
@@ -35,7 +35,7 @@
                     <div class="row paddingLeftRight-0">
                         <p class="col margin-bottom-0">{{ order_reciept.datadeal.CustomerArea }}</p>
                         <p class="col margin-bottom-0"></p>
-                        <p class="col margin-bottom-0">Grand Total: ₦ {{ order_reciept.datadeal.OrderAmount }}</p>
+                        <p class="col margin-bottom-0">Grand Total: ₦ {{ +order_reciept.datadeal.OrderAmount/100 }}</p>
                     </div>
                 </div>
                 

@@ -7,9 +7,13 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
 .run(function ($ionicPlatform, ngFB, $rootScope, $cordovaPreferences, update_user_details, $cordovaNetwork, showRating, popUp) {
   /*Temp Data*/
     $rootScope.userDetails = {
+<<<<<<< HEAD
       userId       : 437,// fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
+=======
+      userId       : 437,// testuser=428, fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
+>>>>>>> 8cf7adc47d7ab406e933e764619b9115c62d8f31
       Email        : 'karan.xpress@gmail.com', // 'karan.xpress@gmail.com', 'dvijesh@revinfotech.com',
-      FullName     : 'Karan', // 'Karan', dvijesh',
+      FullName     : 'testuser', // 'Karan', dvijesh',
       userLocation : '6.461573,3.479404', //Karan_pass = test123
       CreatedOn    : '2016-05-31T11:24:34.607'
     }

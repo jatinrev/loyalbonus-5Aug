@@ -297,10 +297,19 @@ angular.module('LoyalBonus')
                 .then(function (res) {
                     console.log(res);
                     $scope.datadeal = res.data.Data[0];
-                    // console.log( $scope.datadeal );
-                    saveData.set('kaseyDinnerBusinessName', $scope.datadeal.Name);
-                    //console.log($scope.datadeal);
-                    return $scope.datadeal;
+                    loading.start();
+                    // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetHeartbybusinessidUserid?BusinessId=214&UserId=448
+                    return ajaxCall
+                    .get('/webapi/BusinessMaster/GetHeartbybusinessidUserid', {
+                        BusinessId : $state.params.id,
+                        UserId : ( $rootScope.userDetails.userId == undefined ? '' : $rootScope.userDetails.userId )
+                    })
+                    .then(function(res) {
+                        loading.stop();
+                        saveData.set('kaseyDinnerBusinessName', $scope.datadeal.Name);
+                        $scope.datadeal.lovecount = res.data.Data[0].lovecount;
+                        return $scope.datadeal;
+                    });
                 }).then(function (res) {
                     var centerDefined = 0;
                     $scope.newScope.positions = [];
@@ -366,6 +375,7 @@ angular.module('LoyalBonus')
                         }
                         console.log($scope.myloyalbonus.datadealProd);
                     }
+                    console.log('product listing', $scope.myloyalbonus.datadealProd);
                     $scope.$broadcast('scroll.infiniteScrollComplete'); // STOP PAGING LOADING
                 });
         }

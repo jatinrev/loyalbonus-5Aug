@@ -1277,10 +1277,9 @@ font-size: 20px;
 }
 #kaseydiner .loveU
 {
-       /*background: url('../img/giveheatimg.png') no-repeat 4px 8px;*/
     width: 32%;
     padding-left: 0px;
-    background-color: #f8f8f8;
+    background-color: #f8f8f8 !important;
 }
 #kaseydiner .bar-footer
 {

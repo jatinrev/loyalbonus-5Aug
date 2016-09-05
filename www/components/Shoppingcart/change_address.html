@@ -62,6 +62,7 @@
 					<label for="select_address_{{ value.UserAddressId }}">{{ value.FirstName+' '+value.LastName+' '+value.StreetAddress+' '+value.City+' '+address.get_state_from_state_id(value.StateId).StateName }}</label>
 				</div>
 				<div class="col text-right">
+					<button class="button button-assertive" ng-click="address.delete_address(value.UserAddressId, key)">Delete</button>
 					<button class="button button-calm" ng-click="address.edit_address(value.UserAddressId)">Edit</button>
 				</div>
 			</div>

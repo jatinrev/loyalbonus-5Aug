@@ -20,7 +20,7 @@
                         <tr ng-repeat="(key, value) in datadeal">
                             <td>{{ value.OrderNo }}</td>
                             <!-- <td>{{ value.OrderDate | date:'yyyy-MM-dd HH:mm:ss' }}</td> -->
-                            <td class="text-right"><b>₦</b> {{ value.OrderAmount }}</td>
+                            <td class="text-right"><b>₦</b> {{ +value.OrderAmount/100 }}</td>
                             <td class="text-center"><a ng-click="view_receipt(value.OrderId)">View</a></td>
                         </tr>
                     </tbody>
