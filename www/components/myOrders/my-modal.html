@@ -1,0 +1,41 @@
+<ion-modal-view class="zoom-view">
+	<ion-header-bar>
+		<!-- <h1 class="title">Select/Add Address</h1> -->
+		<button ng-click="closeZoomView()" class="button button-clear button-dark color33cd5f">Done</button> <h1 class="title">Tracking Histrory</h1>
+	</ion-header-bar>
+	<ion-content> 
+		<div class="col-md-12" ng-hide="modal_data == null">
+        <div class="col-md-6 left">
+        <div class="col-md-6">From: {{ modal_data.ShipperName }} </div>
+        <div class="col-md-6">{{modal_data.Shipper.City}}</div>
+        <div class="col-md-6">shipment details</div>
+        <div class="col-md-6">{{ modal_data.ShipmentDate }}</div>
+
+        </div>
+        <div class="col-md-6 right">
+        <div class="col-md-6">to:{{modal_data.ConsigneeName}}</div>
+	    <div class="col-md-6">{{modal_data.Consignee.City}}</div>
+	    <div class="col-md-6">Description:</div>
+	    <div class="col-md-6"> {{ modal_data.ShipmentEvent["0"].ServiceEvent.Description }}</div>
+
+
+        </div>
+        </div>
+    <div class="ship">No Shipping information found</div>
+	</ion-content>
+</ion-modal-view>
+<style type="text/css">
+	.col-md-12{
+		width: 100%;
+	}
+	.col-md-6.left{
+		float: left;
+		width: 50%;
+		margin-left: 13px;
+
+	}
+	.ship{
+		float: left;
+		margin-left: 78px;
+	}
+</style>

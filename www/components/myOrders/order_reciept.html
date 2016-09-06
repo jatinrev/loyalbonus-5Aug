@@ -67,14 +67,14 @@
                 </div>
                 <div class="row paddingLeftRight-0 responsive-sm">
                     <div class="col">
-                        <a type="button" ui-sref="home.productDetail({BusinessId: order_reciept.datadeal.CustomerOrderDetails[0].BusinessStoreProduct.BusinessId, Productid : order_reciept.datadeal.CustomerOrderDetails[0].ProductId })">Buy it Again</button>
+                        <a type="button" ui-sref="home.productDetail({BusinessId: order_reciept.datadeal.CustomerOrderDetails[0].BusinessStoreProduct.BusinessId, Productid : order_reciept.datadeal.CustomerOrderDetails[0].ProductId })">Buy it Again</a>
                         <!-- $state.go("home.productDetail", { BusinessId: businessId, Productid: productid}); -->
                     </div>
                 </div>
 
 
                 <div class="row paddingLeftRight-0 responsive-sm">
-                    <button type="button" class="col btn btn-default1">Track Package</button>
+                    <button type="button"  ng-click="track_package()" class="col btn btn-default1">Track Package</button>
                     <button type="button" class="col btn btn-default2">Return or replace items</button>
                 </div>
 
