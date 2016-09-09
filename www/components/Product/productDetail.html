@@ -90,7 +90,7 @@
 
             </div>
         </ion-content>
-        <ion-footer-bar class="footer-bar-custom bar-positive add_cart_btn" ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)">
+        <ion-footer-bar class="footer-bar-custom bar-positive add_cart_btn">
             <div class="col center">
                     <button class="button btninfo add_cart_btn" ng-click="addtoCart()"> Add To Cart</button>
             </div>
@@ -98,3 +98,4 @@
         </ion-footer-bar>
     </ion-view>
 </div>
+<!-- ng-hide="membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)" -->

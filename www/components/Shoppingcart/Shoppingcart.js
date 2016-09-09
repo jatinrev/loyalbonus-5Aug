@@ -245,11 +245,26 @@ angular.module('LoyalBonus')
                 .checkout($scope.cart.data.CartId, $scope.cart.data.BusinessStoreId, $state.params.businessId, $scope.cart.data.UserCartDetails[0].ProductId)
                 .then(function (res) {
                     $scope.cart.checkout_data = res;
+                    console.log($scope.cart.checkout_data);
 
                     // [gtpay_mert_id,gtpay_tranx_id,gtpay_tranx_amt,gtpay_tranx_curr,gtpay_cust_id,gtpay_tranx_noti_url,hashkey]
                     var HashCode                  = gtpay_mert_id + gtpay_tranx_id + $scope.cart.totalPrice().price_after_discount + gtpay_tranx_curr + gtpay_cust_id + gtpay_tranx_noti_url + hashkey;
                     console.log($scope.cart.totalPrice().price_after_discount);
                     gtBank.getShaCode(HashCode);
+
+
+                    /* getting state data */
+                    $scope.address.get_state_govt_area($scope.cart.checkout_data.DefaultUserAddress.StateId)
+                    .then(function (resultwa) {
+                        var govt_area_id = $scope.cart.checkout_data.DefaultUserAddress.StateGovAreaId;
+                        for(i in resultwa) {
+                            if( govt_area_id == resultwa[i].StateGovAreaId ) {
+                                $scope.cart.checkout_data.default_state_govt_name = resultwa[i].GovAreaName;
+                            }
+                        }
+                    });
+                    
+
 
                     //---------GET SAVED CREDIT CARDS---------
                     cart_functions.GetSavedCreditCards()
@@ -818,12 +833,12 @@ angular.module('LoyalBonus')
                 .then(function(res) {
                     loading.stop();
                     $scope.address.all_state_govt_area = res.data.Data;
+                    console.log(res.data.Data);
                     return res.data.Data;
                 });
             },
             state_changed : function() {
                 $scope.address.get_state_govt_area($scope.address.state_selected);
-                console.log( $scope.address.state_selected );
             },
             set_address   : function(formInput) {
                 console.log($scope.address.edit_address_id);

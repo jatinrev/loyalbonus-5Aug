@@ -59,7 +59,7 @@
 					<input name="select_address" ng-value="{{ value.UserAddressId }}" ng-checked="address.get_radio_button_click(value.UserAddressId, value.IsDefault, this)" ng-model="address.selected_address_radio" type="radio" id="select_address_{{ value.UserAddressId }}">
 				</div>
 				<div class="col" ng-click="address.select_radio_button_click(value.UserAddressId)">
-					<label for="select_address_{{ value.UserAddressId }}">{{ value.FirstName+' '+value.LastName+' '+value.StreetAddress+' '+value.City+' '+address.get_state_from_state_id(value.StateId).StateName }}</label>
+					<label for="select_address_{{ value.UserAddressId }}">{{ value.FirstName+' '+value.LastName+' '+value.MobileNo+''+value.StreetAddress+' '+value.OppNxtnearby+''+value.City+' '+address.get_state_from_state_id(value.StateId).StateName+''+address.get_state_govt_from_state_govt_area_id( value.StateGovAreaId).StateGovernmentArea }}</label>
 				</div>
 				<div class="col text-right">
 					<button class="button button-assertive" ng-click="address.delete_address(value.UserAddressId, key)">Delete</button>

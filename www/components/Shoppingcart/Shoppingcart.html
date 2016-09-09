@@ -37,7 +37,16 @@
                         <b>1. Shipping to:</b>
                     </div>
                     <div class="col">
-                        {{ cart.checkout_data.DefaultUserAddress.FirstName+' '+cart.checkout_data.DefaultUserAddress.LastName+', '+cart.checkout_data.DefaultUserAddress.StreetAddress+', '+cart.checkout_data.DefaultUserAddress.City+', '+address.get_state_from_state_id(cart.checkout_data.DefaultUserAddress.StateId).StateName }}
+                        {{ cart.checkout_data.DefaultUserAddress.FirstName + ' '
+                           +cart.checkout_data.DefaultUserAddress.LastName + ', '
+                           
+                           +cart.checkout_data.DefaultUserAddress.StreetAddress+', '
+                           +cart.checkout_data.DefaultUserAddress.OppNxtnearby+', '
+                           +cart.checkout_data.DefaultUserAddress.City+', '
+                           +address.get_state_from_state_id( cart.checkout_data.DefaultUserAddress.StateId).StateName + ', '
+                           +cart.checkout_data.default_state_govt_name +','
+                           +cart.checkout_data.DefaultUserAddress.MobileNo
+                        }}
                     </div>
                     <div class="col text-right" ng-click="cart.show_address_pop()">
                         <span class="ion-chevron-right"></span>
@@ -68,7 +77,8 @@
                                 <label for="rdPayStack"><img src="img/paystack.png" class="paymentimage"></label>
                             </div>
                         </div>
-                        <div class="row" ng-hide="true">
+                        <!--by pushker ng-hide="true"-->
+                        <div class="row" >
                             <div class="col col-10">
                                 <input type="radio" ng-model="cart.payment_method" name="Paymentmethod" value="2" style="margin-top: 4px;" id="rdGtPay">
                             </div>

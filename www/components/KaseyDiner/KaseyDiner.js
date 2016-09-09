@@ -322,7 +322,7 @@ angular.module('LoyalBonus')
                         }
                         $scope.newScope.positions.push(res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng);
                         /**Start : for address printing**/
-                        $scope.newScope.address.push(res.businesslocationsList[i].Address1);
+                        $scope.newScope.address.push(res.businesslocationsList[i].Address1 + ',' +res.businesslocationsList[i].Address2);
                         /***End : for address printing***/
                     }
                      //console.log(res);

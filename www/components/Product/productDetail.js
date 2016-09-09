@@ -161,7 +161,15 @@ angular.module('LoyalBonus')
 
 
                     $scope.addtoCart = function () {
-                        if( watchUser.userPresent() == 1 ) {
+                        /*console.log($rootScope.membership_data);
+                        console.log($rootScope.membership_data != undefined && ($rootScope.membership_data.IsCancelledMembership == true || $rootScope.membership_data.MembershipExire == true));
+                        return false;*/
+                        if( watchUser.userPresent() == 1 && $rootScope.membership_data != undefined && ($rootScope.membership_data.IsCancelledMembership == true || $rootScope.membership_data.MembershipExire == true)){
+                            console.log("hh");
+                            popUp
+                            .msgPopUp('Your membership is cancelled, you are not able to add the product in the cart.');
+
+                        } else if( watchUser.userPresent() == 1 ) {
                             productDetailFactory
                             .addCart(+$state.params.Productid, Price, PriceAfterDiscount, BusinessStoreId, $state.params.BusinessId)
                             .then(function (res) {
