@@ -57,8 +57,8 @@
                             <span class="error" ng-show="frm.password.$error.required && (frm.password.$error.minlength || frm.password.$error.maxlength) && userForm.password.$dirty" class="help-block">Passwords must be between 8 and 20 characters.</span>
                         </div>
                     </div>
-                    <div class="padding">
-                        <button ng-click="signUp.submit()" ng-show="signUp.signUp_button_visibility" ng-disabled="frmsignup.$invalid" class="button button-block bar bar-header bar-balanced">
+                    <div class="padding">   <!-- ng-show="signUp.signUp_button_visibility" -->
+                        <button ng-click="signUp.submit()"  ng-disabled="frmsignup.$invalid" class="button button-block bar bar-header bar-balanced">
                             <span class="loyalbonus_cap" ng-show="!loading">Sign Up</span>
                             <i ng-show="loading" class="ion-loading-b"></i>
                         </button>

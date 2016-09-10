@@ -36,7 +36,7 @@ angular.module('LoyalBonus')
 				// window.localStorage['userId'] = response.data.Data.UserID;
 				// update_user_details.get( response.data.Data.UserID );
 				console.log(response);
-				$scope.signUp.response = 'User created, please check you email and verify account.';
+				$scope.signUp.response = 'User created, please check your email and verify account.';
 				$scope.signUp.responseVisibility       = true;
 				// $state.go("home.restaurants");
 			} else {
