@@ -146,7 +146,7 @@ angular.module('LoyalBonus')
                     } else {
                         popUp.msgPopUp(res.data.StatusMessage, 2);
                     }
-                    console.log(res);
+                    console.log(res); 
                     return res;
                 });
             }

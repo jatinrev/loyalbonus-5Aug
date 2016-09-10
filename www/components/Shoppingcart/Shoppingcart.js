@@ -36,6 +36,7 @@ angular.module('LoyalBonus')
             return ajaxCall
                 .get('webapi/UserCartAPI/GetUserCartByBusinessId?businessId='+businessId+'&userId='+$rootScope.userDetails.userId, {})
                 .then(function (res) {
+                    loading.stop();
                     //UPDATING CART DATA.
                     if( res.data.Data != null ) {
                         var qty = 0;
@@ -43,6 +44,7 @@ angular.module('LoyalBonus')
                             qty += +res.data.Data.UserCartDetails[i].Qty;
                         }
                         saveData.set('business_cart_size', qty);
+                        console.log(saveData.get('business_cart_size'));
                     } else {
                         //CART EMPTY.
                         return 0;
@@ -59,8 +61,6 @@ angular.module('LoyalBonus')
                     }
                     saveData.set('business_cart_totalPrice', totalPrice);
                     saveData.set('business_cart_priceAfterDiscount', priceAfterDiscount);
-
-                    loading.stop();
                     return res.data.Data;
                 }, function (error) {
                     loading.stop();
@@ -239,13 +239,14 @@ angular.module('LoyalBonus')
                         }
                     });
                 }
-            }
+            } 
             , check_out : function() {
                 cart_functions
                 .checkout($scope.cart.data.CartId, $scope.cart.data.BusinessStoreId, $state.params.businessId, $scope.cart.data.UserCartDetails[0].ProductId)
                 .then(function (res) {
                     $scope.cart.checkout_data = res;
                     console.log($scope.cart.checkout_data);
+
 
                     // [gtpay_mert_id,gtpay_tranx_id,gtpay_tranx_amt,gtpay_tranx_curr,gtpay_cust_id,gtpay_tranx_noti_url,hashkey]
                     var HashCode                  = gtpay_mert_id + gtpay_tranx_id + $scope.cart.totalPrice().price_after_discount + gtpay_tranx_curr + gtpay_cust_id + gtpay_tranx_noti_url + hashkey;
@@ -835,6 +836,8 @@ angular.module('LoyalBonus')
                     $scope.address.all_state_govt_area = res.data.Data;
                     console.log(res.data.Data);
                     return res.data.Data;
+                }, function (error) {
+                    loading.stop();
                 });
             },
             state_changed : function() {

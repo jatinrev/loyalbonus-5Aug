@@ -30,6 +30,7 @@ angular.module('LoyalBonus')
                     cart_functions
                     .GetUserCartByBusinessId(businessid);
                     return cartResult.data.Data;
+
                 });
         }
         return {
@@ -40,6 +41,8 @@ angular.module('LoyalBonus')
 
     .controller('CartController', function ($scope, showRating,refreshTest, $state, ajaxCall, active_controller, $ionicPlatform, productDetailFactory, businessVisit, $rootScope, watchUser, popUp, $cordovaSocialSharing, loading, saveData, cart_functions) {
         
+        console.log('yoyoy testing');
+
         $scope.helperFunction = {};
         $scope.businessData   = {};
         $scope.product_detail = {
@@ -159,6 +162,9 @@ angular.module('LoyalBonus')
                     heading_data_temp      = $scope.datadeal.ProductImages;
                     $scope.heading_image   = heading_data_temp;
 
+                    // UPDATING CART
+                    cart_functions
+                        .GetUserCartByBusinessId($state.params.BusinessId);
 
                     $scope.addtoCart = function () {
                         /*console.log($rootScope.membership_data);
@@ -189,6 +195,7 @@ angular.module('LoyalBonus')
                             .msgPopUp('You can not add product without login.');
                         }
                     }
+
                 });
             $scope.prevSlide = function () {
                 $scope.direction = 'left';
@@ -211,10 +218,6 @@ angular.module('LoyalBonus')
         $scope.helperFunction.reviews = function (newNumber) {
            return showRating.showRatingImages(newNumber);
         }
-
-
-        cart_functions
-        .GetUserCartByBusinessId($state.params.BusinessId);
 
         saveData
         .set('business_id_for_shoppingcart', $state.params.BusinessId);
