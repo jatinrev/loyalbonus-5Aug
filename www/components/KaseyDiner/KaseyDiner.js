@@ -70,7 +70,7 @@ angular.module('LoyalBonus')
         };
     })
     .controller('KaseyDinerController', function ($scope, $state, ajaxCall, $cordovaBarcodeScanner,
-        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory) {
+        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory, $ionicModal, get_user_location) {
 
         $rootScope.showMe = false;
         get_business_data.removeSearchKeyword();
@@ -314,7 +314,7 @@ angular.module('LoyalBonus')
                     var centerDefined = 0;
                     $scope.newScope.positions = [];
                     $scope.newScope.address = [];
-                    for (i in res.businesslocationsList) {
+                    for (i in res.businesslocationsList) { 
                         //console.log(res.businesslocationsList);
                         if (centerDefined == 0) {
                             $scope.newScope.center = res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng;
@@ -323,6 +323,9 @@ angular.module('LoyalBonus')
                         $scope.newScope.positions.push(res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng);
                         /**Start : for address printing**/
                         $scope.newScope.address.push(res.businesslocationsList[i].Address1 + ',' +res.businesslocationsList[i].Address2);
+                        console.log(res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng);
+                        console.log("hh");
+                       $scope.destination= res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng; 
                         /***End : for address printing***/
                     }
                      //console.log(res);
@@ -381,6 +384,31 @@ angular.module('LoyalBonus')
         }
         $scope.invitelistnewBusinessproduct();
        
+
+        //map  by pushker
+    $scope.closeZoomView=function(){
+        $scope.modal.hide();
+    }
+    $scope.map_show=function() {
+        get_user_location
+        .get
+        .then(function (position) {
+            console.log('position', position);
+            $scope.origin=position.coords.latitude +',' +position.coords.longitude;
+            console.log($scope.origin);
+            $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
+                scope:$scope,
+                animation:'slide-in-up'
+            }).then(function(modal){
+                console.log("sdggs");
+                $scope.modal = modal;
+                $scope.modal.show();
+            });
+           
+        });
+    }
+    
+
     });
 
 

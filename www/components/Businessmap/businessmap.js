@@ -72,6 +72,7 @@ var app = angular.module('LoyalBonus')
                             return sort(test);
                         });
                     });
+                    
             },
 
             getBusinessRecord: getBusinessPaging,

@@ -69,8 +69,8 @@
                 </ng-map>
             </div>
             <div class="icon_kasy" ng-repeat="value in newScope.address">
-                <img class="icon_kasy" src="img/121.png">
-                <span class="icon_kasy_new">{{ value }}</span>
+                <img class="icon_kasy" src="img/121.png"><span  ng-click="map_show()" class="icon_kasy_new">{{ value }}</span>
+               <!--  <span class="icon_kasy_new">{{ value }}</span> -->
             </div>
             <div ng-show="newScope.center ? false : true" class="row">
                 <div class="newrow">Address not available</div>
