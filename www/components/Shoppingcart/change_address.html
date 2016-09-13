@@ -40,7 +40,7 @@
 						</label>
 						<label class="item item-input item-select white_bg border-color-666">
 							<div class="input-label">
-								Select Local Government
+								Select City
 							</div>
 							<select name="local" ng-model="address.state_govt_area_selected">
 								<option ng-repeat="(key, value) in address.all_state_govt_area" ng-selected="address.state_govt_area_selected_temp == value.StateGovAreaId" value="{{ value.StateGovAreaId }}">{{ value.GovAreaName }}</option>

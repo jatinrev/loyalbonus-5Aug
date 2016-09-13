@@ -628,7 +628,7 @@ angular.module('LoyalBonus.services', [])
 		                return businessVisit.give_visit($rootScope.userDetails.userId, qrCode, businessObj.BusinessID)
 			                .then(function (response) {
 			                    loading.stop();
-			                    if( +businessObj.TotalVisits == +businessObj.BonusDiscountToCust-1 ) {
+			                    if( +businessObj.TotalVisits == +businessObj.BonusDiscountToCust ) {
 			                    	return popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Success!</p><p class="text-align-center margin-bottom-0">Congratulations for reaching your Bonus: '+businessObj.BonusDiscount+'</p>', 1);
 			                    } else if (response.data.Data == "QrCode submitted") {
 			                        return popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Success!</p><p class="text-align-center margin-bottom-0">Thank you for visiting us.</p>', 1);

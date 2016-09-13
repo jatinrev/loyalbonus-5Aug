@@ -93,7 +93,7 @@
                         <p style="font-weight: bold; margin-top: 10px;">3. Shipping:<br>&nbsp;&nbsp;&nbsp;(via DHL)</p>
                     </div>
                     <div class="col">
-                        <div class="row" ng-repeat="(key, value) in cart.checkout_data.DHLShippingOptionList">
+                        <div class="row" ng-repeat="(key, value) in cart.checkout_data.DHLShippingOptionList"  ng-hide="value.ShippingOptionName=='EXPRESS EASY'">
                             <div class="col col-10">
                                 <input type="radio" id="dhl_shipping_select{{ value.ShippingOptionId }}" name="shipping_dhl" ng-model="cart.shipping_dhl" ng-value="{{ value.ShippingOptionId }}" style="margin-top: 4px; margin-right:10px;">
                             </div>
@@ -223,7 +223,7 @@
 <style type="text/css">
     .small_red_price.ng-binding{
         position: inherit;
-        top: -16px;
+        top: -20px;
         left: 2px;
     }
   </style>

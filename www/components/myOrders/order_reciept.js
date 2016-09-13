@@ -36,6 +36,7 @@ angular.module('LoyalBonus')
     .then(function(res) {
         $scope.order_reciept.datadeal = res.data.Data;
     	console.log(res);
+        console.log("pushkar");
     });
 
 
