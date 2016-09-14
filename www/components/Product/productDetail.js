@@ -152,7 +152,8 @@ angular.module('LoyalBonus')
             productDetailFactory
                 .printProductDetail($state.params.BusinessId, $state.params.Productid)
                 .then(function (result) {
-                    //console.log(result);
+                    console.log(result);
+                    console.log("bb");
                     var BusinessStoreId    = result.BusinessStoreId;
                     var Price              = result.Price;
                     var PriceAfterDiscount = result.PriceAfterBusinessDiscount

@@ -62,12 +62,13 @@ angular.module('LoyalBonus')
                     saveData.set('business_cart_totalPrice', totalPrice);
                     saveData.set('business_cart_priceAfterDiscount', priceAfterDiscount);
                     return res.data.Data;
+                    console.log(res);
+                    console.log("hvjhf");
                 }, function (error) {
                     loading.stop();
                     return error;
                 });
         }
-
         function update_cart(cartDetailId, productId, qty) {
             return ajaxCall
             .post('webapi/UserCartAPI/UpdateQuantityByCartDetailId', {
