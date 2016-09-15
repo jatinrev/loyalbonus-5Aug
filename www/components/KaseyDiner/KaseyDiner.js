@@ -419,7 +419,6 @@ angular.module('LoyalBonus')
                 console.log('position', position);
                 $scope.origin=position.coords.latitude +',' +position.coords.longitude;
                 console.log($scope.origin);
-                console.log("vhvcjsdgggssgsfsdsg");
                 console.log($scope.destination);
                 var demo = $scope.destination.split(",");
                 console.log(demo);
@@ -430,21 +429,15 @@ angular.module('LoyalBonus')
 
 
                 /***jatin start***/
-                $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=9.435176, 8.047485&sensor=true', {
+                $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+$scope.origin+'&sensor=true', {
                     params: {}
-                    
                 })
                 .then(function(res) {
-                    console.log('yoyoo' ,res);
-                    $scope.uSer=res.data.results[i].formatted_address;
-                    console.log($scope.uSer);
-                    var demo1 = $scope.uSer.split(",");
-                    console.log(demo1.slice(-1));
-                    var demo2 =demo1.slice(-1);
-                    console.log(demo2);
-                    console.log("ghgggg");
-                    if (demo2=="Nigeria"){
-                         $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
+                    var array_length = res.data.results.length-1;
+                    var country = res.data.results[array_length].formatted_address
+                    
+                    if (country=="Nigeria") {
+                        $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
                             scope:$scope,
                             animation:'slide-in-up'
                         }).then(function(modal){
@@ -453,12 +446,11 @@ angular.module('LoyalBonus')
                             $scope.modal.show();
 
                         });
-                    }else
-                    {
+                    } else {
                         popUp
                         .msgPopUp("Sorry unable to find");
                         console.log("qweertuiu");
-                    } 
+                    }
                 });
                 /***jatin stop****/
 

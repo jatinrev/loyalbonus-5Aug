@@ -30,12 +30,12 @@ angular.module('LoyalBonus')
 
         /*
         business Lising starts : this is comming from kaseyDinner.js
-         */
+         *
         businessVisit
         .businessDetail( $state.params.BusinessId, $rootScope.userDetails.userId )
         .then(function (res) {
             $scope.businessData = res.data.Data[0];
-        });
+        });*/
 
         $scope.Test = function () {
             return refreshTest.showrefreshtest($state.current.name, $state.params);

@@ -4,14 +4,14 @@
         <button ng-click="closeZoomView()" class="button button-clear button-dark color33cd5f">Done</button> 
     </ion-header-bar>
     <ion-content>
- <!--  {{destination}}
-   {{origin}} -->{{user}}
-        <ng-map style="height:100%"  center="{{uSer}}">
+ <!--  {{destination}}center="{{origin}}"
+   {{origin}} -->
+        <ng-map style="height:100%" center="{{origin}}">
             <directions 
               draggable="true"
               panel="directions-panel"
               travel-mode="{{travelMode}}"
-              origin="{{uSer}}"
+              origin="{{origin}}"
               destination="{{destination}}">
             </directions>
         </ng-map>
