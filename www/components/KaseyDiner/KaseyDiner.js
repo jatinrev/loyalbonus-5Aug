@@ -62,7 +62,7 @@ angular.module('LoyalBonus')
                     return error;
                 });
         }
-        
+
         return {
             give_visit            : give_visit,
             giveLove              : giveLove,
@@ -70,7 +70,7 @@ angular.module('LoyalBonus')
         };
     })
     .controller('KaseyDinerController', function ($scope, $state, ajaxCall, $cordovaBarcodeScanner,
-        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory, $ionicModal, get_user_location) {
+        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory, $ionicModal, get_user_location, popUp ) {
 
         $rootScope.showMe = false;
         get_business_data.removeSearchKeyword();
@@ -191,7 +191,7 @@ angular.module('LoyalBonus')
                 myPopup.close(); //close the popup after 3 seconds for some reason
             }, 3000);
         };
-        
+
         $scope.showPopupFor = function (msg) {
             $scope.data = {}
             // An elaborate, custom popup
@@ -247,7 +247,7 @@ angular.module('LoyalBonus')
             }
             return mydummyJson(+uservisits);
         }
-            
+
         $scope.myloyalbonus.printNonTick = function ( uservisits, BonusDiscountToCust ) {
             var answerNontick =  +BonusDiscountToCust - +uservisits ;
             if( answerNontick - 1 <= 0 ) {
@@ -256,7 +256,7 @@ angular.module('LoyalBonus')
                 return mydummyJson(answerNontick - 1);
             }
         }
-            
+
         $scope.myloyalbonus.printGift    = function ( uservisits, BonusDiscountToCust ) {
             if (+BonusDiscountToCust == uservisits) {
                 return mydummyJson(0);
@@ -275,9 +275,9 @@ angular.module('LoyalBonus')
         active_controller.set('KaseyDinerController');
 
         $scope.datadeal       = {};
-        
+
         $scope.newScope       = {}; // helper variable
-        
+
         $scope.helperFunction = {};
 
         // $scope.checkGlobal = function () {
@@ -314,7 +314,7 @@ angular.module('LoyalBonus')
                     var centerDefined = 0;
                     $scope.newScope.positions = [];
                     $scope.newScope.address = [];
-                    for (i in res.businesslocationsList) { 
+                    for (i in res.businesslocationsList) {
                         //console.log(res.businesslocationsList);
                         if (centerDefined == 0) {
                             $scope.newScope.center = res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng;
@@ -325,11 +325,11 @@ angular.module('LoyalBonus')
                         $scope.newScope.address.push(res.businesslocationsList[i].Address1 + ',' +res.businesslocationsList[i].Address2);
                         console.log(res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng);
                         console.log("hh");
-                       $scope.destination= res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng; 
+                       $scope.destination= res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng;
                         /***End : for address printing***/
                     }
                      //console.log(res);
-                    
+
                 });
         }
         test();
@@ -372,7 +372,7 @@ angular.module('LoyalBonus')
                     if( resultNew.length < 1 ) {
                        $scope.myloyalbonus.noMoreProductAvailable = true;
                     } else {
-                        kasey_data.product_pageIndex++;                 // INCREASE PAGE INDEX. 
+                        kasey_data.product_pageIndex++;                 // INCREASE PAGE INDEX.
                         for (key in resultNew) {
                             $scope.myloyalbonus.datadealProd.push(resultNew[key]);
                         }
@@ -383,9 +383,30 @@ angular.module('LoyalBonus')
                 });
         }
         $scope.invitelistnewBusinessproduct();
-       
+
 
         //map  by pushker
+
+
+        function getDistanceFromLatLonInKm(lat,lon,lat1,lon1) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat1-lat);  // deg2rad below
+        var dLon = deg2rad(lon1-lon);
+        var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat)) * Math.cos(deg2rad(lat1)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c; // Distance in km
+          
+            console.log("d value :" + d);
+            console.log("hhh");
+    }
+    function deg2rad(Value) {
+    /** Converts numeric degrees to radians */
+        return Value * Math.PI / 180;
+    }
+
     $scope.closeZoomView=function(){
         $scope.modal.hide();
     }
@@ -396,30 +417,33 @@ angular.module('LoyalBonus')
             console.log('position', position);
             $scope.origin=position.coords.latitude +',' +position.coords.longitude;
             console.log($scope.origin);
-            $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
-                scope:$scope,
-                animation:'slide-in-up'
-            }).then(function(modal){
-                console.log("sdggs");
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
-           
+            console.log("vhvcjsdgggssgsfsdsg");
+            console.log($scope.destination);
+            var demo = $scope.destination.split(",");
+            console.log(demo);
+            var lat=position.coords.latitude ;
+            var lon=position.coords.longitude;
+            var lat1=demo[0];
+            var lon1=demo[1];
+            getDistanceFromLatLonInKm(lat,lon,lat1,lon1);
+            if (false) {
+                $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
+                    scope:$scope,
+                    animation:'slide-in-up'
+                }).then(function(modal){
+                    console.log("sdggs");
+                    $scope.modal = modal;
+                    $scope.modal.show();
+
+                });
+            } else {
+                popUp
+                .msgPopUp("Sorry unable to find");
+            }
         });
     }
-   function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-        var R = 6371; // Radius of the earth in km
-        var dLat = deg2rad(lat2-lat1);  // deg2rad below
-        var dLon = deg2rad(lon2-lon1); 
-        var a = 
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-            Math.sin(dLon/2) * Math.sin(dLon/2); 
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c; // Distance in km
-            return d;
-    }
-    
+
+
 
     });
 

@@ -135,7 +135,7 @@ angular.module('LoyalBonus.services', [])
 								}
 							}
 						});
-				}); 
+				});
 
 			return output;*/
 		}
@@ -573,7 +573,7 @@ angular.module('LoyalBonus.services', [])
 		            	'Authorization': 'Bearer sk_test_967b105665b7a27a9796e576bdb3a088944b8cff',
 		            	'Content-Type' : 'application/json'
 		            },
-		            data: { 
+		            data: {
 						"authorization_code" : res.data.Data,
 						"email"              : $rootScope.userDetails.Email,
 						"amount"             : amt,
@@ -600,7 +600,7 @@ angular.module('LoyalBonus.services', [])
                 return v.toString(16);
             });
 		}
-	
+
 		return {
 			get_paystack_response             : get_paystack_response,
 			chargingReturningCustomers        : chargingReturningCustomers,
@@ -623,13 +623,16 @@ angular.module('LoyalBonus.services', [])
 		                console.log("An error happened -> " + error);
 		            })
 		            .then(function (qrCode) {
-		            	console.log(qrCode);
+		            	console.log(qrCode);   
 		                loading.start();
 		                return businessVisit.give_visit($rootScope.userDetails.userId, qrCode, businessObj.BusinessID)
 			                .then(function (response) {
 			                    loading.stop();
-			                    if( +businessObj.TotalVisits == +businessObj.BonusDiscountToCust-1 ) {
-			                    	return popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Success!</p><p class="text-align-center margin-bottom-0">Congratulations for reaching your Bonus: '+businessObj.BonusDiscount+'</p>', 1);
+			                    console.log( +businessObj.uservisits == +businessObj.BonusDiscountToCust-1);
+			                    console.log( 'uservisits', +businessObj.uservisits );
+			                    console.log( 'BonusDiscountToCust', +businessObj.BonusDiscountToCust);
+			                    if( +businessObj.uservisits+1 == +businessObj.BonusDiscountToCust ) {
+			                    		return popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Success!</p><p class="text-align-center margin-bottom-0">Congratulations for reaching your Bonus: '+businessObj.BonusDiscount+'</p>', 1);
 			                    } else if (response.data.Data == "QrCode submitted") {
 			                        return popUp.msgPopUp('<p class="text-align-center margin-bottom-0">Success!</p><p class="text-align-center margin-bottom-0">Thank you for visiting us.</p>', 1);
 			                    } else if(response.data.StatusMessage == "Failed") {
@@ -647,7 +650,7 @@ angular.module('LoyalBonus.services', [])
                 return promise.promise;
 	        }
 		}
-	
+
 		return {
 			scan : scan
 		};
@@ -656,7 +659,7 @@ angular.module('LoyalBonus.services', [])
 		/*
 		 * webapi/UserMemberShipApi/MembershipExpireByUserId?userId=236
 		 * If "MembershipExire" == true, then membership expired.
-		 */ 
+		 */
 		function check_membership() {
 			if(+$rootScope.userDetails.userId > 0) {
 				return ajaxCall
@@ -669,7 +672,7 @@ angular.module('LoyalBonus.services', [])
 				});
 			}
 		}
-	
+
 		return {
 			check_membership : check_membership
 		};
