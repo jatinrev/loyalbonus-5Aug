@@ -6,14 +6,14 @@
   <ion-content>
  <!--  {{destination}}
    {{origin}} -->
- <ng-map style="height:100%" >
+ <ng-map style="height:100%"  center="{{origin}}">
          
             <directions 
           draggable="true"
           panel="directions-panel"
           travel-mode="{{travelMode}}"
-          origin="6.5244, 3.3792"
-          destination="13.509680, 6.280703">
+          origin="{{origin}}"
+          destination="{{destination}}">
         </directions>
         </ng-map>
   

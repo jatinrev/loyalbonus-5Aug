@@ -389,60 +389,64 @@ angular.module('LoyalBonus')
 
 
         function getDistanceFromLatLonInKm(lat,lon,lat1,lon1) {
-        var R = 6371; // Radius of the earth in km
-        var dLat = deg2rad(lat1-lat);  // deg2rad below
-        var dLon = deg2rad(lon1-lon);
-        var a =
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(deg2rad(lat)) * Math.cos(deg2rad(lat1)) *
-            Math.sin(dLon/2) * Math.sin(dLon/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var d = R * c; // Distance in km
-          
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat1-lat);  // deg2rad below
+            var dLon = deg2rad(lon1-lon);
+            var a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat)) * Math.cos(deg2rad(lat1)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            var d = R * c; // Distance in km
+              
             console.log("d value :" + d);
             console.log("hhh");
-    }
-    function deg2rad(Value) {
-    /** Converts numeric degrees to radians */
-        return Value * Math.PI / 180;
-    }
+        }
+        function deg2rad(Value) {
+        /** Converts numeric degrees to radians */
+            return Value * Math.PI / 180;
+        }
+        $scope.closeZoomView=function(){
+            $scope.modal.hide();
+        }
+        $scope.map_show=function() {
+            get_user_location
+            .get
+            .then(function (position) {
+                console.log('position', position);
+                $scope.origin=position.coords.latitude +',' +position.coords.longitude;
+                console.log($scope.origin);
+                console.log("vhvcjsdgggssgsfsdsg");
+                console.log($scope.destination);
+                var demo = $scope.destination.split(",");
+                console.log(demo);
+                var lat=position.coords.latitude ;
+                var lon=position.coords.longitude;
+                var lat1=demo[0];
+                var lon1=demo[1];
+                getDistanceFromLatLonInKm(lat,lon,lat1,lon1);
+                if (navigator.geolocation) {
+                    console.log('Geolocation is supported!');
+                } else {
+                    console.log('Geolocation is not supported for this Browser/OS version yet.');
+                }
+           
+                if (false) {
+                    $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
+                        scope:$scope,
+                        animation:'slide-in-up'
+                    }).then(function(modal){
+                        console.log("sdggs");
+                        $scope.modal = modal;
+                        $scope.modal.show();
 
-    $scope.closeZoomView=function(){
-        $scope.modal.hide();
-    }
-    $scope.map_show=function() {
-        get_user_location
-        .get
-        .then(function (position) {
-            console.log('position', position);
-            $scope.origin=position.coords.latitude +',' +position.coords.longitude;
-            console.log($scope.origin);
-            console.log("vhvcjsdgggssgsfsdsg");
-            console.log($scope.destination);
-            var demo = $scope.destination.split(",");
-            console.log(demo);
-            var lat=position.coords.latitude ;
-            var lon=position.coords.longitude;
-            var lat1=demo[0];
-            var lon1=demo[1];
-            getDistanceFromLatLonInKm(lat,lon,lat1,lon1);
-            if (false) {
-                $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
-                    scope:$scope,
-                    animation:'slide-in-up'
-                }).then(function(modal){
-                    console.log("sdggs");
-                    $scope.modal = modal;
-                    $scope.modal.show();
-
-                });
-            } else {
-                popUp
-                .msgPopUp("Sorry unable to find");
-            }
-        });
-    }
-
+                    });
+                } else {
+                    popUp
+                    .msgPopUp("Sorry unable to find");
+                }
+            });
+        }
 
 
     });
