@@ -70,7 +70,7 @@ angular.module('LoyalBonus')
         };
     })
     .controller('KaseyDinerController', function ($scope, $state, ajaxCall, $cordovaBarcodeScanner,
-        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory, $ionicModal, get_user_location, popUp ) {
+        active_controller, $ionicPlatform, businessVisit, $ionicHistory, showRating, saveData, $ionicPopup, $timeout, $rootScope, watchUser, refreshTest,get_business_data, loading, productFactory, $ionicModal, get_user_location, popUp, $http ) {
 
         $rootScope.showMe = false;
         get_business_data.removeSearchKeyword();
@@ -409,6 +409,9 @@ angular.module('LoyalBonus')
         $scope.closeZoomView=function(){
             $scope.modal.hide();
         }
+
+
+
         $scope.map_show=function() {
             get_user_location
             .get
@@ -424,27 +427,49 @@ angular.module('LoyalBonus')
                 var lon=position.coords.longitude;
                 var lat1=demo[0];
                 var lon1=demo[1];
-                getDistanceFromLatLonInKm(lat,lon,lat1,lon1);
-                if (navigator.geolocation) {
+
+
+                /***jatin start***/
+                $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=9.435176, 8.047485&sensor=true', {
+                    params: {}
+                    
+                })
+                .then(function(res) {
+                    console.log('yoyoo' ,res);
+                    $scope.uSer=res.data.results[i].formatted_address;
+                    console.log($scope.uSer);
+                    var demo1 = $scope.uSer.split(",");
+                    console.log(demo1.slice(-1));
+                    var demo2 =demo1.slice(-1);
+                    console.log(demo2);
+                    console.log("ghgggg");
+                    if (demo2=="Nigeria"){
+                         $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
+                            scope:$scope,
+                            animation:'slide-in-up'
+                        }).then(function(modal){
+                            console.log("sdggs");
+                            $scope.modal = modal;
+                            $scope.modal.show();
+
+                        });
+                    }else
+                    {
+                        popUp
+                        .msgPopUp("Sorry unable to find");
+                        console.log("qweertuiu");
+                    } 
+                });
+                /***jatin stop****/
+
+                // getDistanceFromLatLonInKm(lat,lon,lat1,lon1);
+                /*if (navigator.geolocation) {
                     console.log('Geolocation is supported!');
                 } else {
                     console.log('Geolocation is not supported for this Browser/OS version yet.');
-                }
+                }*/
            
-                if (false) {
-                    $ionicModal.fromTemplateUrl('components/KaseyDiner/my-map.html',{
-                        scope:$scope,
-                        animation:'slide-in-up'
-                    }).then(function(modal){
-                        console.log("sdggs");
-                        $scope.modal = modal;
-                        $scope.modal.show();
-
-                    });
-                } else {
-                    popUp
-                    .msgPopUp("Sorry unable to find");
-                }
+                
             });
         }
 

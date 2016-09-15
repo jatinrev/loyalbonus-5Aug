@@ -1,25 +1,24 @@
 <ion-modal-view class="zoom-view">
-  <ion-header-bar>
-    <!-- <h1 class="title">Select/Add Address</h1> -->
-    <button ng-click="closeZoomView()" class="button button-clear button-dark color33cd5f">Done</button> 
-  </ion-header-bar>
-  <ion-content>
+    <ion-header-bar>
+        <!-- <h1 class="title">Select/Add Address</h1> -->
+        <button ng-click="closeZoomView()" class="button button-clear button-dark color33cd5f">Done</button> 
+    </ion-header-bar>
+    <ion-content>
  <!--  {{destination}}
-   {{origin}} -->
- <ng-map style="height:100%"  center="{{origin}}">
-         
+   {{origin}} -->{{user}}
+        <ng-map style="height:100%"  center="{{uSer}}">
             <directions 
-          draggable="true"
-          panel="directions-panel"
-          travel-mode="{{travelMode}}"
-          origin="{{origin}}"
-          destination="{{destination}}">
-        </directions>
+              draggable="true"
+              panel="directions-panel"
+              travel-mode="{{travelMode}}"
+              origin="{{uSer}}"
+              destination="{{destination}}">
+            </directions>
         </ng-map>
   
       
-  </ion-content>
-  </ion-modal-view>
+    </ion-content>
+    </ion-modal-view>
    <!-- origin="41.850033, -87.6500523"
             destination="6.430876, 3.4264164"> -->
            <!--  <ng-map style="height:100%"  >
