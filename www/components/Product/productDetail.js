@@ -225,7 +225,7 @@ angular.module('LoyalBonus')
 
         $scope.shownItem = [];
         $scope.toggleItem = function (item) {
-            if ($scope.isItemShown(item)) {
+            if ($scope.isItemShown(item)) { console.log(item);
                 $scope.shownItem[item] = null;
             } else {
                 $scope.shownItem[item] = item;

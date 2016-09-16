@@ -3,32 +3,6 @@ angular.module('LoyalBonus')
     .factory('cart_functions', function (ajaxCall, $rootScope, loading, saveData) {
 
         /*
-        THIS FUNCTION IS INCOMPLETE
-        ShoppingCart(Post): Parameters – [ cartId, businessStoreId, BusinessID, ProductID, userid].
-         */
-        function list_cart(businessId) {
-            return GetUserCartByBusinessId(businessId)
-                   .then(function (res) {
-                        console.log('Cart By Business Data');
-                        console.log(res);
-                        return ajaxCall
-                        .post('webapi/UserCartAPI/ShoppingCart', {
-                            cartId          : res.CartId,
-                            businessStoreId : res.BusinessStoreId,
-                            BusinessID      : businessId,
-                            ProductID       : 61,
-                            userid          : $rootScope.userDetails.userId
-                        })
-                        .then(function(res) {
-                            console.log(res);
-                            return res;
-                        });
-                   }, function (error) {
-                        console.log(error);
-                   });
-        }
-
-        /*
         get all cart data from BUSINESSID
          */
         function GetUserCartByBusinessId(businessId) {
@@ -46,6 +20,7 @@ angular.module('LoyalBonus')
                         saveData.set('business_cart_size', qty);
                         console.log(saveData.get('business_cart_size'));
                     } else {
+                        saveData.set('business_cart_size', 0);
                         //CART EMPTY.
                         return 0;
                     }
@@ -136,7 +111,6 @@ angular.module('LoyalBonus')
         }
 
         return {
-            list_cart               : list_cart,
             GetUserCartByBusinessId : GetUserCartByBusinessId,
             update_cart             : update_cart,
             remove_product          : remove_product,
