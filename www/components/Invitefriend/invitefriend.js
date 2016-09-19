@@ -53,15 +53,26 @@ angular.module('LoyalBonus')
         }
         //   End : date calculation for showing discount offer.
         $scope.invitelist = function () {
-            $scope.show_hide_invite_submit = true;  
-            Friendinvite
+            console.log($scope.datadeal.emailaddresses);
+            if( $scope.datadeal.emailaddresses == undefined || $scope.datadeal.emailaddresses == '' ) {
+                popUp
+                .msgPopUp('Please enter email address.');
+            } else {
+                $scope.show_hide_invite_submit = true;  
+                Friendinvite
                 .invite($scope.datadeal.emailaddresses, $scope.datadeal.emailcontent)
                 .then(function (result) {
                     console.log(result);
                     $scope.show_hide_invite_submit = false;
                     popUp
                     .msgPopUp('The mail has been sent.', 1);
+                }, function (error) {
+                    console.log(error);
+                    popUp
+                    .msgPopUp(error.data.Message);
+                    loading.stop();
                 });
+            }
         }
        
         $scope.inviteFacebook = function() {

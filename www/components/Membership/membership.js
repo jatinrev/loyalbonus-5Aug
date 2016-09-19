@@ -131,7 +131,7 @@ angular.module('LoyalBonus')
             } else {
                 $scope.datadeal.error = undefined;
                 return ajaxCall
-                .post('webapi/MyAccountAPI/ApplyPromoCode', {
+                .get('webapi/MyAccountAPI/ApplyPromoCode', {
                     userId           : $rootScope.userDetails.userId,
                     promoCode        : formData.promoCode.$modelValue, // promo code
                     amount           : get_payment_amount($scope.datadeal.membershipTypeId_selected).MemberShipFee,

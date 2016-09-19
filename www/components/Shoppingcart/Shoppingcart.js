@@ -659,12 +659,14 @@ angular.module('LoyalBonus')
                 .then(function(res) {
                     if(res.data.Data) {
                         $scope.address.output = { status : 1, result : 'Default address set.' };
-                        $scope.modal.remove()
+                        return $scope.modal.remove()
                         .then(function() {
                             $scope.cart.check_out();
+                            return ;
                         });
                     } else {
                         $scope.address.output = { status : 0, result : 'Unable to set default address.' };
+                        return ;
                     }
                 });
             }
@@ -819,6 +821,7 @@ angular.module('LoyalBonus')
                 $scope.address.get_state_govt_area($scope.address.state_selected);
             },
             set_address   : function(formInput) {
+                loading.start();
                 console.log($scope.address.edit_address_id);
                 if( 
                     ($scope.address.form.first_name != undefined && $scope.address.form.first_name != '') ||
@@ -839,6 +842,7 @@ angular.module('LoyalBonus')
                             .then(function() {
                                 $scope.cart.check_out();
                             });
+                            loading.stop();
                         });
                     } else if( $scope.address.selected_address_radio == 0 ) {
                         console.log('comming yo');
@@ -847,17 +851,21 @@ angular.module('LoyalBonus')
                         .then(function(res) {
                             console.log(res);
                             address_function.set_default_address(res.data.Data.UserAddressId);
+                            loading.stop();
                         });
                     } else {
                         $scope.address.output = { status : 0, result : 'Please select the address if you want to save this address.' }
                         $scope.address.error_shown = 1;
+                        loading.stop();
                     }
                 } else if( $scope.address.selected_address_radio > 0 ) {
-                    address_function.set_default_address($scope.address.selected_address_radio);
+                    address_function.set_default_address($scope.address.selected_address_radio)
+                    .then(function() {
+                        loading.stop();
+                    });
                 }
                 $scope.address.error_shown = 0;
                 return ;
-
             },
             // Radio button selection in address.
             select_radio_button_click : function(UserAddressId) {
