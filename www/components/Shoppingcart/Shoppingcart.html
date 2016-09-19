@@ -200,7 +200,7 @@
                                 <button class="button applypromo button-block padding-right-5 padding-left-5" ng-click="cart.apply_promo()">{{ cart.data.PromoId > 0 ? 'Remove Promo' : 'Apply Promo' }}</button>
                             </div>
                             <div class="col-50 price_after_discount text-right" ng-show="promo_discount">
-                                (Promo: -₦{{ promo_discount | number:2 }})
+                                (Promo: -₦{{ cart.data.PromoDiscount | number:2 }})
                             </div>
                         </div>
                     </div>
@@ -214,7 +214,10 @@
             </div>
             
         </ion-content>
-        <ion-footer-bar class="footer-bar-custom green_btns" ng-hide="(membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)) || cart.hide_everything">
+        <ion-footer-bar class="footer-bar-custom green_btns" ng-hide="
+            (membership_data != undefined && (membership_data.IsCancelledMembership == true || membership_data.MembershipExire == true)) ||
+            cart.hide_everything ||
+            (cart.checkout_data && cart.checkout_data.DefaultUserAddress.FirstName == undefined || cart.checkout_data.DefaultUserAddress.FirstName == '')">
             <!-- cart.checkout_data == null -->
             <button style="margin-top:0" class="green_btns button checkoutbutton button-block font_size_19p" ng-click="cart.checkout_data ? cart.payment(cart.payment_method) : cart.check_out()">{{ cart.checkout_data ? 'Place Your Order' : 'Proceed To Checkout' }}</button>
         </ion-footer-bar>

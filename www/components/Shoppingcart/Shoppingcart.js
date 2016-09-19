@@ -10,6 +10,7 @@ angular.module('LoyalBonus')
             return ajaxCall
                 .get('webapi/UserCartAPI/GetUserCartByBusinessId?businessId='+businessId+'&userId='+$rootScope.userDetails.userId, {})
                 .then(function (res) {
+                    // console.log(res);
                     loading.stop();
                     //UPDATING CART DATA.
                     if( res.data.Data != null ) {
@@ -25,6 +26,14 @@ angular.module('LoyalBonus')
                         return 0;
                     }
 
+                    /* Start : Save data for dhl */
+                    saveData.set('business_DHL', {
+                        isDHL : '',
+                        ShipmentOptionId : ''
+                    });
+                    /** End : Save data for dhl **/
+
+
                     //GETTING TOTAL PRICE
                     var totalPrice     = 0,
                     priceAfterDiscount = 0;
@@ -37,8 +46,6 @@ angular.module('LoyalBonus')
                     saveData.set('business_cart_totalPrice', totalPrice);
                     saveData.set('business_cart_priceAfterDiscount', priceAfterDiscount);
                     return res.data.Data;
-                    console.log(res);
-                    console.log("hvjhf");
                 }, function (error) {
                     loading.stop();
                     return error;
