@@ -141,7 +141,7 @@ angular.module('LoyalBonus')
             var myPopup = $ionicPopup.show({
 				/* template:'<i class="icon-gift"></i>',*/
                 title: 'Success',
-                template:'SuccessFully Data Entered',
+                template:'SuccessFully',
                 subTitle: msg,
                 scope: $scope,
                 buttons: [

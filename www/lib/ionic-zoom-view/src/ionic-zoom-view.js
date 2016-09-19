@@ -26,7 +26,7 @@
             </ion-header-bar>
             <ion-content>
               <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0; ">
-                <img ng-src="{{ngSrc}}" style="width: 100%!important; display:block;   width: 100%; height: auto; max-width: 400px; max-height: 700px; margin: auto; padding: 10px; "></img>
+               <img ng-src="{{ngSrc}}" style="width: 100px !important; display:block;   width: 100%; height: auto; max-width: 400px;  margin: auto; padding: 10px; "></img>
               </ion-scroll>
             </ion-content>
           </ion-modal-view>

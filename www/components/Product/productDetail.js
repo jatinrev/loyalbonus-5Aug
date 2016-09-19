@@ -41,8 +41,6 @@ angular.module('LoyalBonus')
 
     .controller('CartController', function ($scope, showRating,refreshTest, $state, ajaxCall, active_controller, $ionicPlatform, productDetailFactory, businessVisit, $rootScope, watchUser, popUp, $cordovaSocialSharing, loading, saveData, cart_functions) {
         
-        console.log('yoyoy testing');
-
         $scope.helperFunction = {};
         $scope.businessData   = {};
         $scope.product_detail = {

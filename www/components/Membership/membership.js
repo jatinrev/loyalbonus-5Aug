@@ -9,6 +9,7 @@ angular.module('LoyalBonus')
     function get_payment_amount(MembershipTypeID) {
         for(i in $scope.datadeal.UpdatePaymentMethod.MembershipTypes) {
             if( $scope.datadeal.UpdatePaymentMethod.MembershipTypes[i].MembershipTypeID == MembershipTypeID ) {
+                console.log($scope.datadeal.UpdatePaymentMethod);
                 return $scope.datadeal.UpdatePaymentMethod.MembershipTypes[i];
             }
         }
@@ -27,7 +28,7 @@ angular.module('LoyalBonus')
             return ajaxCall
             .get('webapi/MyAccountAPI/GetMembershipTypeBy_UserId?userId='+$rootScope.userDetails.userId, {})
             .then(function(res) {
-                console.log(res);
+                console.log("gggggggfgg");
                 $scope.datadeal.UpdatePaymentMethod = res.data.Data;
                 return { res : res };
             });
@@ -131,19 +132,19 @@ angular.module('LoyalBonus')
             } else {
                 $scope.datadeal.error = undefined;
                 return ajaxCall
-                .post('webapi/MyAccountAPI/ApplyPromoCode', {
+                .get('webapi/MyAccountAPI/ApplyPromoCode', {
                     userId           : $rootScope.userDetails.userId,
                     promoCode        : formData.promoCode.$modelValue, // promo code
                     amount           : get_payment_amount($scope.datadeal.membershipTypeId_selected).MemberShipFee,
                     membershipTypeId : get_payment_amount($scope.datadeal.membershipTypeId_selected).MembershipTypeID
                 })
-                .then(function (res) {
+                .then(function (res) { 
                     if(true) {
                         popUp.msgPopUp(res.data.StatusMessage+', discount : '+res.data.Data.data.discount, 1)
                         .then(function(res) {
                             $scope.Test();
                         });
-                    } else {
+                    } else { 
                         popUp.msgPopUp(res.data.StatusMessage, 2);
                     }
                     console.log(res); 
@@ -248,11 +249,11 @@ angular.module('LoyalBonus')
         //return true if promo applied.
         getPromoApplied : function() {
             if($scope.datadeal.UpdatePaymentMethod) {
-                if($scope.datadeal.UpdatePaymentMethod.PromoDiscountAmount > 0 && check_radio_button_selected == 0) {
+                if($scope.datadeal.UpdatePaymentMethod.PromoDiscountAmt > 0 && check_radio_button_selected == 0) {
                     check_radio_button_selected = 1;
                     $scope.datadeal.membershipTypeId_selected = $scope.datadeal.UpdatePaymentMethod.MembershipTypeID;
                     return true;
-                } else if($scope.datadeal.UpdatePaymentMethod.PromoDiscountAmount > 0) {
+                } else if($scope.datadeal.UpdatePaymentMethod.PromoDiscountAmt > 0) {
                     return true;
                 }
             }
@@ -275,7 +276,7 @@ angular.module('LoyalBonus')
             if( $scope.datadeal.UpdatePaymentMethod.MembershipTypeID != null && $scope.datadeal.UpdatePaymentMethod.MembershipTypeID != $scope.datadeal.membershipTypeId_selected ) {
                 loading.start();
                 ajaxCall
-                .post('webapi/MyAccountAPI/ApplyPromoCode', {
+                .get('webapi/MyAccountAPI/ApplyPromoCode', {
                     userId           : $rootScope.userDetails.userId,
                     promoCode        : 'Testing-123', // $scope.datadeal.UpdatePaymentMethod // promo code
                     amount           : get_payment_amount($scope.datadeal.membershipTypeId_selected).MemberShipFee,
