@@ -11,7 +11,7 @@ angular.module('LoyalBonus', '')
 
 
         function getBusinessRecord(businessId, lat, long) {
-            //loading.start();
+            loading.start();
             return ajaxCall.get('webapi/BusinessMaster/SearchDataByFilters?pageIndex=' + pageIndex[businessId] + '&pageSize=5&CatId=' + businessId + '&SubCatId=&locId=&Keyword=&currlocationlatlong=' + lat + ',' + long, {})
                 .then(function (response) {
                     if(response.data.Data == null) {
@@ -116,8 +116,6 @@ angular.module('LoyalBonus', '')
     .controller('RestaurantController', function ($scope, $rootScope, $state, ajaxCall, $ionicPlatform, $stateParams, $q, $location, $window, get_unique_elements, get_user_location, $cordovaGeolocation, get_business_data,
         active_controller, loading, $ionicPopup, $timeout, refreshTest, saveData, $ionicHistory, $ionicScrollDelegate, watchUser, popUp,showRating, $http) {
 
-        //loading.start();
-
         var restaurantData = []
         , previous_length;
         /*
@@ -152,21 +150,21 @@ angular.module('LoyalBonus', '')
 
         $scope.goForward = function () {
             get_business_data
-                .getheading()
-                .then(function (res) {
-                    var go = 0;
-                    for (i in res) {
-                        if (go == 1) {
-                            $state.go("home.restaurants", { vertical: +res[i].CategoryID });
-                            //console.log(+res[i].CategoryID);
-                            //console.log(+$state.params.vertical);
-                            break;
-                        }
-                        if (+res[i].CategoryID == +$state.params.vertical) {
-                            go = 1;
-                        }
+            .getheading()
+            .then(function (res) {
+                var go = 0;
+                for (i in res) {
+                    if (go == 1) {
+                        $state.go("home.restaurants", { vertical: +res[i].CategoryID });
+                        //console.log(+res[i].CategoryID);
+                        //console.log(+$state.params.vertical);
+                        break;
                     }
-                });
+                    if (+res[i].CategoryID == +$state.params.vertical) {
+                        go = 1;
+                    }
+                }
+            });
         }
 
         $scope.goBack = function () {
@@ -205,7 +203,7 @@ angular.module('LoyalBonus', '')
         }
 
         $ionicPlatform.ready(function () {
-
+            loading.start();
             $scope.testing = 'in RestaurantController ionic ready.';
             get_user_location
                 .get
@@ -244,6 +242,7 @@ angular.module('LoyalBonus', '')
                             return res;
                         })
                         .then(function () {
+                            loading.stop();
                             // this if else is here when user changes navigation of business.
                             var reachLast, 
                             function_start;
@@ -328,9 +327,6 @@ angular.module('LoyalBonus', '')
 
                     /*******Search functionality******/
                     $scope.restaurants.search = function (keyword) {
-                        /*loading.start();
-                        loading.stop();*/
-
                         if (typeof (keyword) != "undefined" && keyword.length > 0) {
                             $rootScope.showMe = false;
 
@@ -379,7 +375,7 @@ angular.module('LoyalBonus', '')
                 $scope.Test();
             }
         });
-        loading.stop();
+        // loading.stop();
 
         
     });
