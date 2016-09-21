@@ -22,7 +22,7 @@
             return obj;
         }
         var url = parseQueryString_withoutDomainName(window.location.search.substr(1));
-        var output  = '<form id="TheForm" name="submit2gtpay_form" action="https://ibank.gtbank.com/GTPay/Tranx.aspx" method="post">'; //target="_self"
+        var output  = '<form id="TheForm" name="submit2gtpay_form" action="http://gtweb.gtbank.com/orangelocker/gtpaym/tranx.aspx" method="post">'; //target="_self"
         output  += 		'<input type="hidden" name="gtpay_mert_id"        value="'+url.gtpay_mert_id+'" />';
         output  += 		'<input type="hidden" name="gtpay_tranx_id"       value="'+url.gtpay_tranx_id+'" />';
         output  += 		'<input type="hidden" name="gtpay_tranx_amt"      value="'+url.gtpay_tranx_amt+'" />';
@@ -42,3 +42,4 @@
 	</script>
 </body>
 </html>
+<!-- https://ibank.gtbank.com/GTPay/Tranx.aspx -->

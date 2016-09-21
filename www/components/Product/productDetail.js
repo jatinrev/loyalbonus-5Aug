@@ -160,6 +160,7 @@ angular.module('LoyalBonus')
                     $scope.datadeal        = result;
                     heading_data_temp      = $scope.datadeal.ProductImages;
                     $scope.heading_image   = heading_data_temp;
+                    console.log($scope.datadeal.ShippingOptionId);
 
                     // UPDATING CART
                     cart_functions

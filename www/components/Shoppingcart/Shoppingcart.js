@@ -10,7 +10,7 @@ angular.module('LoyalBonus')
             return ajaxCall
                 .get('webapi/UserCartAPI/GetUserCartByBusinessId?businessId='+businessId+'&userId='+$rootScope.userDetails.userId, {})
                 .then(function (res) {
-                    // console.log(res);
+                     console.log(res);
                     loading.stop();
                     //UPDATING CART DATA.
                     if( res.data.Data != null ) {
@@ -26,12 +26,7 @@ angular.module('LoyalBonus')
                         return 0;
                     }
 
-                    /* Start : Save data for dhl */
-                    saveData.set('business_DHL', {
-                        isDHL : '',
-                        ShipmentOptionId : ''
-                    });
-                    /** End : Save data for dhl **/
+                
 
 
                     //GETTING TOTAL PRICE
@@ -281,7 +276,6 @@ angular.module('LoyalBonus')
                 });
             }
             , payment : function(paymentMethod) {
-                console.log(paymentMethod);
                 loading.start();
                 /*
                 paymentMethod : 1 = paystack, 2 = gtbank
@@ -894,7 +888,8 @@ angular.module('LoyalBonus')
 
         // HashCode
         var getSha512Hash    = "",
-        gtpay_mert_id        = "4994",
+       /* gtpay_mert_id        = "4994",*/
+        gtpay_mert_id        = "3141",
         gtpay_tranx_id       = payment.get_paystack_reference_no_promise(),
         gtpay_tranx_curr     = "566",
         gtpay_tranx_amt, //*100, // amt in kodo
@@ -911,6 +906,7 @@ angular.module('LoyalBonus')
             gtpay_cust_id        : gtpay_cust_id,
             gtpay_tranx_noti_url : gtpay_tranx_noti_url
         };
+        console.log($scope.gtbank);
         var gtBank = {
             post_request : function() {
                 var options = {
@@ -918,25 +914,25 @@ angular.module('LoyalBonus')
                     clearcache : 'no',
                     toolbar    : 'no'
                 },
-                url = 'gtPay.html?gtpay_mert_id='+$scope.gtbank.gtpay_mert_id+'&gtpay_tranx_id='+$scope.gtbank.gtpay_tranx_id+'&gtpay_tranx_amt='+$scope.gtbank.gtpay_tranx_amt+'&gtpay_tranx_curr='+$scope.gtbank.gtpay_tranx_curr+'&gtpay_cust_id='+$scope.gtbank.gtpay_cust_id+'&gtpay_cust_name='+$scope.gtbank.gtpay_cust_name+'&local_oauth_url='+$scope.gtbank.local_oauth_url+'&HashCode='+$scope.gtbank.HashCode+'&oauthUrl='+$scope.gtbank.oauthUrl;
-                var cordova_browser = $cordovaInAppBrowser.open(url, '_blank', options)
+               url = 'gtPay.html?gtpay_mert_id='+$scope.gtbank.gtpay_mert_id+'&gtpay_tranx_id='+$scope.gtbank.gtpay_tranx_id+'&gtpay_tranx_amt='+$scope.gtbank.gtpay_tranx_amt+'&gtpay_tranx_curr='+$scope.gtbank.gtpay_tranx_curr+'&gtpay_cust_id='+$scope.gtbank.gtpay_cust_id+'&gtpay_cust_name='+$scope.gtbank.gtpay_cust_name+'&local_oauth_url='+$scope.gtbank.local_oauth_url+'&HashCode='+$scope.gtbank.HashCode+'&oauthUrl='+$scope.gtbank.oauthUrl;
+
+               var cordova_browser =  $cordovaInAppBrowser.open(url, '_blank', options)
                 .then(function(event) {
                     console.log('event');
-                    console.log(event);
+                    console.log(cordova_browser);
                 })
                 .catch(function(event) {
-                    // error
+                    console.log();
                 });
 
                 console.log('cordova_browser');
                 console.log(cordova_browser);
-
-                $rootScope.$on('$cordovaInAppBrowser:loadstop', function(e, event) {
+                $rootScope.$on('$cordovaInAppBrowser.loadstop', function(e, event) {
+                    $cordovaInAppBrowser.close();
                     console.log(e, event);
-                    console.log('event.url, gtpay_tranx_noti_url');
                     console.log(event.url, gtpay_tranx_noti_url);
                     console.log(typeof(event.url), typeof(gtpay_tranx_noti_url));
-                    console.log();
+                    console.log('oiyoyooyo');
                     if(event.type == 'loadstop' && event.url == gtpay_tranx_noti_url) {
                         $cordovaInAppBrowser.executeScript({
                             code: '(function() { return document.getElementById("data").innerText })()'
@@ -1007,7 +1003,7 @@ angular.module('LoyalBonus')
 
                 $rootScope.$on('$cordovaInAppBrowser:loadstart', function(e, event) {
                     console.log(e, event);
-                    // loading.stop();
+                    //loading.stop();
                     /*var query_string_response = event.url.replace($scope.gtbank.local_oauth_url, '');
                     if(event.type == 'loadstart' && query_string_response.length != event.url.length) {
                         
@@ -1020,6 +1016,7 @@ angular.module('LoyalBonus')
                 /*loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
                 loginWindow.addEventListener('exit', loginWindow_exitHandler);*/
             }
+
             // getShaCode(Post): Parameters – [HasCode]
             , getShaCode : function(hash_code) {
                 return ajaxCall
@@ -1041,6 +1038,7 @@ angular.module('LoyalBonus')
                     var splitter = param.split('=');
                     obj[splitter[0]] = splitter[1];
                 });
+                console.log(obj);
                 return obj;
             }
             , getQueryVariable : function(input_url, variable) {
@@ -1075,6 +1073,7 @@ angular.module('LoyalBonus')
         Listing cart products
          */
         shoppingCart.get_cart_data = function() {
+            /*console.log('hamesha chlega hee chlega.');*/
             loading.start();
             return cart_functions
             .GetUserCartByBusinessId($state.params.businessId)

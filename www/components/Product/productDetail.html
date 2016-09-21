@@ -65,25 +65,45 @@
                         <i ng-class="isItemShown(1) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i> {{ isItemShown(1) ? 'Less' : 'More' }}
                     </div>
                 </div>
-                
                 <div class="padding" >
                     <!-- <img src="img/shipping_detail.PNG"> -->
-                    <div class="row borderbottome2e2e2" ng-hide="UserCards.isDHL==true && UserCards.ShipmentOptionId==3">
+                    <div class="row borderbottome2e2e2" ng-show="datadeal.ShippingOptionId==3 ">
                         <div class="col-10 margintop5">
                             <img src="img/shipping.png">
                         </div>
-                        <div class="col-90 margintop16 ">
+                        <div class="col-90 margintop16">
                             <label class="shippingWeight">Shipping:
-                            <span class="freedays">FREE Two Day Get it by 4/15/2016 for 50301 <a class="editcolor">Edit </a> Order by 1:00 p.m. CT on 4/13/2016</span></label>
+                            <span class="freedays">Ship via DHL Available in most cities.
+                            </span></label>
+                             <label class="shippingWeight">Store PickUp:
+                            <span class="freedays">Not Available for in store pickup.
+                            </span></label>
                         </div>
                     </div>
-                    <div class="row bordertope2e2e2"  ng-hide="UserCards.isDHL==false && UserCards.ShipmentOptionId==2" >
+                    <div class="row bordertope2e2e2" ng-show="datadeal.ShippingOptionId==2">
                         <div class="col-10 margintop5">
                             <img src="img/store.png">
                         </div>
                         <div class="col-90 margintop16 ">
-                            <label class="storePickup">Store Pickup:</label>
-                            <span class="col-80 freedays">Available at most stores <a class="checkstore">Check Stores </a> <label class="learn">Learn more about store pickup</label></span>
+                            <!-- <label class="storePickup">Store Pickup:</label>
+                            <span class="col-80 freedays">Available at most stores <a class="checkstore">Check Stores </a> <label class="learn">Learn more about store pickup</label></span> -->                            
+                             <label class="shippingWeight">Store PickUp:
+                            <span class="freedays">Available for in store pickup.
+                            </span></label>
+                        </div>
+                    </div>
+                    <div class="row bordertope2e2e2" ng-show="datadeal.ShippingOptionId==23">
+                        <div class="col-10 margintop5">
+                            <img src="img/store.png">
+                        </div>
+                        <div class="col-90 margintop16 ">
+                            <!-- <label class="storePickup">Store Pickup:</label>
+                            <span class="col-80 freedays">Available at most stores <a class="checkstore">Check Stores </a> <label class="learn">Learn more about store pickup</label></span> --> <label class="shippingWeight">Shipping:
+                            <span class="freedays">Ship via DHL Available in most cities.
+                            </span></label>
+                             <label class="shippingWeight">Store PickUp:
+                            <span class="freedays">Available for in store pickup.
+                            </span></label>
                         </div>
                     </div>
                 </div>
