@@ -916,19 +916,19 @@ angular.module('LoyalBonus')
                 },
                url = 'gtPay.html?gtpay_mert_id='+$scope.gtbank.gtpay_mert_id+'&gtpay_tranx_id='+$scope.gtbank.gtpay_tranx_id+'&gtpay_tranx_amt='+$scope.gtbank.gtpay_tranx_amt+'&gtpay_tranx_curr='+$scope.gtbank.gtpay_tranx_curr+'&gtpay_cust_id='+$scope.gtbank.gtpay_cust_id+'&gtpay_cust_name='+$scope.gtbank.gtpay_cust_name+'&local_oauth_url='+$scope.gtbank.local_oauth_url+'&HashCode='+$scope.gtbank.HashCode+'&oauthUrl='+$scope.gtbank.oauthUrl;
 
+              
                var cordova_browser =  $cordovaInAppBrowser.open(url, '_blank', options)
                 .then(function(event) {
                     console.log('event');
-                    console.log(cordova_browser);
+                    console.log('cordova_browser');
                 })
                 .catch(function(event) {
                     console.log();
                 });
-
                 console.log('cordova_browser');
                 console.log(cordova_browser);
                 $rootScope.$on('$cordovaInAppBrowser.loadstop', function(e, event) {
-                    $cordovaInAppBrowser.close();
+                    
                     console.log(e, event);
                     console.log(event.url, gtpay_tranx_noti_url);
                     console.log(typeof(event.url), typeof(gtpay_tranx_noti_url));
@@ -1016,6 +1016,8 @@ angular.module('LoyalBonus')
                 /*loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
                 loginWindow.addEventListener('exit', loginWindow_exitHandler);*/
             }
+
+
 
             // getShaCode(Post): Parameters – [HasCode]
             , getShaCode : function(hash_code) {
