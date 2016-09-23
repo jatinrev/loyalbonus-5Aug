@@ -30,6 +30,7 @@ angular.module('LoyalBonus')
             .then(function(res) {
                 console.log("gggggggfgg");
                 $scope.datadeal.UpdatePaymentMethod = res.data.Data;
+                console.log($scope.datadeal.UpdatePaymentMethod);
                 return { res : res };
             });
         },
