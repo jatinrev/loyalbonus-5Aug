@@ -35,12 +35,7 @@
                         <input type="email" class="emailaddresses" ng-model="datadeal.emailaddresses" name="email" ng-minlength="3" ng-maxlength="40"
                         placeholder="Input Emails">
                     </label>
-                    <button type="submit" ng-disabled="frminvite.$invalid" ng-click="invitelist()" class="pos_absolute bkgnd_image"></button>
-                    <div role="alert">
-                        <span class="error" ng-show="frminvite.email.$dirty && frminvite.email.$error.required">Email Is Required!</span>
-                        
-                         <span class="error" ng-show="frminvite.email.$dirty && frminvite.email.$error.email">Not an Email!</span>
-                    </div>
+                    <button type="submit" ng-click="invitelist()" class="pos_absolute bkgnd_image"></button>
 
                     <span class="wd70">Use comma to seperate multiple emails</span>
                     <textarea cols="20" id="EmailContent" ng-model="datadeal.emailcontent" name="emailcontent" required placeholder="Your Personalized Message!"
