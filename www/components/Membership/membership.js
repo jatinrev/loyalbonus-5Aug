@@ -30,6 +30,7 @@ angular.module('LoyalBonus')
             .then(function(res) {
                 console.log("gggggggfgg");
                 $scope.datadeal.UpdatePaymentMethod = res.data.Data;
+                console.log($scope.datadeal.UpdatePaymentMethod);
                 return { res : res };
             });
         },
@@ -121,12 +122,19 @@ angular.module('LoyalBonus')
                 handler.openIframe();
             });
         },
+        ApplyPromoCode1 :function(formData){
+            for(i in $scope.datadeal.UpdatePaymentMethod.MembershipTypeID==membershipTypeId){
+                var discount=$scope.datadeal.UpdatePaymentMethod.MembershipType.userpromos;
+                console.log(discount);
+            }
+
+        },
 
         /*
           Method - Post : ApplyPromoCode 
           [Parameters : userId, promoCode, amount, membershipTypeId]
         */
-        ApplyPromoCode : function (formData) {
+       ApplyPromoCode : function (formData) {
             if( $scope.datadeal.membershipTypeId_selected == undefined ) {
                 $scope.datadeal.error = 'Please select the membership type.';
             } else {
@@ -142,12 +150,15 @@ angular.module('LoyalBonus')
                     if(true) {
                         popUp.msgPopUp(res.data.StatusMessage+', discount : '+res.data.Data.data.discount, 1)
                         .then(function(res) {
-                            $scope.Test();
+
+                           // $scope.Test();
                         });
                     } else { 
                         popUp.msgPopUp(res.data.StatusMessage, 2);
                     }
                     console.log(res); 
+                    $scope.discount=res.data.Data.data;
+                    console.log($scope.discount);
                     return res;
                 });
             }
@@ -160,7 +171,7 @@ angular.module('LoyalBonus')
         RemoveUserPromoByUserPromoId : function (userPromoId) {
           console.log(userPromoId);
             return ajaxCall
-            .post('webapi/MyAccountAPI/RemoveUserPromoByUserPromoId', {
+            .get('webapi/MyAccountAPI/RemoveUserPromoByUserPromoId', {
                 userId      : $rootScope.userDetails.userId,
                 userPromoId : userPromoId
             })

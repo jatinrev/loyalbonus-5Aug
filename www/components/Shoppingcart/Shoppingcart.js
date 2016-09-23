@@ -888,7 +888,7 @@ angular.module('LoyalBonus')
 
         // HashCode
         var getSha512Hash    = "",
-       /* gtpay_mert_id        = "4994",*/
+        /*gtpay_mert_id        = "4994",*/
         gtpay_mert_id        = "3141",
         gtpay_tranx_id       = payment.get_paystack_reference_no_promise(),
         gtpay_tranx_curr     = "566",
@@ -917,24 +917,24 @@ angular.module('LoyalBonus')
                url = 'gtPay.html?gtpay_mert_id='+$scope.gtbank.gtpay_mert_id+'&gtpay_tranx_id='+$scope.gtbank.gtpay_tranx_id+'&gtpay_tranx_amt='+$scope.gtbank.gtpay_tranx_amt+'&gtpay_tranx_curr='+$scope.gtbank.gtpay_tranx_curr+'&gtpay_cust_id='+$scope.gtbank.gtpay_cust_id+'&gtpay_cust_name='+$scope.gtbank.gtpay_cust_name+'&local_oauth_url='+$scope.gtbank.local_oauth_url+'&HashCode='+$scope.gtbank.HashCode+'&oauthUrl='+$scope.gtbank.oauthUrl;
 
               
-               var cordova_browser =  $cordovaInAppBrowser.open(url, '_blank', options)
+                var cordova_browser =  $cordovaInAppBrowser.open(url, '_blank', options)
                 .then(function(event) {
                     console.log('event');
                     console.log('cordova_browser');
                 })
                 .catch(function(event) {
-                    console.log();
+                    console.log(Error);
                 });
+
                 console.log('cordova_browser');
                 console.log(cordova_browser);
                 $rootScope.$on('$cordovaInAppBrowser.loadstop', function(e, event) {
-                    
                     console.log(e, event);
                     console.log(event.url, gtpay_tranx_noti_url);
                     console.log(typeof(event.url), typeof(gtpay_tranx_noti_url));
                     console.log('oiyoyooyo');
                     if(event.type == 'loadstop' && event.url == gtpay_tranx_noti_url) {
-                        $cordovaInAppBrowser.executeScript({
+                       cordova_browser.$cordovaInAppBrowser.executeScript({
                             code: '(function() { return document.getElementById("data").innerText })()'
                         })
                         .then(function(res) {
