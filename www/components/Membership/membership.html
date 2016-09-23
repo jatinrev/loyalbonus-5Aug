@@ -48,7 +48,7 @@
                                 <div class="row">
                                     <span class="grey_background padding-5">Testing-123</span>
                                 </div>
-                            </div>{{UpdatePaymentMethod}}
+                            </div>
                             <div class="col-50">
                                 <div class="row">
                                     <span style="color: red;">(promo: - ₦{{ datadeal.UpdatePaymentMethod.PromoDiscountAmt }})</span>
@@ -62,6 +62,7 @@
                                 <a ng-click="
                                     membership.getPromoApplied() ? membership.RemoveUserPromoByUserPromoId(datadeal.UpdatePaymentMethod.UserPromoId) : membership.ApplyPromoCode(frmmember)" 
                                    style="cursor:pointer">{{ membership.getPromoApplied() ? 'Remove Promo' : 'Apply' }}</a>
+                                   {{datadeal.UpdatePaymentMethod.PromoDiscountAmt}}
                             </div>
                         </div>
                         <div class="row padding">

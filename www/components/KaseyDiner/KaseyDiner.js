@@ -449,7 +449,7 @@ angular.module('LoyalBonus')
                     } else {
                         popUp
                         .msgPopUp("Sorry unable to find");
-                        console.log("qweertuiu");
+                        console.log("no user is there");
                     }
                 });
                 /***jatin stop****/
