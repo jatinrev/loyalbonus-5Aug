@@ -46,7 +46,7 @@
                         <div class="row" ng-show="membership.getPromoApplied()">
                             <div class="col-50">
                                 <div class="row">
-                                    <span class="grey_background padding-5">Testing-123</span>
+                                    <span class="grey_background padding-5">{{ datadeal.UpdatePaymentMethod.membershiptype.UserPromos[0].PromoCode }}</span>
                                 </div>
                             </div>
                             <div class="col-50">
@@ -62,7 +62,6 @@
                                 <a ng-click="
                                     membership.getPromoApplied() ? membership.RemoveUserPromoByUserPromoId(datadeal.UpdatePaymentMethod.UserPromoId) : membership.ApplyPromoCode(frmmember)" 
                                    style="cursor:pointer">{{ membership.getPromoApplied() ? 'Remove Promo' : 'Apply' }}</a>
-                                   {{datadeal.UpdatePaymentMethod.PromoDiscountAmt}}
                             </div>
                         </div>
                         <div class="row padding">
