@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src *; 
       script-src 'self' 'unsafe-inline' 'unsafe-eval' *; 
       style-src 'self' 'unsafe-inline' *; 
-      frame-src 'self' https://www.youtube.com/ https://paystack.com/ https://ibank.gtbank.com/ http://beta2.loyalbonus.com/ http://loyalbonus.com/ gap://ready https://stageserv.interswitchng.com *">
+      frame-src 'self' https://www.youtube.com/ https://paystack.com/ https://ibank.gtbank.com/ https://stageserv.interswitchng.com/ http://gtweb.gtbank.com/ http://beta2.loyalbonus.com/ http://loyalbonus.com/ gap://ready https://stageserv.interswitchng.com *">
 </head>
 <body onload="document.submit2gtpay_form.submit()"> <!-- onload="document.submit2gtpay_form.submit()" -->
 	<div id="everything"></div>
@@ -28,7 +28,7 @@
         output  += 		'<input type="hidden" name="gtpay_tranx_amt"      value="'+url.gtpay_tranx_amt+'" />';
         output  += 		'<input type="hidden" name="gtpay_tranx_curr"     value="'+url.gtpay_tranx_curr+'" />';
         output  += 		'<input type="hidden" name="gtpay_cust_id"        value="'+url.gtpay_cust_id+'" />';
-        output  += 		'<input type="hidden" name="gtpay_cust_name"      value="'+url.gtpay_cust_name+'" />';
+        output  += 		'<input type="hidden" name="gtpay_cust_name"      value="test" />';/*'+url.gtpay_cust_name+'*/
         output  += 		'<input type="hidden" name="gtpay_echo_data"      value="'+url.local_oauth_url+'" />';
         output  += 		'<input type="hidden" name="gtpay_gway_name"      value="" />';
         output  += 		'<input type="hidden" name="gtpay_hash"           value="'+url.HashCode+'" />';
