@@ -60,7 +60,7 @@
                             <input ng-hide="membership.getPromoApplied()" class="form-control" name="promoCode" id="promoCode" ng-model="datadeal.promo" type="text" style="width:183px;float:left"> <!--hide if promo applied-->
                             <div class="mgtop20">
                                 <a ng-click="
-                                    membership.getPromoApplied() ? membership.RemoveUserPromoByUserPromoId(datadeal.UpdatePaymentMethod.UserPromoId) : membership.ApplyPromoCode(frmmember)" 
+                                    membership.getPromoApplied() ? membership.RemoveUserPromoByUserPromoId(datadeal.UpdatePaymentMethod.UserPromoid) : membership.ApplyPromoCode(frmmember)" 
                                    style="cursor:pointer">{{ membership.getPromoApplied() ? 'Remove Promo' : 'Apply' }}</a>
                             </div>
                         </div>

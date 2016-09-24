@@ -44,7 +44,12 @@ angular.module('LoyalBonus')
             // getting selected data response.
             data_ctr.selectedMembershipObj = get_payment_amount($scope.datadeal.membershipTypeId_selected);
             console.log(data_ctr.selectedMembershipObj);
-            if($scope.membership.getPromoApplied()) {
+            if( data_ctr.selectedMembershipObj == undefined ) {
+                $scope.datadeal.error = 'Please select membership type.';
+                console.log('select membership type.');
+                loading.stop();
+                return ;
+            } else if($scope.membership.getPromoApplied()) {
                 var membershipFee = +data_ctr.selectedMembershipObj.MemberShipFee - +$scope.datadeal.UpdatePaymentMethod.PromoDiscountAmt;
             } else {
                 var membershipFee = data_ctr.selectedMembershipObj.MemberShipFee;
