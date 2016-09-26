@@ -26,9 +26,6 @@ angular.module('LoyalBonus')
                         return 0;
                     }
 
-                
-
-
                     //GETTING TOTAL PRICE
                     var totalPrice     = 0,
                     priceAfterDiscount = 0;
@@ -850,6 +847,11 @@ angular.module('LoyalBonus')
                         // create address.
                         $scope.address.CreateAddress(formInput, 0)
                         .then(function(res) {
+                            if( res.data.StatusCode == 3 ) {
+                                $scope.address.output = { status : 0, result : res.data.Message };
+                                loading.stop();
+                                return ;
+                            }
                             console.log(res);
                             address_function.set_default_address(res.data.Data.UserAddressId);
                             loading.stop();
@@ -864,6 +866,8 @@ angular.module('LoyalBonus')
                     .then(function() {
                         loading.stop();
                     });
+                } else {
+                    loading.stop();
                 }
                 $scope.address.error_shown = 0;
                 return ;
