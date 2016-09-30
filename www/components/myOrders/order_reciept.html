@@ -18,7 +18,7 @@
                
                 <div style="border-top: 1px solid #ccc;">
                     <div class="row paddingLeftRight-0">
-                        <p class="col margin-bottom-0"><b>Delivery Method: Ship via DHL</b></p>
+                        <p class="col margin-bottom-0"><b>Delivery Method: {{ order_reciept.datadeal.ShipViaDHLCharges == 0 ? 'In store' : 'Ship via DHL' }}</b></p>
                         <p class="col margin-bottom-0"><b>Payment Method</b></p>
                         <p class="col margin-bottom-0"><b>Order Summary</b></p>
                     </div>
@@ -47,11 +47,9 @@
                     <p class="col margin-bottom-0 padding-bottom">Phone #: 7875454542</p>
                 </div>
 
-                <!-- </div> -->
-                    <!-- <h3>Shipped on 18/05/2016</h3> -->
-                <div style="border-top: 1px solid #ccc;" class="row paddingLeftRight-0 responsive-sm">
+                <!-- <div style="border-top: 1px solid #ccc;" class="row paddingLeftRight-0 responsive-sm">
                     <h4 class="col" style="font-weight:bold;">Shipped on 18/05/2016</h4>
-                </div>
+                </div> -->
                 <div class="row paddingLeftRight-0 responsive-sm" ng-repeat="value in order_reciept.datadeal.CustomerOrderDetails">
                     <div class="col margin-bottom-0">
                         <img ng-src="{{ value.BusinessStoreProduct.ProductImageUrl }}" alt="">

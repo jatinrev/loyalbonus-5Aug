@@ -1,13 +1,13 @@
 var globaldata = {
-  prefix : 'http://beta2.loyalbonus.com/'
+  prefix : 'http://loyalbonus.com/'
 };
 
 angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabSlideBox','LoyalBonus.services', 'ngCordova', 'angular-carousel', 'ngOpenFB', 'ngMap','ngAnimate','ngTouch', 'ionic-zoom-view'])
 
 .run(function ($ionicPlatform, ngFB, $rootScope, $cordovaPreferences, update_user_details, $cordovaNetwork, showRating, popUp) {
-  /*Temp Data*/
+  /*Temp Data*
     $rootScope.userDetails = {
-      userId       : 437,// testuser=428, fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
+      userId       : 448,// testuser=428, fb=438, jatin007 = 437, jatin = 263, karan = 236, dvijesh = 282
       Email        : 'karan.xpress@gmail.com', // 'karan.xpress@gmail.com', 'dvijesh@revinfotech.com',
       FullName     : 'testuser', // 'Karan', dvijesh',
       userLocation : '6.461573,3.479404', //Karan_pass = test123

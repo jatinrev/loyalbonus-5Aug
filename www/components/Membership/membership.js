@@ -85,7 +85,8 @@ angular.module('LoyalBonus')
                                 PaystackCCLastFour     : paystack_last4,
                                 PaystackChannel        : paystack_channel,
                                 PaystackMessage        : paystack_message,
-                                promoFreeMonth         : ''
+                                promoFreeMonth         : '',
+                                TransAmt               : +callBackdata.data.amount
                             };
                             /*
                             Save_PayStackResponse_In_PaymentHistory
@@ -156,8 +157,7 @@ angular.module('LoyalBonus')
                     if(true) {
                         popUp.msgPopUp(res.data.StatusMessage+', discount : '+res.data.Data.data.discount, 1)
                         .then(function(res) {
-
-                           // $scope.Test();
+                            $scope.Test();
                         });
                     } else { 
                         popUp.msgPopUp(res.data.StatusMessage, 2);

@@ -34,7 +34,7 @@ angular.module('LoyalBonus')
                 // webapi/BusinessMaster/GetBusinessbyID?BusinessId=  (old .net)
                 // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=2&UserId=
                 return ajaxCall
-                    .get('webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=' + businessId + '&UserId=', {})
+                    .get('webapi/BusinessMaster/GetBusinessbyIDUserId?BusinessId=' + businessId + '&UserId=0', {})
                     .then(function(res) {
                         loading.stop();
                         // console.log(res);
@@ -299,17 +299,21 @@ angular.module('LoyalBonus')
                     $scope.datadeal = res.data.Data[0];
                     loading.start();
                     // http://beta2.loyalbonus.com/webapi/BusinessMaster/GetHeartbybusinessidUserid?BusinessId=214&UserId=448
+                    
+                    // return $scope.datadeal; // this is temp
                     return ajaxCall
-                    .get('/webapi/BusinessMaster/GetHeartbybusinessidUserid', {
+                    .get('webapi/BusinessMaster/GetHeartbybusinessidUserid', {
                         BusinessId : $state.params.id,
-                        UserId : ( $rootScope.userDetails.userId == undefined ? '' : $rootScope.userDetails.userId )
+                        UserId : 0//( $rootScope.userDetails.userId == undefined ? '' : $rootScope.userDetails.userId )
                     })
                     .then(function(res) {
                         loading.stop();
                         saveData.set('kaseyDinnerBusinessName', $scope.datadeal.Name);
                         $scope.datadeal.lovecount = res.data.Data[0].lovecount;
                         return $scope.datadeal;
-                    });
+                    });                   // this is original
+
+
                 }).then(function (res) {
                     var centerDefined = 0;
                     $scope.newScope.positions = [];
@@ -328,6 +332,7 @@ angular.module('LoyalBonus')
                        $scope.destination= res.businesslocationsList[i].Lat + ',' + res.businesslocationsList[i].Lng;
                         /***End : for address printing***/
                     }
+                    loading.stop();
                      //console.log(res);
 
                 });

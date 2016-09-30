@@ -37,15 +37,14 @@
                         <b>1. Shipping to:</b>
                     </div>
                     <div class="col">
-                        {{ cart.checkout_data.DefaultUserAddress.FirstName + ' '
-                           +cart.checkout_data.DefaultUserAddress.LastName + ', '
-                           
-                           +cart.checkout_data.DefaultUserAddress.StreetAddress+', '
-                           +cart.checkout_data.DefaultUserAddress.OppNxtnearby+', '
-                           +cart.checkout_data.DefaultUserAddress.City+', '
-                           +address.get_state_from_state_id( cart.checkout_data.DefaultUserAddress.StateId).StateName + ', '
-                           +cart.checkout_data.default_state_govt_name +','
-                           +cart.checkout_data.DefaultUserAddress.MobileNo
+                        {{ (cart.checkout_data.DefaultUserAddress.FirstName == null ? '' : cart.checkout_data.DefaultUserAddress.FirstName+' ')
+                           +(cart.checkout_data.DefaultUserAddress.LastName == null ? '' : cart.checkout_data.DefaultUserAddress.LastName+', ')
+                           +(cart.checkout_data.DefaultUserAddress.StreetAddress == null ? '' : cart.checkout_data.DefaultUserAddress.StreetAddress)+', '
+                           +(cart.checkout_data.DefaultUserAddress.OppNxtnearby == null ? '' : cart.checkout_data.DefaultUserAddress.OppNxtnearby+', ')
+                           +(cart.checkout_data.DefaultUserAddress.City == null ? '' : cart.checkout_data.DefaultUserAddress.City+', ')
+                           +(address.get_state_from_state_id( cart.checkout_data.DefaultUserAddress.StateId).StateName == null ? '' : address.get_state_from_state_id( cart.checkout_data.DefaultUserAddress.StateId).StateName+', ') 
+                           +(cart.checkout_data.default_state_govt_name == null ? '' : cart.checkout_data.default_state_govt_name+', ')
+                           +(cart.checkout_data.DefaultUserAddress.MobileNo == null ? '' : cart.checkout_data.DefaultUserAddress.MobileNo)
                         }}
                     </div>
                     <div class="col text-right" ng-click="cart.show_address_pop()">
