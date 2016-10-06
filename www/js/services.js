@@ -141,7 +141,7 @@ angular.module('LoyalBonus.services', [])
 		}
 
 		function getLocation() {
-			var posOptions = { maximumAge: 30000, timeout: 30000, enableHighAccuracy: false };
+			var posOptions = { maximumAge: 30000, timeout: 5000, enableHighAccuracy: false };
 			var output = $cordovaGeolocation
 						 .getCurrentPosition(posOptions)
 						 .then(function (result) {
