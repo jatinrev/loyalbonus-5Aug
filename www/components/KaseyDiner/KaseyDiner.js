@@ -418,6 +418,17 @@ angular.module('LoyalBonus')
 
 
         $scope.map_show=function() {
+            /*jatin start*/
+            var geoString = '';
+            if($rootScope.isAndroid_global) {
+                geoString = "google.navigation:q="+$scope.destination;
+            } else {
+                geoString = "http://maps.apple.com/?daddr="+$scope.destination;
+            }
+            window.open(geoString, '_system');
+
+
+            return ; // below is done by pushker
             get_user_location
             .get
             .then(function (position) {
@@ -449,7 +460,6 @@ angular.module('LoyalBonus')
                             console.log("sdggs");
                             $scope.modal = modal;
                             $scope.modal.show();
-
                         });
                     } else {
                         popUp
@@ -464,9 +474,7 @@ angular.module('LoyalBonus')
                     console.log('Geolocation is supported!');
                 } else {
                     console.log('Geolocation is not supported for this Browser/OS version yet.');
-                }*/
-           
-                
+                }*/     
             });
         }
 
