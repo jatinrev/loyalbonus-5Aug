@@ -77,10 +77,10 @@ angular.module('LoyalBonus', '')
                             }
 
                             //ADDING ANNOMOUS DATA at categrory 0
-                            heading_data_temp.push({
+                            /*heading_data_temp.push({
                                 CategoryID   : 0,
                                 CategoryName : 'Anonymous'
-                            });
+                            });*/
 
                             heading_data = heading_data_temp;
                             //console.log(restaurantData);
@@ -204,10 +204,14 @@ angular.module('LoyalBonus', '')
 
         $ionicPlatform.ready(function () {
             loading.start();
-            $scope.testing = 'in RestaurantController ionic ready.';
+            $scope.testing = 'RestaurantController ionic ready.';
+            /*popUp
+            .msgPopUp('outside', 1);*/
+            
             get_user_location
                 .get
                 .then(function (positionfulljson) {
+
                     console.log(positionfulljson);
                     if( typeof(positionfulljson.coords.latitude) != 'undefined' && positionfulljson.coords.latitude != '' ) {
                         var position = {
@@ -341,6 +345,9 @@ angular.module('LoyalBonus', '')
 
                     };
 
+                }, function (err) {
+                    /*popUp
+                    .msgPopUp('coming in restaurant.js file in error.', 1);*/
                 });
         });
 

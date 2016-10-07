@@ -101,7 +101,7 @@ angular.module('LoyalBonus.services', [])
 			return uniqueNames;
 		};
 	})
-	.factory('get_user_location', function ($cordovaGeolocation, $rootScope, loading, ajaxCall, $http, $cordovaNetwork, $q) {
+	.factory('get_user_location', function ($cordovaGeolocation, $rootScope, loading, ajaxCall, $http, $cordovaNetwork, $q, popUp) {
 		/**
 		 * url : http://stackoverflow.com/questions/21306088/getting-geolocation-from-ip-address
 		 */
@@ -115,43 +115,19 @@ angular.module('LoyalBonus.services', [])
 				}
 			});
             return promise.promise;
-
-			/*var output = $http.get("http://ipv4.myexternalip.com/json", {
-				params: {}
-			})
-				.then(function (result) {
-					// console.log(result.data.ip);
-					// return result;
-					return $http.get("http://ipinfo.io/" + result.data.ip, {
-						params: {}
-					})
-						.then(function (location) {
-							// console.log(location.data.loc);
-							var lat_long = location.data.loc.split(',');
-							return {
-								coords: {
-									latitude: lat_long[0],
-									longitude: lat_long[1]
-								}
-							}
-						});
-				});
-
-			return output;*/
 		}
 
 		function getLocation() {
-			var posOptions = { maximumAge: 30000, timeout: 5000, enableHighAccuracy: false };
-			var output = $cordovaGeolocation
-						 .getCurrentPosition(posOptions)
-						 .then(function (result) {
-						 	/*console.log('from gps');
-						 	console.log(result);*/
-						 	return result;
-						 }, function (error) {
-						 	return getIpGeoLocation();
-						 });
-			return output;
+			var posOptions = { timeout: 10000, enableHighAccuracy: false };
+			return $cordovaGeolocation
+				.getCurrentPosition(posOptions)
+				.then(function (result) {
+					return result;
+				}, function (error) {
+					/*popUp
+                    .msgPopUp('here not working', 1);*/
+					return getIpGeoLocation();
+				});
 		}
 		return {
 			get: getLocation()
