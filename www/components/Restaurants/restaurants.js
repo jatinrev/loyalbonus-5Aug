@@ -203,152 +203,160 @@ angular.module('LoyalBonus', '')
         }
 
         $ionicPlatform.ready(function () {
-            loading.start();
+            // loading.start();
             $scope.testing = 'RestaurantController ionic ready.';
-            /*popUp
-            .msgPopUp('outside', 1);*/
-            
-            get_user_location
-                .get
-                .then(function (positionfulljson) {
 
-                    console.log(positionfulljson);
-                    if( typeof(positionfulljson.coords.latitude) != 'undefined' && positionfulljson.coords.latitude != '' ) {
-                        var position = {
-                            lat:  positionfulljson.coords.latitude,
-                            long: positionfulljson.coords.longitude
-                        };
-                    } else {
-                        var position = {
-                            lat:  '',
-                            long: ''
-                        };
-                    }
-
-                    $scope.testing = position;
-
-                    get_business_data   //setting heading
-                        .getheading()
-                        .then(function (res) {
-                            if (typeof ($state.params.vertical) == 'undefined' || $state.params.vertical.length == 0) {
-                                $state.go("home.restaurants", { vertical: res[0].CategoryID });
-                            }
-                            /*
-                                below is for changing the crousel position when heading is changed.
-                             */
-                            for (key in res) {
-                                if( res[key].CategoryID == $state.params.vertical ) {
-                                    $scope.carouselIndex = +key;
-                                    break;
-                                }
-                            }
-                            $scope.heading = res;
-                            return res;
-                        })
-                        .then(function () {
-                            loading.stop();
-                            // this if else is here when user changes navigation of business.
-                            var reachLast, 
-                            function_start;
-                            $scope.listData = function () {
-                                if(reachLast == true) {
-                                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                                    $scope.noMoreItemsAvailable = true;
-                                    return false;
-                                } else if( function_start ) {
-                                    // This thing stop the function when it is already called.
-                                    return false;
-                                }
-                                function_start = true;
-                                if (get_business_data.getSearchKeyword() != '' || get_business_data.getLocationKeyword() != '' ) { //&& +$state.params.vertical != 0
-                                    // search results
-                                    jQuery('ion-content').addClass('search_css');
-                                    $scope.hide_category = true;
-                                    return get_business_data
-                                        .search(get_business_data.getSearchKeyword(), position.lat, position.long, +$state.params.vertical, get_business_data.getLocationKeyword())
-                                        .then(function (response) {
-                                            restaurantData = response;
-                                            if( record_length(response.length) ) {
-                                                reachLast = true;
-                                            }
-                                            function_start = false;
-                                            $scope.$broadcast('scroll.infiniteScrollComplete'); // this is for infinite scroll.
-                                        });
-                                } else {   //if (+$state.params.vertical != 0)
-                                    jQuery('ion-content').removeClass('search_css');
-                                    $scope.hide_category = false;
-                                    return get_business_data               //getting records
-                                        .getBusinessRecord(+$state.params.vertical, position.lat, position.long)
-                                        .then(function (result) {
-                                            restaurantData = result[+$state.params.vertical];
-                                            if( record_length(result[+$state.params.vertical].length) ) {
-                                                reachLast = true;
-                                            }
-                                            function_start = false;
-                                            $scope.$broadcast('scroll.infiniteScrollComplete'); // this is for infinite scroll.
-                                        });
-                                }
-                            };
-                            $scope.listData();
-                        });
-
-                    /*******  Bonus popup started functionality******/
-
-                    $scope.showPopup = function (msg) {
-                        $scope.data = {}
-
-                        // An elaborate, custom popup
-                        var myPopup = $ionicPopup.show({
-                            /* template:'<i class="icon-gift"></i>',*/
-                            title: '<img src="img/bonus.png"> Bonus',
-                            subTitle: msg,
-                            scope: $scope,
-                            buttons: [
-                                { text: 'Cancel', type: 'button-positive' }
-                            ]
-                        });
-                        myPopup.then(function (res) {
-                            console.log('Tapped!', res);
-                        });
-                        $timeout(function () {
-                            myPopup.close(); //close the popup after 3 seconds for some reason
-                        }, 3000);
+            function run(positionfulljson) {
+                console.log(positionfulljson);
+                if( typeof(positionfulljson.coords.latitude) != 'undefined' && positionfulljson.coords.latitude != '' ) {
+                    var position = {
+                        lat:  positionfulljson.coords.latitude,
+                        long: positionfulljson.coords.longitude
                     };
-                    /******* Bonus popup Ended functionality******/
+                } else {
+                    var position = {
+                        lat:  '',
+                        long: ''
+                    };
+                }
 
-                    /*******  Call To make started functionality******/
-                    $scope.dialNumber = function(number) {
-                        popUp
-                        .confirm('', '<p class="text-align-center margin-bottom-0">Are you sure you want to call?</p>', 'Call Now')
-                        .then(function (res) {
-                            if(res) {
-                                window.open('tel:' + number, '_system');
-                            }
-                        });
-                    }
+                $scope.testing = position;
 
-                    /*******  Call To make ended functionality******/
-
-                    /*******Search functionality******/
-                    $scope.restaurants.search = function (keyword) {
-                        if (typeof (keyword) != "undefined" && keyword.length > 0) {
-                            $rootScope.showMe = false;
-
-                            get_business_data
-                                .search(keyword, position.lat, position.long, +$state.params.vertical)
-                                .then(function (response) {
-                                    restaurantData = response[+$state.params.vertical];
-                                });
-                        } else {
-                            console.log('keyword empty');
+                get_business_data   //setting heading
+                    .getheading()
+                    .then(function (res) {
+                        if (typeof ($state.params.vertical) == 'undefined' || $state.params.vertical.length == 0) {
+                            $state.go("home.restaurants", { vertical: res[0].CategoryID });
                         }
+                        /*
+                            below is for changing the crousel position when heading is changed.
+                         */
+                        for (key in res) {
+                            if( res[key].CategoryID == $state.params.vertical ) {
+                                $scope.carouselIndex = +key;
+                                break;
+                            }
+                        }
+                        $scope.heading = res;
+                        return res;
+                    })
+                    .then(function () {
+                        loading.stop();
+                        // this if else is here when user changes navigation of business.
+                        var reachLast, 
+                        function_start;
+                        $scope.listData = function () {
+                            if(reachLast == true) {
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                                $scope.noMoreItemsAvailable = true;
+                                return false;
+                            } else if( function_start ) {
+                                // This thing stop the function when it is already called.
+                                return false;
+                            }
+                            function_start = true;
+                            if (get_business_data.getSearchKeyword() != '' || get_business_data.getLocationKeyword() != '' ) { //&& +$state.params.vertical != 0
+                                // search results
+                                jQuery('ion-content').addClass('search_css');
+                                $scope.hide_category = true;
+                                return get_business_data
+                                    .search(get_business_data.getSearchKeyword(), position.lat, position.long, +$state.params.vertical, get_business_data.getLocationKeyword())
+                                    .then(function (response) {
+                                        restaurantData = response;
+                                        if( record_length(response.length) ) {
+                                            reachLast = true;
+                                        }
+                                        function_start = false;
+                                        $scope.$broadcast('scroll.infiniteScrollComplete'); // this is for infinite scroll.
+                                    });
+                            } else {   //if (+$state.params.vertical != 0)
+                                jQuery('ion-content').removeClass('search_css');
+                                $scope.hide_category = false;
+                                return get_business_data               //getting records
+                                    .getBusinessRecord(+$state.params.vertical, position.lat, position.long)
+                                    .then(function (result) {
+                                        restaurantData = result[+$state.params.vertical];
+                                        if( record_length(result[+$state.params.vertical].length) ) {
+                                            reachLast = true;
+                                        }
+                                        function_start = false;
+                                        $scope.$broadcast('scroll.infiniteScrollComplete'); // this is for infinite scroll.
+                                    });
+                            }
+                        };
+                        $scope.listData();
+                    });
 
-                    };
+                /*******  Bonus popup started functionality******/
 
-                }, function (err) {
-                    /*popUp
-                    .msgPopUp('coming in restaurant.js file in error.', 1);*/
+                $scope.showPopup = function (msg) {
+                    $scope.data = {}
+
+                    // An elaborate, custom popup
+                    var myPopup = $ionicPopup.show({
+                        /* template:'<i class="icon-gift"></i>',*/
+                        title: '<img src="img/bonus.png"> Bonus',
+                        subTitle: msg,
+                        scope: $scope,
+                        buttons: [
+                            { text: 'Cancel', type: 'button-positive' }
+                        ]
+                    });
+                    myPopup.then(function (res) {
+                        console.log('Tapped!', res);
+                    });
+                    $timeout(function () {
+                        myPopup.close(); //close the popup after 3 seconds for some reason
+                    }, 3000);
+                };
+                /******* Bonus popup Ended functionality******/
+
+                /*******  Call To make started functionality******/
+                $scope.dialNumber = function(number) {
+                    popUp
+                    .confirm('', '<p class="text-align-center margin-bottom-0">Are you sure you want to call?</p>', 'Call Now')
+                    .then(function (res) {
+                        if(res) {
+                            window.open('tel:' + number, '_system');
+                        }
+                    });
+                }
+
+                /*******  Call To make ended functionality******/
+
+                /*******Search functionality******/
+                $scope.restaurants.search = function (keyword) {
+                    if (typeof (keyword) != "undefined" && keyword.length > 0) {
+                        $rootScope.showMe = false;
+
+                        get_business_data
+                            .search(keyword, position.lat, position.long, +$state.params.vertical)
+                            .then(function (response) {
+                                restaurantData = response[+$state.params.vertical];
+                            });
+                    } else {
+                        console.log('keyword empty');
+                    }
+
+                };
+
+            }
+
+            posOptions = { timeout: 10000, enableHighAccuracy: false };
+            $cordovaGeolocation
+                .getCurrentPosition(posOptions)
+                .then(function (result) {
+                    run(result);
+                }, function (error) {
+                    var lat_long = {
+                        coords: {
+                            latitude  : '6.524379',
+                            longitude : '3.379206'
+                        }
+                    }
+                    run(lat_long);
                 });
+
         });
 
 

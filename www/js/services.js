@@ -124,8 +124,6 @@ angular.module('LoyalBonus.services', [])
 				.then(function (result) {
 					return result;
 				}, function (error) {
-					/*popUp
-                    .msgPopUp('here not working', 1);*/
 					return getIpGeoLocation();
 				});
 		}
