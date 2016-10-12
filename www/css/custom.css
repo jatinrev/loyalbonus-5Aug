@@ -82,6 +82,9 @@ background-color: unset;
 .width-100 {
 	width: 100%;
 }
+.height_100 {
+    height: 100%;
+}
 
 .display_none_imp {
 	display: none;
