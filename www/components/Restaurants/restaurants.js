@@ -113,7 +113,7 @@ angular.module('LoyalBonus', '')
         };
 
     })
-    .controller('RestaurantController', function ($scope, $rootScope, $state, ajaxCall, $ionicPlatform, $stateParams, $q, $location, $window, get_unique_elements, get_user_location, $cordovaGeolocation, get_business_data,
+    .controller('RestaurantController', function ($scope, $rootScope, $state, ajaxCall, $ionicPlatform, $stateParams, $q, $location, $window, get_unique_elements, $cordovaGeolocation, get_business_data,
         active_controller, loading, $ionicPopup, $timeout, refreshTest, saveData, $ionicHistory, $ionicScrollDelegate, watchUser, popUp,showRating, $http) {
 
         var restaurantData = []
@@ -339,9 +339,9 @@ angular.module('LoyalBonus', '')
                     }
 
                 };
+            } // end run function
 
-            }
-
+            loading.start();
             posOptions = { timeout: 10000, enableHighAccuracy: false };
             $cordovaGeolocation
                 .getCurrentPosition(posOptions)

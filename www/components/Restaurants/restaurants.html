@@ -13,7 +13,7 @@
                 <div class="row">
                     <a ng-click="goToMap(datadeal.BusinessID)" class="already-loyalbonus button buttonListView row {{ isAndroid == true ? '' : 'addclassios' }}"><img class="ion-mapclass" src="img/ion-map.png"> MapView </a>
                 </div>
-                <div class="grey_bg">
+                <div class="grey_bg {{ isAndroid_global ? '' : 'padding_top_18' }}">
                     <div ng-repeat="d in print_data()" class="margin-top-15 margin-btm-15 white_bg">
                         {{ restaurants.demo }}
                         <div id="logo">
