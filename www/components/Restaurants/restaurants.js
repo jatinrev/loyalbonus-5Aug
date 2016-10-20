@@ -93,6 +93,11 @@ angular.module('LoyalBonus', '')
                                 pageIndex[heading_data[i].CategoryID]       = 0;
                             }
 
+                            return {
+                                status : 1,
+                                first_category : heading_data[0].CategoryID
+                            };
+
                             $state.go("home.restaurants", { vertical: heading_data[0].CategoryID });
 
                             return heading_data;
@@ -171,6 +176,7 @@ angular.module('LoyalBonus', '')
             get_business_data
                 .getheading()
                 .then(function (res) {
+
                     var go    = 0
                     , counter = [];
                     for (i in res) {
@@ -225,6 +231,10 @@ angular.module('LoyalBonus', '')
                 get_business_data   //setting heading
                     .getheading()
                     .then(function (res) {
+                        if(res.status == 1) {
+                            $state.go("home.restaurants", { vertical: res.first_category });
+                            return ;
+                        }
                         if (typeof ($state.params.vertical) == 'undefined' || $state.params.vertical.length == 0) {
                             $state.go("home.restaurants", { vertical: res[0].CategoryID });
                         }
