@@ -58,7 +58,7 @@ angular.module('LoyalBonus')
             .get_paystack_reference()
             .then(function(referenceId) {
                 var handler = PaystackPop.setup({
-                    key      : 'pk_test_9a83db45e3af2848c334742b3ffceadc45442a4f',
+                    key      : 'pk_live_583e1730547d8fd73c7ddb42035f363a12b63ae0',
                     email    : $rootScope.userDetails.Email,
                     amount   : +membershipFee*100, // amount in kodo
                     ref      : referenceId,

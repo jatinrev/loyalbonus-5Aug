@@ -521,7 +521,7 @@ angular.module('LoyalBonus.services', [])
 	            method  : 'GET',
 	            url     : 'https://api.paystack.co/transaction/verify/' + transactionRef,
 	            headers : {
-	            	'Authorization': 'Bearer sk_test_967b105665b7a27a9796e576bdb3a088944b8cff'
+	            	'Authorization': 'Bearer sk_live_db32ef9887fa43be41b7c7ce5452e1ebedd931a8'
 	            }
             });
 		}
@@ -544,7 +544,7 @@ angular.module('LoyalBonus.services', [])
 		            method  : 'POST',
 		            url     : 'https://api.paystack.co/transaction/charge_authorization',
 		            headers : {
-		            	'Authorization': 'Bearer sk_test_967b105665b7a27a9796e576bdb3a088944b8cff',
+		            	'Authorization': 'Bearer sk_live_db32ef9887fa43be41b7c7ce5452e1ebedd931a8',
 		            	'Content-Type' : 'application/json'
 		            },
 		            data: {

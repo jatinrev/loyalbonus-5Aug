@@ -1,5 +1,5 @@
 var app = angular.module('LoyalBonus')
-    .factory('get_business_data_map', function (ajaxCall, $state, get_unique_elements, loading, $q, $rootScope) {
+    .factory('get_business_data_map', function (ajaxCall, $state, get_unique_elements, loading, $q, $rootScope, $cordovaGeolocation) {
         var heading_data = []
             , restaurantData = []
             , pageIndex = []
@@ -25,8 +25,9 @@ var app = angular.module('LoyalBonus')
                 });
         }
 
-        function sort(multi_array) {
-            var sorted_array = []
+        function sort(multi_array, previous_sorted_arr) {
+            previous_sorted_arr = (previous_sorted_arr == null || previous_sorted_arr == undefined ? [] : previous_sorted_arr);
+            var sorted_array = previous_sorted_arr
                 , temp_multi_array = multi_array
                 , go = 1
                 , sorting_array_index = 0;
@@ -60,7 +61,7 @@ var app = angular.module('LoyalBonus')
                 // loading.start();
 
                 function run(position) {
-                    ajaxCall.get('webapi/BusinessMaster/GetAllBusinessLocations?currlocationlatlong=' + position.coords.latitude +','+ position.coords.longitude + '=&pageIndex=1&pageSize=10&keyword=' + keyword, {})
+                    return ajaxCall.get('webapi/BusinessMaster/GetAllBusinessLocations?currlocationlatlong=' + position.coords.latitude +','+ position.coords.longitude + '=&pageIndex=1&pageSize=10&keyword=' + keyword, {})
                         .then(function (fetch) {
                             var test = [];
                             for (i in fetch.data.Data) {
@@ -73,7 +74,7 @@ var app = angular.module('LoyalBonus')
                 return $cordovaGeolocation
                             .getCurrentPosition(posOptions)
                             .then(function (result) {
-                                run(result);
+                                return run(result);
                             }, function (error) {
                                 var lat_long = {
                                     coords: {
@@ -81,7 +82,7 @@ var app = angular.module('LoyalBonus')
                                         longitude : '3.379206'
                                     }
                                 }
-                                run(lat_long);
+                                return run(lat_long);
                             });
                     
             },
@@ -100,6 +101,9 @@ var app = angular.module('LoyalBonus')
         var bc                     = this,
         stopCenterStorage          = false, //if false, then store center location and vice-versa.
         businessMapPosition        = '';
+        map_page_no                = 1;
+        current_positions          = null; // this is get by $cordovaGeolocation
+
         
         bc.positions               = [];
         // bc.center                  = null;
@@ -160,44 +164,50 @@ var app = angular.module('LoyalBonus')
                     this.style.display = 'none';
                 };
 
-                bc.test = function () {
-                    stopCenterStorage = true;  // this is to stop storing center location in the factory.
-                    loading.start();
-                    $scope.loadmoreNgShow = true;
-
-                    function run(position) {
-                        console.log(position);
+                running = true;
+                function run(position) {
+                    if( running == true ) {
+                        running = false;
                         search_keyword = get_business_data.getSearchKeyword();
-                        ajaxCall.get('webapi/BusinessMaster/GetAllBusinessLocations?currlocationlatlong' + position.coords.latitude +','+ position.coords.longitude + '=&pageIndex=0&pageSize=10&keyword='+search_keyword, {})
+                        return ajaxCall.get('webapi/BusinessMaster/GetAllBusinessLocations?currlocationlatlong=' + position.coords.latitude +','+ position.coords.longitude + '&pageIndex='+map_page_no+'&pageSize=10&keyword='+search_keyword, {})
                         .then(function (fetch) {
                             var positions = []
-                            , test        = [];
+                            , test        = []; // new positions
 
                             for (i in fetch.data.Data) {
-                                test.push({ businessId: fetch.data.Data[i].BusinessId, positions: fetch.data.Data[i].Lat + ',' + fetch.data.Data[i].Lng })
+                                test.push({ businessId: fetch.data.Data[i].BusinessID, positions: fetch.data.Data[i].Lat + ',' + fetch.data.Data[i].Lng })
                             }
-                            var sortedArray = get_business_data_map
-                                              .sort_multi_array(test);
+                            bc.positions = get_business_data_map
+                                            .sort_multi_array(test, bc.positions);
 
                             var businessMapPosition = saveData.get('businessMapPosition');
-                            if( typeof(businessMapPosition) == 'undefined' || businessMapPosition == '') {
+                            if( (typeof(businessMapPosition) == 'undefined' || businessMapPosition == '') && map_page_no < 2 ) {
                                 bc.center = position.coords.latitude +','+ position.coords.longitude; // USER LOCATION CENTER.
-                                // console.log(sortedArray[0].positions);
                                 saveData.remove('businessMapPosition');
                             } else {
                                 console.log('center');
                                 console.log(businessMapPosition);
                             }
-                            // console.log(bc.center);
-                            bc.positions      = sortedArray;
+
+                            // bc.positions      = sortedArray;
                             loading.stop();
                             stopCenterStorage = false; // this is to again start storing center location in the factory.
+                            map_page_no++;
+                            running = true;
                         });
                     }
+                }
+
+                bc.test = function () {
+                    stopCenterStorage = true;  // this is to stop storing center location in the factory.
+                    loading.start();
+                    $scope.loadmoreNgShow = true;
+
                     posOptions = { timeout: 10000, enableHighAccuracy: false };
                     $cordovaGeolocation
                         .getCurrentPosition(posOptions)
                         .then(function (result) {
+                            current_positions = result;
                             run(result);
                         }, function (error) {
                             var lat_long = {
@@ -206,20 +216,30 @@ var app = angular.module('LoyalBonus')
                                     longitude : '3.379206'
                                 }
                             }
+                            current_positions = lat_long;
                             run(lat_long);
                         });
-
                 }
+
+                function get_further_positions() {
+                    current_positions
+                }
+
                 bc.test();
 
                 $scope.setCenter = function () {
                     if( stopCenterStorage != true ) { // this will only store location when data is not refreshing.
                         businessMapPosition = map.getCenter().lat()+','+map.getCenter().lng();
-                        // console.log(businessMapPosition);
                         saveData.set('businessMapPosition', businessMapPosition);
                     } else {
                         console.log('not saving');
                     }
+                    if(current_positions != null) {
+                        run(current_positions);
+                    }
+                    // bc.positions.push({positions : '6.524805373890965,3.3839696032105016'});
+                    //6.524805373890965,3.3839696032105016
+                    // console.log(bc.positions);
                 }
             });
 
@@ -244,7 +264,7 @@ var app = angular.module('LoyalBonus')
 
         /*******Search functionality******/
         bc.search = function (keyword) {
-            if (typeof (keyword) != "undefined" && keyword.length > 0) {
+            if (typeof(keyword) != "undefined" && keyword.length > 0) {
                 $rootScope.showMe = false;
                 get_business_data_map
                     .search(keyword)

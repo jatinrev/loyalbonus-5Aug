@@ -81,7 +81,7 @@
                 <button class="button button-balanced margin-bottom-30" ng-hide="myloyalbonus.datadealProd.length < 1" ui-sref="home.product({ BusinessId : state_on() })">Enter Store</button>
             </ion-list>
             <div ng-repeat="(key, prod) in myloyalbonus.datadealProd" class="single_prd">
-                <div class="logo">
+                <div class="logo" ui-sref="home.productDetail({BusinessId: state_on(), Productid: prod.ProductId})">
                     <img id="productimages" class="margintop20 height_100" ng-src="{{prod.ProductImageUrl == null ? 'img/placeholder.jpg' : prod.ProductImageUrl }}"
                         ng-click="helperFunction.productdetails(prod.BusinessId , prod.ProductId )">
                 </div>
@@ -89,14 +89,14 @@
                     <div class="row">
                         <div class="disable-user-behavior">
                             <div class="colorblack color33cd5f org_price"> ₦ {{ prod.PriceAfterBusinessDiscount }}</div>  
-                            <div class="row discount_discounted_price">                          
-                                    <span class="colorblack" style="padding:0">{{ prod.LoyalDiscount }} %
-                                        Loyalty Discount
-                                    </span>
-                                    <span class="colorblack old_price" style="color:red ;padding:0; text-align:right"> ₦ {{ prod.Price }}</span>
+                            <div class="row discount_discounted_price">
+                                <span class="colorblack" style="padding:0">{{ prod.LoyalDiscount }} %
+                                    Loyalty Discount
+                                </span>
+                                <span class="colorblack old_price" style="color:red ;padding:0; text-align:right"> ₦ {{ prod.Price }}</span>
                             </div>
                         </div>
-                    </div>                
+                    </div>
                 </div>
                 <div class="row">
                     <div class="color42ae9d row"> {{ prod.ProductName }} </div>
