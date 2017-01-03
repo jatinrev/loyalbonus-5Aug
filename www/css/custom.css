@@ -1062,3 +1062,71 @@ h4.membershipClass
     top : 70px;
 }
 .child_float p { float: left; }
+
+/* style by janjua*/
+#restaurants .current {
+    border-bottom: 2px solid #f00;
+}
+#restaurants .border-top {
+    border-top: 2px solid #ddd;
+}
+#restaurants p.visitText{
+    font-size: 13px;
+    margin-top: 5px;
+    color: #1e90ff;
+}
+p.color_black.phNumber{
+   margin-top: 4px;
+    
+}
+p.color_black.phNumber a{
+    text-decoration: none;
+}
+.row.stake-house.padding-all-zero {
+    position: relative;
+    margin-top: -47px;
+    height: 38px;
+    background: #000;
+    opacity: 0.4;
+}
+
+#restaurants p.stake-house{
+    top: 9px;
+    font-size: 16px;
+}
+
+#restaurants .rat-star.ng-binding{
+    color: #ffb06b;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+.footer-menu a.active{
+    color:#1e90ff;
+}
+p.wth-border .bonus-discount{
+    position: relative;
+    top: -4px;
+}
+/* .header-logo{
+    position: relative;
+    width: 80%;
+    top: 8px;
+    left: -14px;
+} */
+@media only screen and (max-width: 720px) {
+
+.margin_left_75.title-left{
+    margin-left: 0px !important;
+}   
+.header-logo{
+        position: relative;
+    width: 54%;
+    top: 2px;
+    left: -33px;
+}
+}
+
+
+
+

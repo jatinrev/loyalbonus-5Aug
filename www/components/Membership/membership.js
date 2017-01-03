@@ -154,13 +154,13 @@ angular.module('LoyalBonus')
                     membershipTypeId : get_payment_amount($scope.datadeal.membershipTypeId_selected).MembershipTypeID
                 })
                 .then(function (res) { 
-                    if(true) {
+                    if(res.data.Data == '') {
+                        popUp.msgPopUp(res.data.StatusMessage, 2);
+                    } else {
                         popUp.msgPopUp(res.data.StatusMessage+', discount : '+res.data.Data.data.discount, 1)
                         .then(function(res) {
                             $scope.Test();
                         });
-                    } else { 
-                        popUp.msgPopUp(res.data.StatusMessage, 2);
                     }
                     console.log(res); 
                     $scope.discount=res.data.Data.data;

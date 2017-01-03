@@ -311,9 +311,11 @@ p.stake-house
     white-space: nowrap; */
     float: left;
     position: absolute;
-    top: -35px;
+    /*top: -35px;
+    font-size: 17px;*/
     color: #fff;
-    font-size: 17px;
+    top: -44px;
+    font-size: 18px;
     left: 8px;
     padding: 0px;
     margin: 0px;

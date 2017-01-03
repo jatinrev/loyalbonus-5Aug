@@ -12,7 +12,8 @@ angular.module('LoyalBonus', '')
 
         function getBusinessRecord(businessId, lat, long) {
             loading.start();
-            return ajaxCall.get('webapi/BusinessMaster/SearchDataByFilters?pageIndex=' + pageIndex[businessId] + '&pageSize=5&CatId=' + businessId + '&SubCatId=&locId=&Keyword=&currlocationlatlong=' + lat + ',' + long, {})
+            // old api : 'webapi/BusinessMaster/SearchDataByFilters?pageIndex=' + pageIndex[businessId] + '&pageSize=5&CatId=' + businessId + '&SubCatId=&locId=&Keyword=&currlocationlatlong=' + lat + ',' + long
+            return ajaxCall.get('webapi/BusinessMaster/Search_DataBy_Filters?pageIndex=' + pageIndex[businessId] + '&pageSize=5&CatId=' + businessId + '&SubCatId=&locId=&Keyword=&currlocationlatlong=' + lat + ',' + long, {})
                 .then(function (response) {
                     if(response.data.Data == null) {
                         response.data.Data = [];
@@ -39,7 +40,8 @@ angular.module('LoyalBonus', '')
                 loading.start();
                 var heading = []
                 , data      = {};
-               	return ajaxCall.get('webapi/BusinessMaster/SearchDataByFilters?pageIndex=' + searchPageIndex + '&pageSize=5&CatId=0&SubCatId=&locId='+location+'&Keyword=' + keyword + '&currlocationlatlong=' + lat + ',' + long, {})
+                // 'webapi/BusinessMaster/SearchDataByFilters?pageIndex=' + searchPageIndex + '&pageSize=5&CatId=0&SubCatId=&locId='+location+'&Keyword=' + keyword + '&currlocationlatlong=' + lat + ',' + long
+               	return ajaxCall.get('webapi/BusinessMaster/Search_DataBy_Filters?pageIndex=' + searchPageIndex + '&pageSize=5&CatId=0&SubCatId=&locId='+location+'&Keyword=' + keyword + '&currlocationlatlong=' + lat + ',' + long, {})
                     .then(function (response) {
                         searchKeyword = keyword;
                         if(response.data.Data == null) {
@@ -61,6 +63,7 @@ angular.module('LoyalBonus', '')
                 if (heading_data.length > 0) {
                     var promise = $q.defer();
                     promise.resolve(heading_data);
+                    console.log('bkwass promise');
                     return promise.promise;
                 } else {
                     return ajaxCall.get('webapi/BusinessMaster/GetBusinessCategory', {})
@@ -93,10 +96,10 @@ angular.module('LoyalBonus', '')
                                 pageIndex[heading_data[i].CategoryID]       = 0;
                             }
 
-                            return {
+                            /*return {
                                 status : 1,
                                 first_category : heading_data[0].CategoryID
-                            };
+                            };*/
 
                             $state.go("home.restaurants", { vertical: heading_data[0].CategoryID });
 
@@ -120,7 +123,6 @@ angular.module('LoyalBonus', '')
     })
     .controller('RestaurantController', function ($scope, $rootScope, $state, ajaxCall, $ionicPlatform, $stateParams, $q, $location, $window, get_unique_elements, $cordovaGeolocation, get_business_data,
         active_controller, loading, $ionicPopup, $timeout, refreshTest, saveData, $ionicHistory, $ionicScrollDelegate, watchUser, popUp,showRating, $http) {
-
         var restaurantData = []
         , previous_length;
         /*
@@ -231,6 +233,7 @@ angular.module('LoyalBonus', '')
                 get_business_data   //setting heading
                     .getheading()
                     .then(function (res) {
+                        console.log('res heading', res);
                         if(res.status == 1) {
                             $state.go("home.restaurants", { vertical: res.first_category });
                             return ;

@@ -162,7 +162,8 @@ angular.module('LoyalBonus', ['ionic', 'ngSanitize', 'ionic-rating-stars', 'tabS
           "body": {
             templateUrl  : "components/Restaurants/restaurants.html",
             controller   : "RestaurantController",
-            controllerAs : "rc"
+            controllerAs : "rc",
+             activetab: 'dashboard'
           }
         }
 

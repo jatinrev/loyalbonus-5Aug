@@ -29,7 +29,7 @@
                                 <div class="rat-star" ng-bind-html="restaurants.print_image(d.Reviews)"></div>
                             </div>
                         </div>
-                        <div class="row padding-TB-0" style="margin-bottom: 5px;">
+                        <!--<div class="row padding-TB-0" style="margin-bottom: 5px;">
                             <div class="col-50">
                                 <ion-list>
                                     <ion-item class="wth-border padding-bottom color_black" ng-show="d.Address1 == null ? false : true "><i class="ion-home"></i>&nbsp&nbsp&nbsp{{ d.Address2 }}</ion-item>
@@ -50,12 +50,40 @@
                                     <img style="position: relative; right: 3px;" src="img/bonus.png"> Bonus Discount:{{ restaurants.print_BonusDiscount(d.BonusDiscount) }}
                                 </p>
                             </div>
+                        </div>-->
+                        <div class="row padding-TB-0" style="margin-bottom: 5px;">
+                            <div class="col-50">
+                                <ion-list>
+                                    <ion-item class="wth-border padding-bottom color_black" ng-show="d.Address1 == null ? false : true ">{{ d.Address2 }}</ion-item>
+                                </ion-list>
+                                <p class="color_black phNumber" ng-show="d.ContactPhone == null ? false : true" ng-click="dialNumber(d.ContactPhone)">
+                                <a ng-href="tel: {{ d.ContactPhone }}">&nbsp&nbsp{{ d.ContactPhone }}</a>
+                                </p>
+                            </div>
+                            <div class="col-50 ">
+                                <p class="wth-border padding-top-5 margin-bottom-0 visitText">
+                                    Visit 5 times to recieve bonus
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row border-top padding-TB-0">
+                            <div class="col">
+                                <p class="wth-border padding-top-5 margin-bottom-0" ng-show="d.LoyalDiscount == null ? false : true">
+                                    <img style="position: relative; right: 3px;" src="img/bonus.png"> Loyal Discount: {{ d.LoyalDiscount }}%
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="wth-border padding-top-5 margin-bottom-0 ng-binding" ng-show="d.BonusDiscount == null ? false : true" ng-click="showPopup(d.BonusDiscount)">
+                                    <img style="position: relative; right: 3px;" src="img/245.png"> <span class="bonus-discount">Bonus Discount: {{ restaurants.print_BonusDiscount(d.BonusDiscount) }}</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="loadingButton margin-top-15 row center" ng-show="noMoreItemsAvailable">No Record</div>
                 <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="listData();" distance="1%"></ion-infinite-scroll>
             </ion-content>
-        </ion-view>
+        </ion-view> 
     </div>
 </div>
+

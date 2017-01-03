@@ -48,35 +48,7 @@
     </ion-side-menu>
     <ion-side-menu-content side-menu-content drag-content="false">
         <ion-header-bar class="bar-positive transparent-nav" id="restaurants">
-            <div class="buttons">
-                <!-- home_var.magnifyOrBack() gives active_controller -->
-                <button class="button button-icon
-                    {{ home_var.magnifyOrBack() == 'RestaurantController' ||
-                       home_var.magnifyOrBack() == 'BusinessController'   ?
-                       'ion-search' : 'ion-arrow-left-c'
-                    }}" ng-click="
-                    home_var.magnifyOrBack() == 'RestaurantController' ||
-                    home_var.magnifyOrBack() == 'BusinessController'   ?
-                    goSearchHandler() : goBackHandler()
-                    ">
-                </button>
-            </div>
-            <div ng-class="isAndroid_global ? 'margin_left_75' : ''" class="title center height_37">
-                <!-- <form class="item item-input new_margin" ng-show="showMe" ng-submit="home_var.homesearch.setValue(home_var.homesearch.value)">
-                    <input type="text" ng-model="home_var.homesearch.value" placeholder="Search for restaurants">
-                    <span class="ion-search paddingLR10" on-tap="home_var.homesearch.setValue(home_var.homesearch.value)"></span>
-                </form> -->
-                <span class="search-vertical height_37 center" ng-show="home_var.homeheading.Visibility()">
-                    {{ home_var.homeheading.text() }} <i ng-click="home_var.homeheading.deleteSearch()" class="font-size-10 ion-close-round font-color-white "></i>
-                </span>
-                <span class="text-vertical" ng-show="home_var.kaseyDinnerHeading.text() == '' ? false : true">
-                    {{ home_var.kaseyDinnerHeading.text() }}
-                </span>
-                <span class="text-vertical">
-                    {{ home_var.businessMap.text() }}
-                </span>
-            </div>
-            <div class="buttons">
+             <div class="buttons">
                 <div class="cart" ng-show="home_var.magnifyOrBack() == 'ProductController' || home_var.magnifyOrBack() == 'CartController'"
                     ng-click="home_var.business_cart_size() == 0 ? home_var.popUp('Please add product to cart first.', 0) : home_var.go_to_cart()">
                     <span class="nav-cart-icon nav-sprite"></span>
@@ -88,8 +60,63 @@
                        ng-click="home_var.go_to_cart()"></button> -->
                 <button class="button button-clear icon ion-navicon-round" ng-click="toggleLeft()"></button>
             </div>
+            <div ng-class="isAndroid_global ? 'margin_left_75' : ''" class="title center height_37">
+                <!-- <form class="item item-input new_margin" ng-show="showMe" ng-submit="home_var.homesearch.setValue(home_var.homesearch.value)">
+                    <input type="text" ng-model="home_var.homesearch.value" placeholder="Search for restaurants">
+                    <span class="ion-search paddingLR10" on-tap="home_var.homesearch.setValue(home_var.homesearch.value)"></span>
+                </form> -->
+                <div class="logo {{ home_var.homeheading.text() != '' ? 'hide' : 'show'}}" ><img src="img/234.png" class="header-logo"></div>
+                <span class="search-vertical height_37 center" ng-show="home_var.homeheading.Visibility()">
+                    {{ home_var.homeheading.text() }} <i ng-click="home_var.homeheading.deleteSearch()" class="font-size-10 ion-close-round font-color-white "></i>
+                </span>
+                <span class="text-vertical" ng-show="home_var.kaseyDinnerHeading.text() == '' ? false : true">
+                    {{ home_var.kaseyDinnerHeading.text() }}
+                </span>
+                <span class="text-vertical">
+                    {{ home_var.businessMap.text() }}
+                </span>
+            </div>
+           
+            <div class="buttons">
+                <!-- home_var.magnifyOrBack() gives active_controller -->
+                <button class="button button-icon {{ home_var.magnifyOrBack() == 'RestaurantController' ||
+                       home_var.magnifyOrBack() == 'BusinessController'   ?
+                       'ion-ios-bell' : ''
+                    }}">
+                <button class="button button-icon
+                    {{ home_var.magnifyOrBack() == 'RestaurantController' ||
+                       home_var.magnifyOrBack() == 'BusinessController'   ?
+                       'ion-search' : 'ion-arrow-left-c'
+                    }}" ng-click="
+                    home_var.magnifyOrBack() == 'RestaurantController' ||
+                    home_var.magnifyOrBack() == 'BusinessController'   ?
+                    goSearchHandler() : goBackHandler()
+                    ">
+                </button>
+            </div>
+            
         </ion-header-bar>
+
         <div ui-view="body"></div>
+        <div class="tabs tabs-icon-left footer-menu">
+        <!-- <a class="tab-item" href="#/home/restaurants/1" ng-click="activeButton = 'a'" ng-class="{ 'active': activeButton === 'a' }">-->
+  <a class="tab-item" href="#/home/restaurants/1" >
+    <i class="icon ion-home"></i>
+  </a>
+  <a class="tab-item" ng-click="goSearchHandler();">
+    <i class="icon ion-search"></i>
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-ios-cart"></i>
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-person"></i>
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+  </a>
+</div>
+        
     </ion-side-menu-content>
 
 </ion-side-menus>
